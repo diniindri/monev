@@ -171,4 +171,120 @@ class Data_tagihan extends CI_Controller
         // }
         // redirect('kapal');
     }
+
+    public function upload()
+    {
+        $validation = $this->form_validation->set_rules($this->rules);
+
+        // jika validasi sukses
+        // if ($validation->run()) {
+        //     $data = [
+        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
+        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
+        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
+        //     ];
+        //     // simpan data ke database melalui model
+        //     $this->kapal->createKapal($data);
+        //     $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+        //     redirect('kapal');
+        // }
+
+        // meload view pada kapal/create.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('data_tagihan/upload');
+        $this->load->view('template/footer');
+    }
+
+    public function dnp()
+    {
+        $validation = $this->form_validation->set_rules($this->rules);
+
+        // jika validasi sukses
+        // if ($validation->run()) {
+        //     $data = [
+        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
+        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
+        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
+        //     ];
+        //     // simpan data ke database melalui model
+        //     $this->kapal->createKapal($data);
+        //     $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+        //     redirect('kapal');
+        // }
+
+        // menangkap data pencarian nama pegawai
+        $nmpeg = $this->input->post('nmpeg');
+
+        // settingan halaman
+        $config['base_url'] = base_url('data-tagihan/dnp');
+        $config['total_rows'] = 10;
+        $config['per_page'] = 5;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
+        $data['nmpeg'] = $nmpeg;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        $data['dnp'] = [
+            [
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
+            ],
+            [
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
+            ],
+            [
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
+            ],
+            [
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
+            ],
+            [
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
+            ]
+        ];
+
+        // meload view pada kapal/create.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('data_tagihan/dnp', $data);
+        $this->load->view('template/footer');
+    }
 }

@@ -8,32 +8,97 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group mb-2">
-                    <label for="">Nomor:</label>
-                    <input type="text" name="nomor" class="form-control <?= form_error('nomor') ? 'is-invalid' : ''; ?>">
+                    <label for="">Jenis Tagihan:</label>
+                    <select class="form-select form-select-sm mb-3" name="jenis tagihan">
+                        <option value="0">SPP</option>
+                        <option value="1">SPBy</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">PPK:</label>
+                    <select class="form-select form-select-sm mb-3" name="jenis tagihan">
+                        <option value="1">Wielly Prasekti</option>
+                        <option value="2">Nandang Supriyadi</option>
+                        <option value="3">Eny Susanti</option>
+                        <option value="4">Anwar Sulaiman</option>
+                        <option value="5">Yazuardi Haban</option>
+                        <option value="6">Abdul Ghofar</option>
+                        <option value="7">Jundi Widiantoro</option>
+                        <option value="8">Iwan Darma</option>
+                        <option value="9">Mufid Hamdani</option>
+                        <option value="10">Lilik Hermawan</option>
+                        <option value="11">Bagus Kurniawan</option>
+                        <option value="12">Kiki Nurman</option>
+                        <option value="13">Moh. Arif Rochman</option>
+                        <option value="14">R. Hariyadi Murti Kurniawan</option>
+                        <option value="15">Eko Hardiyanto</option>
+                        <option value="16">Wahyu Setiadi</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">Direktorat/Bagian:</label>
+                    <select class="form-select form-select-sm mb-3" name="jenis tagihan">
+                        <option value="1">BMN</option>
+                        <option value="2">KND</option>
+                        <option value="3">HUHU</option>
+                        <option value="4">PKNSI</option>
+                        <option value="5">Lelang</option>
+                        <option value="6">Penilaian</option>
+                        <option value="7">PNKNL</option>
+                        <option value="8">Keuangan</option>
+                        <option value="9">Kepegawaian</option>
+                        <option value="10">OKI</option>
+                        <option value="11">Perlengkapan</option>
+                        <option value="12">Umum</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">Jenis Dokumen:</label>
+                    <select class="form-select form-select-sm mb-3" name="jenis tagihan">
+                        <option value="1">Perjadin</option>
+                        <option value="2">Honor</option>
+                        <option value="3">Biaya Pulsa</option>
+                        <option value="4">Kontraktual</option>
+                        <option value="5">Non Kontraktual</option>
+                        <option value="6">PPNPN</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">Detail Akun:</label>
+                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
-                        <?= form_error('nomor'); ?>
+                        <?= form_error('nmpeg'); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group mb-2">
+                    <label for="">Nomor Tagihan:</label>
+                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('nmpeg'); ?>
                     </div>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="">Tanggal:</label>
-                    <input type="text" name="tanggal" class="form-control <?= form_error('tanggal') ? 'is-invalid' : ''; ?>" placeholder="dd-mm-yyyy">
+                    <label for="">tanggal Tagihan:</label>
+                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
-                        <?= form_error('tanggal'); ?>
+                        <?= form_error('nmpeg'); ?>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">Jumlah Tagihan:</label>
+                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('nmpeg'); ?>
                     </div>
                 </div>
                 <div class="form-group mb-2">
                     <label for="">Uraian:</label>
-                    <textarea name="uraian" cols="30" rows="5" class="form-control <?= form_error('uraian') ? 'is-invalid' : ''; ?>"></textarea>
+                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
-                        <?= form_error('uraian'); ?>
+                        <?= form_error('nmpeg'); ?>
                     </div>
-                </div>
-                <div class="form-group mb-2">
-                    <label for="">Status:</label>
-                    <select class="form-select form-select-sm mb-3" name="status">
-                        <option value="0">Non Aktif</option>
-                        <option value="1">Aktif</option>
-                    </select>
                 </div>
             </div>
         </div>

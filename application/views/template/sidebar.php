@@ -16,10 +16,11 @@
 
         $menus = [
             ['menu' => 'Dashboard', 'level' => 1, 'url' => 'dashboard'],
-            ['menu' => 'Realisasi Direktorat', 'level' => 1, 'url' => 'direktorat'],
-            ['menu' => 'Realisasi PPK', 'level' => 1, 'url' => 'ppk'],
+            ['menu' => 'Realisasi Direktorat', 'level' => 1, 'url' => 'realisasi-direktorat'],
+            ['menu' => 'Realisasi PPK', 'level' => 1, 'url' => 'realisasi-ppk'],
             ['menu' => 'Data Tagihan', 'level' => 2, 'url' => 'data-tagihan'],
-            ['menu' => 'Monitoring', 'level' => 2, 'url' => 'monitoring'],
+            ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
+            ['menu' => 'Monitoring Dokumen', 'level' => 2, 'url' => 'monitoring-dokumen'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'SP2D', 'level' => 3, 'url' => 'sp2d'],
             ['menu' => 'Payroll', 'level' => 3, 'url' => 'payroll'],
