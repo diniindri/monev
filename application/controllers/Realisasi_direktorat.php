@@ -72,13 +72,9 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function detail($sk_id = null)
+    public function detail($bln = null)
     {
-        // // cek apakah ada sk id apa tidak
-        // if (!isset($sk_id)) show_404();
-
-        // // mengirim data id sk ke view
-        // $data['sk_id'] = $sk_id;
+        if (!isset($bln)) $bln = '01';
 
         // menangkap data pencarian nmpeg
         $kode = $this->input->post('kode');
@@ -94,6 +90,12 @@ class Realisasi_direktorat extends CI_Controller
         $data['kode'] = $kode;
         $limit = $config["per_page"];
         $offset = $data['page'];
+
+        $data['bulan'] = [
+            '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'
+        ];
+
+        $data['bln'] = $bln;
 
         $data['detail'] = [
             [

@@ -3,7 +3,7 @@
         <h1 class="h2">Upload Tagihan</h1>
     </div>
 
-    <form action="" method="post" autocomplete="off">
+    <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
 
         <div class="row">
             <div class="col-lg-6">
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label for="">Pilih File:</label>
-                    <input type="text" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
+                    <input type="file" name="nmpeg" class="form-control <?= form_error('nmpeg') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
                         <?= form_error('nmpeg'); ?>
                     </div>
