@@ -3,9 +3,12 @@
         <h1 class="h2">Realisasi Detail Per Direktorat</h1>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-8">
+            <?php foreach ($bulan as $b) : ?>
+                <a href="<?= base_url('realisasi-direktorat/detail/') . $b; ?>" class="btn btn-sm btn-outline-secondary <?= $b == $bln ? 'active' : '' ?> ml-1 mt-2 mb-2"><?= $b; ?></a>
+            <?php endforeach; ?>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <form action="" method="post" autocomplete="off">
                 <div class="input-group">
                     <input type="text" name="kode" class="form-control" placeholder="Kode">
