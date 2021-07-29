@@ -30,43 +30,43 @@ class Verifikasi extends CI_Controller
         $tagihan = [
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001',
-                'tanggal' => '07-01-2021',
-                'uraian' => 'Pembayaran Belanja Barang',
-                'detail' => '4700.001.01.B.524111',
-                'bruto' => '4,000,000'
+                'nomor' => '00022',
+                'tanggal' => '15-01-2021',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 33/C.3/P.18/I/2021 tanggal 8 Januari 2021',
+                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
+                'bruto' => '32.800.000'
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001',
-                'tanggal' => '07-01-2021',
-                'uraian' => 'Pembayaran Belanja Barang',
-                'detail' => '4700.001.01.B.524111',
-                'bruto' => '4,000,000'
+                'nomor' => '00023',
+                'tanggal' => '15-01-2021',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 34/C.3/P.18/I/2021 tanggal 11 Januari 2021',
+                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
+                'bruto' => '28.800.000'
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001',
-                'tanggal' => '07-01-2021',
-                'uraian' => 'Pembayaran Belanja Barang',
-                'detail' => '4700.001.01.B.524111',
-                'bruto' => '4,000,000'
+                'nomor' => '00024',
+                'tanggal' => '12-01-2021',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010955 tanggal 11 Januari 2021',
+                'detail' => '4701.EAC.001.002.A.521111.008.5.16',
+                'bruto' => '2.988.700'
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001',
-                'tanggal' => '07-01-2021',
-                'uraian' => 'Pembayaran Belanja Barang',
-                'detail' => '4700.001.01.B.524111',
-                'bruto' => '4,000,000'
+                'nomor' => '00025',
+                'tanggal' => '12-01-2021',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010938 tanggal 11 Januari 2021',
+                'detail' => '4701.EAC.001.002.A.522112.008.5.16',
+                'bruto' => '2.230.808'
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001',
-                'tanggal' => '07-01-2021',
-                'uraian' => 'Pembayaran Belanja Barang',
-                'detail' => '4700.001.01.B.524111',
-                'bruto' => '4,000,000'
+                'nomor' => '00033',
+                'tanggal' => '21-01-2021',
+                'uraian' => 'pembayaran belanja barang sesuai kuitansi nomor S-32/UN2.F1.MIKRO/KEU.01/21 tanggal 5 Januari 2021',
+                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
+                'bruto' => '18.000.000'
             ]
         ];
 

@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Verifikasi</h1>
+        <h1 class="h2">Payroll</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -35,7 +35,6 @@
                             <th>Nomor</th>
                             <th>Tanggal</th>
                             <th>Uraian</th>
-                            <th>Detail Akun</th>
                             <th>Bruto</th>
                             <th>Aksi</th>
                         </tr>
@@ -49,14 +48,13 @@
                                 <td><?= $r['nomor']; ?></td>
                                 <td><?= $r['tanggal']; ?></td>
                                 <td><?= $r['uraian']; ?></td>
-                                <td><?= $r['detail']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('verifikasi/setuju/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Setuju</a>
-                                        <a href="<?= base_url('verifikasi/tolak/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
-                                        <a href="<?= base_url('verifikasi/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('verifikasi/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('payroll/excel/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Lampiran Payroll</a>
+                                        <a href="<?= base_url('payroll/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
+                                        <a href="<?= base_url('payroll/bukti/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Bukti</a>
+                                        <a href="<?= base_url('payroll/arsip/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>
                             </tr>

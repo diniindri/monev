@@ -2,7 +2,7 @@
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class Data_tagihan extends CI_Controller
+class Payroll extends CI_Controller
 {
     public function __construct()
     {
@@ -16,7 +16,7 @@ class Data_tagihan extends CI_Controller
         $nomor = $this->input->post('nomor');
 
         // settingan halaman
-        $config['base_url'] = base_url('data-tagihan/index');
+        $config['base_url'] = base_url('verifikasi/index');
         $config['total_rows'] = 10;
         $config['per_page'] = 5;
         $config["num_links"] = 3;
@@ -33,7 +33,6 @@ class Data_tagihan extends CI_Controller
                 'nomor' => '00022',
                 'tanggal' => '15-01-2021',
                 'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 33/C.3/P.18/I/2021 tanggal 8 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'bruto' => '32.800.000'
             ],
             [
@@ -41,7 +40,6 @@ class Data_tagihan extends CI_Controller
                 'nomor' => '00023',
                 'tanggal' => '15-01-2021',
                 'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 34/C.3/P.18/I/2021 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'bruto' => '28.800.000'
             ],
             [
@@ -49,7 +47,6 @@ class Data_tagihan extends CI_Controller
                 'nomor' => '00024',
                 'tanggal' => '12-01-2021',
                 'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010955 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.521111',
                 'bruto' => '2.988.700'
             ],
             [
@@ -57,7 +54,6 @@ class Data_tagihan extends CI_Controller
                 'nomor' => '00025',
                 'tanggal' => '12-01-2021',
                 'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010938 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522112',
                 'bruto' => '2.230.808'
             ],
             [
@@ -65,7 +61,6 @@ class Data_tagihan extends CI_Controller
                 'nomor' => '00033',
                 'tanggal' => '21-01-2021',
                 'uraian' => 'pembayaran belanja barang sesuai kuitansi nomor S-32/UN2.F1.MIKRO/KEU.01/21 tanggal 5 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'bruto' => '18.000.000'
             ]
         ];
@@ -83,7 +78,7 @@ class Data_tagihan extends CI_Controller
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('data_tagihan/index', $data);
+        $this->load->view('payroll/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -230,54 +225,54 @@ class Data_tagihan extends CI_Controller
 
         $data['dnp'] = [
             [
-                'nip' => '196902241989121001',
-                'nmpeg' => 'I KETUT ARIMBAWA',
-                'golongan' => 'IV.b',
-                'bruto' => '2.532.000',
-                'potongan' => '0',
-                'netto' => '2.532.000',
-                'rekening' => '0126466638',
-                'bank' => 'BNI'
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
             ],
             [
-                'nip' => '198010172002122001',
-                'nmpeg' => 'TITIK WIJAYANTI',
-                'golongan' => 'IV.a',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '0009102196',
-                'bank' => 'BNI'
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
             ],
             [
-                'nip' => '198106222004121001',
-                'nmpeg' => 'HENDRA GUNAWAN',
-                'golongan' => 'III.c',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '050701017039507',
-                'bank' => 'BRI'
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
             ],
             [
-                'nip' => '198408282003121003',
-                'nmpeg' => 'ANDI MUJAHID DARWIS',
-                'golongan' => 'III.b',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '0212750271',
-                'bank' => 'BNI'
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
             ],
             [
-                'nip' => '199406142016122001',
-                'nmpeg' => 'DEWANTY ASMANINGRUM',
-                'golongan' => 'II.c',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '050701017928502',
-                'bank' => 'BRI'
+                'nip' => 'SPP',
+                'nmpeg' => '00001',
+                'golongan' => '07-01-2021',
+                'bruto' => 'Pembayaran Belanja Barang',
+                'potongan' => '4700.001.01.B.524111',
+                'netto' => '4,000,000',
+                'rekening' => '4,000,000',
+                'bank' => '4,000,000'
             ]
         ];
 

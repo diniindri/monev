@@ -31,38 +31,38 @@ class Realisasi_direktorat extends CI_Controller
         $data['direktorat'] = [
             [
                 'unit' => 'BMN',
-                'pagu' => '268,379,321,000',
-                'realisasi' => '184,764,543,702',
-                'sisa' => '83,614,777,298',
-                'persentase' => '68.84%'
+                'pagu' => '4.114.367.000',
+                'realisasi' => '149.872.144',
+                'sisa' => '3.964.494.856',
+                'persentase' => '3,64%'
             ],
             [
                 'unit' => 'KND',
-                'pagu' => '268,379,321,000',
-                'realisasi' => '184,764,543,702',
-                'sisa' => '83,614,777,298',
-                'persentase' => '68.84%'
+                'pagu' => '1.604.153.000',
+                'realisasi' => '189.019.515',
+                'sisa' => '1.415.133.485',
+                'persentase' => '11,78%'
             ],
             [
                 'unit' => 'HUHU',
-                'pagu' => '268,379,321,000',
-                'realisasi' => '184,764,543,702',
-                'sisa' => '83,614,777,298',
-                'persentase' => '68.84%'
+                'pagu' => '832.237.000',
+                'realisasi' => '190.943.731',
+                'sisa' => '641.293.269',
+                'persentase' => '22,94%'
             ],
             [
                 'unit' => 'PKNSI',
-                'pagu' => '268,379,321,000',
-                'realisasi' => '184,764,543,702',
-                'sisa' => '83,614,777,298',
-                'persentase' => '68.84%'
+                'pagu' => '16.270.227.000',
+                'realisasi' => '10.765.012.835',
+                'sisa' => '5.505.214.165',
+                'persentase' => '66,16%'
             ],
             [
                 'unit' => 'Lelang',
-                'pagu' => '268,379,321,000',
-                'realisasi' => '184,764,543,702',
-                'sisa' => '83,614,777,298',
-                'persentase' => '68.84%'
+                'pagu' => '949.950.000',
+                'realisasi' => '422.185.868',
+                'sisa' => '527.764.132',
+                'persentase' => '44,44%'
             ]
         ];
 
@@ -99,84 +99,35 @@ class Realisasi_direktorat extends CI_Controller
 
         $data['detail'] = [
             [
-                'kode' => 'BMN',
-                'keterangan' => '268,379,321,000',
-                'januari' => '184,764,543,702',
-                'februari' => '83,614,777,298',
-                'maret' => '68.84%',
-                'april' => '68.84%',
-                'mei' => '68.84%',
-                'juni' => '68.84%',
-                'juli' => '68.84%',
-                'agustus' => '68.84%',
-                'september' => '68.84%',
-                'oktober' => '68.84%',
-                'november' => '68.84%',
-                'desember' => '68.84%'
+                'kode' => '4701.EAC.001.002.A.521111',
+                'keterangan' => 'Belanja Keperluan Perkantoran',
+                'ppk' => 'Wahyu Setiadi',
+                'januari' => '13.536.600'
+
             ],
             [
-                'kode' => 'BMN',
-                'keterangan' => '268,379,321,000',
-                'januari' => '184,764,543,702',
-                'februari' => '83,614,777,298',
-                'maret' => '68.84%',
-                'april' => '68.84%',
-                'mei' => '68.84%',
-                'juni' => '68.84%',
-                'juli' => '68.84%',
-                'agustus' => '68.84%',
-                'september' => '68.84%',
-                'oktober' => '68.84%',
-                'november' => '68.84%',
-                'desember' => '68.84%'
+                'kode' => '4701.EAC.001.002.A.521811',
+                'keterangan' => 'Belanja Barang Persediaan Barang Konsumsi',
+                'ppk' => 'Wahyu Setiadi',
+                'januari' => '11.657.250'
             ],
             [
-                'kode' => 'BMN',
-                'keterangan' => '268,379,321,000',
-                'januari' => '184,764,543,702',
-                'februari' => '83,614,777,298',
-                'maret' => '68.84%',
-                'april' => '68.84%',
-                'mei' => '68.84%',
-                'juni' => '68.84%',
-                'juli' => '68.84%',
-                'agustus' => '68.84%',
-                'september' => '68.84%',
-                'oktober' => '68.84%',
-                'november' => '68.84%',
-                'desember' => '68.84%'
+                'kode' => '4701.EAC.001.002.A.522192',
+                'keterangan' => 'Belanja Jasa Penanganan Pandemi COVID19',
+                'ppk' => 'Wahyu Setiadi',
+                'januari' => '89.500.000'
             ],
             [
-                'kode' => 'BMN',
-                'keterangan' => '268,379,321,000',
-                'januari' => '184,764,543,702',
-                'februari' => '83,614,777,298',
-                'maret' => '68.84%',
-                'april' => '68.84%',
-                'mei' => '68.84%',
-                'juni' => '68.84%',
-                'juli' => '68.84%',
-                'agustus' => '68.84%',
-                'september' => '68.84%',
-                'oktober' => '68.84%',
-                'november' => '68.84%',
-                'desember' => '68.84%'
+                'kode' => '4701.EAD.001.002.A.523121',
+                'keterangan' => 'Belanja Pemeliharaan Peralatan dan Mesin',
+                'ppk' => 'Eko Hardiyanto',
+                'januari' => '76.498.448'
             ],
             [
-                'kode' => 'BMN',
-                'keterangan' => '268,379,321,000',
-                'januari' => '184,764,543,702',
-                'februari' => '83,614,777,298',
-                'maret' => '68.84%',
-                'april' => '68.84%',
-                'mei' => '68.84%',
-                'juni' => '68.84%',
-                'juli' => '68.84%',
-                'agustus' => '68.84%',
-                'september' => '68.84%',
-                'oktober' => '68.84%',
-                'november' => '68.84%',
-                'desember' => '68.84%'
+                'kode' => '4701.EAD.002.100.A.53211',
+                'keterangan' => 'Belanja Modal Peralatan dan Mesin',
+                'ppk' => 'Eko Hardiyanto',
+                'januari' => '16.500.000'
             ]
         ];
 

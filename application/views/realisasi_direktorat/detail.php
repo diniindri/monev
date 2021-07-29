@@ -24,20 +24,10 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>Nomor</th>
-                            <th>Kode</th>
+                            <th>Detail Akun</th>
                             <th>Keterangan</th>
+                            <th>PPK</th>
                             <th>Januari</th>
-                            <th>februari</th>
-                            <th>Maret</th>
-                            <th>April</th>
-                            <th>Mei</th>
-                            <th>Juni</th>
-                            <th>Juli</th>
-                            <th>Agustus</th>
-                            <th>September</th>
-                            <th>Oktober</th>
-                            <th>November</th>
-                            <th>Desember</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,18 +39,8 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['kode']; ?></td>
                                 <td><?= $r['keterangan']; ?></td>
+                                <td><?= $r['ppk']; ?></td>
                                 <td class="text-right"><?= $r['januari']; ?></td>
-                                <td class="text-right"><?= $r['februari']; ?></td>
-                                <td class="text-right"><?= $r['maret']; ?></td>
-                                <td class="text-right"><?= $r['april']; ?></td>
-                                <td class="text-right"><?= $r['mei']; ?></td>
-                                <td class="text-right"><?= $r['juni']; ?></td>
-                                <td class="text-right"><?= $r['juli']; ?></td>
-                                <td class="text-right"><?= $r['agustus']; ?></td>
-                                <td class="text-right"><?= $r['september']; ?></td>
-                                <td class="text-right"><?= $r['oktober']; ?></td>
-                                <td class="text-right"><?= $r['november']; ?></td>
-                                <td class="text-right"><?= $r['desember']; ?></td>
                             </tr>
 
                         <?php endforeach; ?>

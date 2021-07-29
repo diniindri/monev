@@ -47,9 +47,9 @@
                                 <td><?= $r['tanggal']; ?></td>
                                 <td><?= $r['nosp2d']; ?></td>
                                 <td><?= $r['tglsp2d']; ?></td>
-                                <td><?= $r['bruto']; ?></td>
-                                <td><?= $r['potongan']; ?></td>
-                                <td><?= $r['netto']; ?></td>
+                                <td class="text-right"><?= $r['bruto']; ?></td>
+                                <td class="text-right"><?= $r['potongan']; ?></td>
+                                <td class="text-right"><?= $r['netto']; ?></td>
                                 <td><?= $r['detail']; ?></td>
                                 <td><?= $r['unit']; ?></td>
                             </tr>

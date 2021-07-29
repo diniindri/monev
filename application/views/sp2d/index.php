@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Verifikasi</h1>
+        <h1 class="h2">Data SP2D</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -31,11 +31,10 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Jenis</th>
-                            <th>Nomor</th>
-                            <th>Tanggal</th>
-                            <th>Uraian</th>
-                            <th>Detail Akun</th>
+                            <th>Nomor SPM</th>
+                            <th>Tanggal SPM</th>
+                            <th>Nomor SP2D</th>
+                            <th>Tanggal SP2D</th>
                             <th>Bruto</th>
                             <th>Aksi</th>
                         </tr>
@@ -45,17 +44,15 @@
                         foreach ($tagihan as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['jenis']; ?></td>
-                                <td><?= $r['nomor']; ?></td>
-                                <td><?= $r['tanggal']; ?></td>
-                                <td><?= $r['uraian']; ?></td>
-                                <td><?= $r['detail']; ?></td>
+                                <td><?= $r['nospm']; ?></td>
+                                <td><?= $r['tglspm']; ?></td>
+                                <td><?= $r['nosp2d']; ?></td>
+                                <td><?= $r['tglsp2d']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('verifikasi/setuju/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Setuju</a>
-                                        <a href="<?= base_url('verifikasi/tolak/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
-                                        <a href="<?= base_url('data-tagihan/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
+                                        <a href="<?= base_url('sp2d/input/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Input</a>
+                                        <a href="<?= base_url('sp2d/update/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('data-tagihan/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>
@@ -68,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nomor == null ? $pagination : ''; ?>
+            <?= $nospm == null ? $pagination : ''; ?>
         </div>
     </div>
 

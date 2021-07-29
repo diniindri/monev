@@ -31,19 +31,28 @@ class Monitoring_dokumen extends CI_Controller
         $data['dokumen'] = [
             [
                 'jenis' => 'SPP',
-                'nomor' => '00001'
+                'nomor' => '00022',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 33/C.3/P.18/I/2021 tanggal 8 Januari 2021',
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00002'
-            ],
-            [
-                'jenis' => 'SPBy',
-                'nomor' => '00001'
+                'nomor' => '00023',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 34/C.3/P.18/I/2021 tanggal 11 Januari 2021',
             ],
             [
                 'jenis' => 'SPP',
-                'nomor' => '00003'
+                'nomor' => '00024',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010955 tanggal 11 Januari 2021',
+            ],
+            [
+                'jenis' => 'SPP',
+                'nomor' => '00025',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010938 tanggal 11 Januari 2021',
+            ],
+            [
+                'jenis' => 'SPP',
+                'nomor' => '00033',
+                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010938 tanggal 11 Januari 2021',
             ]
         ];
 

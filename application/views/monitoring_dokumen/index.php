@@ -3,14 +3,14 @@
         <h1 class="h2">Monitoring Dokumen</h1>
     </div>
     <div class="row">
-        <div class="col">
+        <!-- <div class="col">
             <div class="alert alert-info" role="alert">
                 <h4 class="alert-heading">Sekilas Info!</h4>
                 <p>pemantauan kelengkapan dokumen tagihan yang telah diunggah sebagai kelengkapan digitalisasi arsip pelaksanaan anggaran</p>
                 <hr>
                 <p class="mb-0">Dokumen tersedia apabila indikator tombol berwarna hijau</p>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
@@ -34,6 +34,7 @@
                             <th>Nomor</th>
                             <th>Jenis Tagihan</th>
                             <th>Nomor Tagihan</th>
+                            <th>Nomor Uraian</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -46,12 +47,13 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['jenis']; ?></td>
                                 <td><?= $r['nomor']; ?></td>
+                                <td><?= $r['uraian']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPP/SPBy</a>
-                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Lampiran SPP/SPBy</a>
-                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPM</a>
-                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Lampiran SPM</a>
+                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">SPP/SPBy</a>
+                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Lampiran SPP/SPBy</a>
+                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">SPM</a>
+                                        <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-success pt-0 pb-0">Lampiran SPM</a>
                                         <a href="<?= base_url('data-tagihan/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Bukti Payroll</a>
                                     </div>
                                 </td>

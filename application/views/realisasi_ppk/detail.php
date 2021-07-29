@@ -3,9 +3,12 @@
         <h1 class="h2">Realisasi Detail Per PPK</h1>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-8">
+            <?php foreach ($bulan as $b) : ?>
+                <a href="<?= base_url('realisasi-direktorat/detail/') . $b; ?>" class="btn btn-sm btn-outline-secondary <?= $b == $bln ? 'active' : '' ?> ml-1 mt-2 mb-2"><?= $b; ?></a>
+            <?php endforeach; ?>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <form action="" method="post" autocomplete="off">
                 <div class="input-group">
                     <input type="text" name="kode" class="form-control" placeholder="Kode">
@@ -23,18 +26,8 @@
                             <th>Nomor</th>
                             <th>Kode</th>
                             <th>Keterangan</th>
+                            <th>Unit</th>
                             <th>Januari</th>
-                            <th>februari</th>
-                            <th>Maret</th>
-                            <th>April</th>
-                            <th>Mei</th>
-                            <th>Juni</th>
-                            <th>Juli</th>
-                            <th>Agustus</th>
-                            <th>September</th>
-                            <th>Oktober</th>
-                            <th>November</th>
-                            <th>Desember</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,18 +39,8 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['kode']; ?></td>
                                 <td><?= $r['keterangan']; ?></td>
+                                <td><?= $r['unit']; ?></td>
                                 <td class="text-right"><?= $r['januari']; ?></td>
-                                <td class="text-right"><?= $r['februari']; ?></td>
-                                <td class="text-right"><?= $r['maret']; ?></td>
-                                <td class="text-right"><?= $r['april']; ?></td>
-                                <td class="text-right"><?= $r['mei']; ?></td>
-                                <td class="text-right"><?= $r['juni']; ?></td>
-                                <td class="text-right"><?= $r['juli']; ?></td>
-                                <td class="text-right"><?= $r['agustus']; ?></td>
-                                <td class="text-right"><?= $r['september']; ?></td>
-                                <td class="text-right"><?= $r['oktober']; ?></td>
-                                <td class="text-right"><?= $r['november']; ?></td>
-                                <td class="text-right"><?= $r['desember']; ?></td>
                             </tr>
 
                         <?php endforeach; ?>

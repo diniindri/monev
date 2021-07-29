@@ -10,12 +10,12 @@
     const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["BMN", "KND", "HUHU", "PKNSI", "Lelang", "PNKNL", "Penilaian", "OKI", "Kepegawaian", "Keuangan", "Perlengkapan", "Umum"],
+            labels: ["BMN", "KND", "HUHU", "PKNSI", "Lelang", "Penilaian", "PNKNL", "Keuangan", "Kepegawaian", "OKI", "Perlengkapan", "Umum"],
             datasets: [{
                 label: 'Realisasi per Unit',
                 backgroundColor: 'rgba(161, 198, 247, 1)',
                 borderColor: 'rgb(47, 128, 237)',
-                data: [23, 45, 56, 34, 56, 78, 58, 89, 67, 24, 56, 12],
+                data: [3.64, 11.68, 22.94, 66.16, 44.44, 13.70, 18.62, 68.57, 58.72, 1.08, 4.50, 30.86],
             }]
         },
         options: {
