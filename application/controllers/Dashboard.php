@@ -43,9 +43,9 @@ class Dashboard extends CI_Controller
             ]
         ];
 
-        $this->load->view('template/header');
+        $this->load->view('dashboard/header_grafik');
         $this->load->view('template/sidebar');
         $this->load->view('dashboard/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('dashboard/footer_grafik');
     }
 }
