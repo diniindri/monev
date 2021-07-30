@@ -25,12 +25,11 @@
                             <th>Nomor Tagihan</th>
                             <th>Jenis Dokumen</th>
                             <th>Tanggal Tagihan</th>
+                            <th>Nomor SPM</th>
+                            <th>Tanggal SPM</th>
                             <th>Nomor SP2D</th>
                             <th>Tanggal SP2D</th>
                             <th>Bruto</th>
-                            <th>Potongan</th>
-                            <th>Netto</th>
-                            <th>Detail Akun</th>
                             <th>Unit</th>
                         </tr>
                     </thead>
@@ -45,12 +44,11 @@
                                 <td><?= $r['nomor']; ?></td>
                                 <td><?= $r['dokumen']; ?></td>
                                 <td><?= $r['tanggal']; ?></td>
+                                <td><?= $r['nospm']; ?></td>
+                                <td><?= $r['tglspm']; ?></td>
                                 <td><?= $r['nosp2d']; ?></td>
                                 <td><?= $r['tglsp2d']; ?></td>
                                 <td class="text-right"><?= $r['bruto']; ?></td>
-                                <td class="text-right"><?= $r['potongan']; ?></td>
-                                <td class="text-right"><?= $r['netto']; ?></td>
-                                <td><?= $r['detail']; ?></td>
                                 <td><?= $r['unit']; ?></td>
                             </tr>
 

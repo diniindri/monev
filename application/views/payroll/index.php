@@ -53,7 +53,6 @@
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('payroll/excel/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Lampiran Payroll</a>
                                         <a href="<?= base_url('payroll/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('payroll/bukti/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Bukti</a>
                                         <a href="<?= base_url('payroll/arsip/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>

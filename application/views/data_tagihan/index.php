@@ -58,7 +58,7 @@
                                         <a href="<?= base_url('data-tagihan/delete/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('data-tagihan/dnp/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
                                         <a href="<?= base_url('data-tagihan/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('data-tagihan/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('data-tagihan/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                                     </div>
                                 </td>
                             </tr>

@@ -53,7 +53,7 @@
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('verifikasi/setuju/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Setuju</a>
+                                        <a href="<?= base_url('verifikasi/unduh/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Unduh</a>
                                         <a href="<?= base_url('verifikasi/tolak/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
                                         <a href="<?= base_url('verifikasi/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
                                         <a href="<?= base_url('verifikasi/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>

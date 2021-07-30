@@ -61,6 +61,8 @@
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('pegawai/update/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('pegawai/delete/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                                        <a href="<?= base_url('pegawai/cetak/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Cetak</a>
+                                        <a href="<?= base_url('pegawai/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>
                             </tr>

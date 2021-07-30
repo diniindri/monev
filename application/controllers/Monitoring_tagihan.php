@@ -34,12 +34,11 @@ class Monitoring_tagihan extends CI_Controller
                 'nomor' => '00022',
                 'dokumen' => 'Non Kontraktual',
                 'tanggal' => '15/01/2021',
+                'nospm' => '00022T',
+                'tglspm' => '17/01/2021',
                 'nosp2d' => '210191302000303',
                 'tglsp2d' => '18/01/2021',
                 'bruto' => '  32.800.000 ',
-                'potongan' => '0',
-                'netto' => '32.800.000',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'unit' => 'Umum'
             ],
             [
@@ -47,12 +46,11 @@ class Monitoring_tagihan extends CI_Controller
                 'nomor' => '00023',
                 'dokumen' => 'Non Kontraktual',
                 'tanggal' => '15/01/2021',
+                'nospm' => '00023T',
+                'tglspm' => '16/01/2021',
                 'nosp2d' => '210191302000302',
                 'tglsp2d' => '18/01/2021',
                 'bruto' => '28.800.000',
-                'potongan' => '0',
-                'netto' => '28.800.000',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'unit' => 'Umum'
             ],
             [
@@ -60,12 +58,11 @@ class Monitoring_tagihan extends CI_Controller
                 'nomor' => '00024',
                 'dokumen' => 'Non Kontraktual',
                 'tanggal' => '12/01/2021',
+                'nospm' => '00024T',
+                'tglspm' => '13/01/2021',
                 'nosp2d' => '210191301000142',
                 'tglsp2d' => '14/01/2021',
                 'bruto' => '2.988.700',
-                'potongan' => '0',
-                'netto' => '2.988.700',
-                'detail' => '4701.EAC.001.002.A.521111',
                 'unit' => 'Umum'
             ],
             [
@@ -73,12 +70,11 @@ class Monitoring_tagihan extends CI_Controller
                 'nomor' => '00025',
                 'dokumen' => 'Non Kontraktual',
                 'tanggal' => '12/01/2021',
+                'nospm' => '00025T',
+                'tglspm' => '13/01/2021',
                 'nosp2d' => '210191301000139',
                 'tglsp2d' => '14/01/2021',
                 'bruto' => '2.230.808',
-                'potongan' => '0',
-                'netto' => '2.230.808',
-                'detail' => '4701.EAC.001.002.A.522112',
                 'unit' => 'Umum'
             ],
             [
@@ -86,12 +82,11 @@ class Monitoring_tagihan extends CI_Controller
                 'nomor' => '00033',
                 'dokumen' => 'Non Kontraktual',
                 'tanggal' => '21/01/2021',
+                'nospm' => '00033T',
+                'tglspm' => '14/01/2021',
                 'nosp2d' => '210191303000155',
                 'tglsp2d' => '25/01/2021',
                 'bruto' => '18.000.000',
-                'potongan' => '0',
-                'netto' => '18.000.000',
-                'detail' => '4701.EAC.001.002.A.522192',
                 'unit' => 'Umum'
             ]
         ];
