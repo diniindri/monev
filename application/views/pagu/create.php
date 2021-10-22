@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-group mb-2">
-                    <label for="">program:</label>
+                    <label for="">Program:</label>
                     <input type="text" name="program" class="form-control <?= form_error('program') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
                         <?= form_error('program'); ?>

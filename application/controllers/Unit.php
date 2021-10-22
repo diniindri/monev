@@ -2,59 +2,59 @@
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class Satker extends CI_Controller
+class Unit extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        // meload file ref_satker_model.php
-        $this->load->model('Ref_satker_model', 'satker');
+        // meload file ref_unit_model.php
+        $this->load->model('Ref_unit_model', 'unit');
     }
 
     public function index()
     {
-        // menangkap data pencarian Satker
-        $nmsatker = $this->input->post('nmsatker');
+        // menangkap data pencarian unit
+        $nmunit = $this->input->post('nmunit');
 
         // settingan halaman
-        $config['base_url'] = base_url('satker/index');
-        $config['total_rows'] = $this->satker->countSatker();
+        $config['base_url'] = base_url('unit/index');
+        $config['total_rows'] = $this->unit->countUnit();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nmsatker'] = $nmsatker;
+        $data['nmunit'] = $nmunit;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
-        // pilih tampilan data, semua atau berdasarkan pencarian satker
-        if ($nmsatker) {
+        // pilih tampilan data, semua atau berdasarkan pencarian unit
+        if ($nmunit) {
             $data['page'] = 0;
             $offset = 0;
-            $data['satker'] = $this->satker->findSatker($nmsatker, $limit, $offset);
+            $data['unit'] = $this->unit->findUnit($nmunit, $limit, $offset);
         } else {
-            $data['satker'] = $this->satker->getSatker($limit, $offset);
+            $data['unit'] = $this->unit->getUnit($limit, $offset);
         }
 
-        // meload view pada satker/index.php
+        // meload view pada unit/index.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/index', $data);
+        $this->load->view('unit/index', $data);
         $this->load->view('template/footer');
     }
 
     // validasi inputan pada form
     private $rules = [
         [
-            'field' => 'kdsatker',
-            'label' => 'Kode Satker',
+            'field' => 'kdunit',
+            'label' => 'Kode unit',
             'rules' => 'required|trim|numeric'
         ],
         [
-            'field' => 'nmsatker',
-            'label' => 'Nama Satker',
+            'field' => 'nmunit',
+            'label' => 'Nama unit',
             'rules' => 'required|trim'
         ]
     ];
@@ -66,19 +66,19 @@ class Satker extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
+                'nmunit' => htmlspecialchars($this->input->post('nmunit', true))
             ];
             // simpan data ke database melalui model
-            $this->satker->createSatker($data);
+            $this->unit->createUnit($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('satker');
+            redirect('unit');
         }
 
-        // meload view pada satker/create.php
+        // meload view pada unit/create.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/create');
+        $this->load->view('unit/create');
         $this->load->view('template/footer');
     }
 
@@ -87,27 +87,27 @@ class Satker extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
 
-        // load data satker yang akan diubah
-        $data['satker'] = $this->satker->getDetailSatker($id);
+        // load data unit yang akan diubah
+        $data['unit'] = $this->unit->getDetailUnit($id);
 
         $validation = $this->form_validation->set_rules($this->rules);
 
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
+                'nmunit' => htmlspecialchars($this->input->post('nmunit', true))
             ];
             // update data di database melalui model
-            $this->satker->updateSatker($data, $id);
+            $this->unit->updateUnit($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('satker');
+            redirect('unit');
         }
 
-        // meload view pada satker/update.php
+        // meload view pada unit/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/update', $data);
+        $this->load->view('unit/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -117,9 +117,9 @@ class Satker extends CI_Controller
         if (!isset($id)) show_404();
 
         // hapus data di database melalui model
-        if ($this->satker->deleteSatker($id)) {
+        if ($this->unit->deleteUnit($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('satker');
+        redirect('unit');
     }
 }

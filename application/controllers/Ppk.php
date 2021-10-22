@@ -2,59 +2,59 @@
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class Satker extends CI_Controller
+class Ppk extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        // meload file ref_satker_model.php
-        $this->load->model('Ref_satker_model', 'satker');
+        // meload file ref_ppk_model.php
+        $this->load->model('Ref_ppk_model', 'ppk');
     }
 
     public function index()
     {
-        // menangkap data pencarian Satker
-        $nmsatker = $this->input->post('nmsatker');
+        // menangkap data pencarian ppk
+        $nmppk = $this->input->post('nmppk');
 
         // settingan halaman
-        $config['base_url'] = base_url('satker/index');
-        $config['total_rows'] = $this->satker->countSatker();
+        $config['base_url'] = base_url('ppk/index');
+        $config['total_rows'] = $this->ppk->countPpk();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nmsatker'] = $nmsatker;
+        $data['nmppk'] = $nmppk;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
-        // pilih tampilan data, semua atau berdasarkan pencarian satker
-        if ($nmsatker) {
+        // pilih tampilan data, semua atau berdasarkan pencarian ppk
+        if ($nmppk) {
             $data['page'] = 0;
             $offset = 0;
-            $data['satker'] = $this->satker->findSatker($nmsatker, $limit, $offset);
+            $data['ppk'] = $this->ppk->findPpk($nmppk, $limit, $offset);
         } else {
-            $data['satker'] = $this->satker->getSatker($limit, $offset);
+            $data['ppk'] = $this->ppk->getPpk($limit, $offset);
         }
 
-        // meload view pada satker/index.php
+        // meload view pada ppk/index.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/index', $data);
+        $this->load->view('ppk/index', $data);
         $this->load->view('template/footer');
     }
 
     // validasi inputan pada form
     private $rules = [
         [
-            'field' => 'kdsatker',
-            'label' => 'Kode Satker',
+            'field' => 'kdppk',
+            'label' => 'Kode PPK',
             'rules' => 'required|trim|numeric'
         ],
         [
-            'field' => 'nmsatker',
-            'label' => 'Nama Satker',
+            'field' => 'nmppk',
+            'label' => 'Nama PPK',
             'rules' => 'required|trim'
         ]
     ];
@@ -66,19 +66,19 @@ class Satker extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
+                'nmppk' => htmlspecialchars($this->input->post('nmppk', true))
             ];
             // simpan data ke database melalui model
-            $this->satker->createSatker($data);
+            $this->ppk->createPpk($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('satker');
+            redirect('ppk');
         }
 
-        // meload view pada satker/create.php
+        // meload view pada ppk/create.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/create');
+        $this->load->view('ppk/create');
         $this->load->view('template/footer');
     }
 
@@ -87,27 +87,27 @@ class Satker extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
 
-        // load data satker yang akan diubah
-        $data['satker'] = $this->satker->getDetailSatker($id);
+        // load data ppk yang akan diubah
+        $data['ppk'] = $this->ppk->getDetailPpk($id);
 
         $validation = $this->form_validation->set_rules($this->rules);
 
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true)),
-                'nmsatker' => htmlspecialchars($this->input->post('nmsatker', true))
+                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
+                'nmppk' => htmlspecialchars($this->input->post('nmppk', true))
             ];
             // update data di database melalui model
-            $this->satker->updateSatker($data, $id);
+            $this->ppk->updatePpk($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('satker');
+            redirect('ppk');
         }
 
-        // meload view pada satker/update.php
+        // meload view pada ppk/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('satker/update', $data);
+        $this->load->view('ppk/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -117,9 +117,9 @@ class Satker extends CI_Controller
         if (!isset($id)) show_404();
 
         // hapus data di database melalui model
-        if ($this->satker->deleteSatker($id)) {
+        if ($this->ppk->deletePpk($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('satker');
+        redirect('ppk');
     }
 }
