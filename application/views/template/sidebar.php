@@ -24,6 +24,7 @@
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'SP2D', 'level' => 3, 'url' => 'sp2d'],
             ['menu' => 'Payroll', 'level' => 3, 'url' => 'payroll'],
+            ['menu' => 'Referensi', 'level' => 3, 'url' => 'referensi'],
 
         ];
         foreach ($levels as $r) :
