@@ -6,42 +6,49 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
+<div class="row">
         <div class="col-lg-8">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead class="text-center">
-                        <tr class="align-middle">
-                            <th>Nomor</th>
-                            <th>Jenis Belanja</th>
-                            <th>Pagu</th>
-                            <th>Realisasi</th>
-                            <th>Sisa Pagu</th>
-                            <th>Persentase</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php $no = 1;
-                        foreach ($realisasi as $r) : ?>
-
-                            <tr>
-                                <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['jenis']; ?></td>
-                                <td class="text-right"><?= $r['pagu']; ?></td>
-                                <td class="text-right"><?= $r['realisasi']; ?></td>
-                                <td class="text-right"><?= $r['sisa']; ?></td>
-                                <td class="text-center"><?= $r['persentase']; ?></td>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="text-center">
+                            <tr class="align-middle">
+                                <th>Nomor</th>
+                                <th>Jenis Belanja</th>
+                                <th>Pagu</th>
+                                <th>Realisasi</th>
+                                <th>Sisa Pagu</th>
+                                <th>Persentase</th>
                             </tr>
+                        </thead>
+                        <tbody>
 
-                        <?php endforeach; ?>
+                            <?php $no = 1;
+                            foreach ($realisasi as $r) : ?>
 
-                    </tbody>
-                </table>
+                                <tr>
+                                    <td class="text-center"><?= $no++; ?></td>
+                                    <td><?= $r['jenis']; ?></td>
+                                    <td class="text-right"><?= $r['pagu']; ?></td>
+                                    <td class="text-right"><?= $r['realisasi']; ?></td>
+                                    <td class="text-right"><?= $r['sisa']; ?></td>
+                                    <td class="text-center"><?= $r['persentase']; ?></td>
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
+            <div class="row mb-3">
+                <div class="card chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>   
         </div>
         <div class="col-lg-4">
+            <div class="row">
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <b>Realisasi per PPK</b>
@@ -63,18 +70,7 @@
                     Anwar Sulaiman
                     <span class="badge bg-danger rounded-pill">24,57%</span>
                 </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-lg-8">
-            <div class="card chart-container">
-                <canvas id="chart"></canvas>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+                 <li class="list-group-item d-flex justify-content-between align-items-center">
                 Yuzuardi Haban
                 <span class="badge bg-primary rounded-pill">79,12%</span>
             </li>
@@ -122,9 +118,10 @@
                 Wahyu Setiadi
                 <span class="badge bg-primary rounded-pill">40,66%</span>
             </li>
+            </ul>
+         </div>
         </div>
+ </div>
 
-    </div>
-
-
+    
 </main>

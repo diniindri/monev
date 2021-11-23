@@ -2,7 +2,7 @@
 
 class Ref_unit_model extends CI_Model
 {
-    public function getUnit($limit = 0, $offset = 0)
+    public function getUnit($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get('ref_unit')->result_array();
@@ -13,7 +13,7 @@ class Ref_unit_model extends CI_Model
         return $this->db->get_where('ref_unit', ['id' => $id])->row_array();
     }
 
-    public function findUnit($nmunit = null, $limit = 0, $offset = 0)
+    public function findUnit($nmunit = null, $limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get_where('ref_unit', ['nmunit' => $nmunit])->result_array();
