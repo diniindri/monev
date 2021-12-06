@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tagihan</h1>
+        <h1 class="h2">DNP</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -14,13 +14,14 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('tagihan/create'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
+            <a href="<?= base_url('dnp/create/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
+            <a href="<?= base_url('dnp/tarik-pegawai-gaji/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Tarik Data Gaji</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
                 <!-- <?= form_open(); ?> -->
                 <div class="input-group">
-                    <input type="text" name="notagihan" class="form-control" placeholder="Nomor Tagihan">
+                    <input type="text" name="nama" class="form-control" placeholder="Nama Pegawai">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
@@ -33,30 +34,30 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Nomor tagihan</th>
-                            <th>Jenis Tagihan</th>
-                            <th>Unit</th>
-                            <th>Jenis Dokumen</th>
+                            <th>NIP</th>
+                            <th>Nama</th>
+                            <th>Kdgol</th>
+                            <th>Bruto</th>
+                            <th>PPh</th>
+                            <th>Netto</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = $page + 1;
-                        foreach ($tagihan as $r) : ?>
+                        foreach ($dnp as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['notagihan']; ?></td>
-                                <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
-                                <td><?= $r['nmunit']; ?></td>
-                                <td><?= $r['nmdokumen']; ?></td>
+                                <td><?= $r['nip']; ?></td>
+                                <td><?= $r['nama']; ?></td>
+                                <td><?= $r['kdgol']; ?></td>
+                                <td><?= $r['bruto']; ?></td>
+                                <td><?= $r['pph']; ?></td>
+                                <td><?= $r['netto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('tagihan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
-                                        <a href="<?= base_url('tagihan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
-                                        <a href="<?= base_url('realisasi/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                        <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
-                                        <a href="<?= base_url('tagihan/upload/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('pegawai/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('dnp/update/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
+                                        <a href="<?= base_url('dnp/delete/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -68,7 +69,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $notagihan == null ? $pagination : ''; ?>
+            <?= $nama == null ? $pagination : ''; ?>
         </div>
     </div>
 
