@@ -45,17 +45,19 @@
             </div>
             <div class="form-group mb-2">
                 <label for="">PPK:</label>
-                <input type="text" name="kdppk" class="form-control <?= form_error('kdppk') ? 'is-invalid' : ''; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('kdppk'); ?>
-                </div>
+                <select class="form-select form-select-sm mb-3" name="kdppk">
+                    <?php foreach ($ppk as $r) : ?>
+                        <option value="<?= $r['kdppk']; ?>"><?= $r['nmppk']; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="form-group mb-2">
                 <label for="">Satker:</label>
-                <input type="text" name="kdsatker" class="form-control <?= form_error('kdsatker') ? 'is-invalid' : ''; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('kdsatker'); ?>
-                </div>
+                <select class="form-select form-select-sm mb-3" name="kdsatker">
+                    <?php foreach ($satker as $r) : ?>
+                        <option value="<?= $r['kdsatker']; ?>"><?= $r['nmsatker']; ?></option>
+                    <?php endforeach; ?>
+                </select>
             </div>
         </div>
     </div>

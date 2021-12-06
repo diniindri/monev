@@ -8,10 +8,17 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('ref_satker_model', 'satker');
+        $this->load->model('ref_ppk_model', 'ppk');
     }
 
     public function index()
     {
+        $kdsatker = $this->session->userdata('kdsatker');
+        $kdppk = $this->session->userdata('kdppk');
+        $data['nmsatker'] = $this->satker->getNamaSatker($kdsatker);
+        $data['nmppk'] = $this->ppk->getNamaPpk($kdppk);
+
         $data['realisasi'] = [
             [
                 'jenis' => 'Belanja Pegawai',
