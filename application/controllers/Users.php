@@ -105,7 +105,7 @@ class Users extends CI_Controller
         // meload view pada bus_truk/create.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('users/create');
+        $this->load->view('users/create', $data);
         $this->load->view('template/footer');
     }
 

@@ -2,7 +2,7 @@
 
 class Ref_satker_model extends CI_Model
 {
-    public function getSatker($limit = 0, $offset = 0)
+    public function getSatker($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get('ref_satker')->result_array();
@@ -51,5 +51,10 @@ class Ref_satker_model extends CI_Model
     public function findJumlahSatker($kdsatker = null, $nmsatker = null)
     {
         return $this->db->get_where('ref_satker', ['kdsatker' => $kdsatker, 'nmsatker' => $nmsatker])->row_array();
+    }
+
+    public function getNamaSatker($kdsatker = null)
+    {
+        return $this->db->get_where('ref_satker', ['kdsatker' => $kdsatker])->row_array()['nmsatker'];
     }
 }

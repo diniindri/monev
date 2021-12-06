@@ -58,6 +58,8 @@ class Ref_users_model extends CI_Model
                 $data = [
                     'nip' => $user['nip'],
                     'nama' => $user['nama'],
+                    'kdppk' => $user['kdppk'],
+                    'kdsatker' => $user['kdsatker'],
                     'level' => $user['is_active']
                 ];
                 $this->session->set_userdata($data);

@@ -2,7 +2,7 @@
 
 class Ref_ppk_model extends CI_Model
 {
-    public function getPpk($limit = 0, $offset = 0)
+    public function getPpk($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get('ref_ppk')->result_array();
@@ -51,5 +51,10 @@ class Ref_ppk_model extends CI_Model
     public function findJumlahPpk($kdppk = null, $nmppk = null)
     {
         return $this->db->get_where('ref_ppk', ['kdppk' => $kdppk, 'nmppk' => $nmppk])->row_array();
+    }
+
+    public function getNamaPpk($kdppk = null)
+    {
+        return $this->db->get_where('ref_ppk', ['kdppk' => $kdppk])->row_array()['nmppk'];
     }
 }
