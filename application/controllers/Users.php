@@ -81,8 +81,8 @@ class Users extends CI_Controller
     public function create()
     {
         $validation = $this->form_validation->set_rules($this->rules);
-        $data['ppk'] = $this->unit->getPpk();
-        $data['satker'] = $this->dokumen->getSatker();
+        $data['ppk'] = $this->ppk->getPpk();
+        $data['satker'] = $this->satker->getSatker();
 
         // jika validasi sukses
         if ($validation->run()) {
@@ -93,8 +93,8 @@ class Users extends CI_Controller
                 'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
                 'is_active' => htmlspecialchars($this->input->post('is_active', true)),
                 'date_created' => time(),
-                'nmppk' => htmlspecialchars($this->input->post('kdunit', true)),
-                'kdsatker' => htmlspecialchars($this->input->post('kddokumen', true))
+                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
+                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
             ];
             // simpan data ke database melalui model
             $this->users->createUsers($data);
@@ -116,6 +116,8 @@ class Users extends CI_Controller
 
         // load data bus dan truk yang akan diubah
         $data['users'] = $this->users->getDetailUsers($id);
+        $data['ppk'] = $this->ppk->getPpk();
+        $data['satker'] = $this->satker->getSatker();
 
         $validation = $this->form_validation->set_rules($this->rules);
 
@@ -127,7 +129,9 @@ class Users extends CI_Controller
                 'email' => htmlspecialchars($this->input->post('email', true)),
                 'password' => password_hash(htmlspecialchars($this->input->post('password', true)), PASSWORD_DEFAULT),
                 'is_active' => htmlspecialchars($this->input->post('is_active', true)),
-                'date_created' => time()
+                'date_created' => time(),
+                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
+                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
             ];
             // update data di database melalui model
             $this->users->updateUsers($data, $id);

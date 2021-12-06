@@ -43,6 +43,20 @@
                     <?= form_error('is_active'); ?>
                 </div>
             </div>
+            <div class="form-group mb-2">
+                <label for="">PPK:</label>
+                <input type="text" name="kdppk" class="form-control <?= form_error('kdppk') ? 'is-invalid' : ''; ?>">
+                <div class="invalid-feedback">
+                    <?= form_error('kdppk'); ?>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="">Satker:</label>
+                <input type="text" name="kdsatker" class="form-control <?= form_error('kdsatker') ? 'is-invalid' : ''; ?>">
+                <div class="invalid-feedback">
+                    <?= form_error('kdsatker'); ?>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row mt-3">

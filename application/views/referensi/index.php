@@ -69,10 +69,10 @@
                         </tr>
                         <tr>
                             <td>7</td>
-                            <td></td>
+                            <td>Users</td>
                             <td class="pb-0 pr-0">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="<?= base_url('tahun/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                    <a href="<?= base_url('users/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                 </div>
                             </td>
                         </tr>

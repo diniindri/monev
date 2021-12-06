@@ -38,6 +38,8 @@
                             <th>Email</th>
                             <th>Status</th>
                             <th>Date Created</th>
+                            <th>PPK</th>
+                            <th>Satker</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -51,12 +53,15 @@
                                 <td><?= $r['email']; ?></td>
                                 <td><?= $r['is_active']; ?></td>
                                 <td><?= tanggal($r['date_created']); ?></td>
+                                <td><?= $r['kdppk']; ?></td>
+                                <td><?= $r['kdsatker']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('users/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('users/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
