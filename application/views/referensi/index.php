@@ -69,6 +69,15 @@
                         </tr>
                         <tr>
                             <td>7</td>
+                            <td>Berkas</td>
+                            <td class="pb-0 pr-0">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="<?= base_url('berkas/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
                             <td>Users</td>
                             <td class="pb-0 pr-0">
                                 <div class="btn-group btn-group-sm" role="group">
