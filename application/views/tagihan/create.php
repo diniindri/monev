@@ -16,6 +16,13 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
+                    <label for="">Tanggal Tagihan:</label>
+                    <input type="text" name="tgltagihan" class="form-control <?= form_error('tgltagihan') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('tgltagihan'); ?>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
                     <label for="">Jenis tagihan:</label>
                     <select class="form-select form-select-sm mb-3" name="jnstagihan">
                         <option value="0">SPBy</option>

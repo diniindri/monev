@@ -33,10 +33,12 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Nomor tagihan</th>
+                            <th>Nomor</th>
+                            <th>Tanggal</th>
                             <th>Jenis Tagihan</th>
                             <th>Unit</th>
                             <th>Jenis Dokumen</th>
+                            <th>Bruto</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -46,9 +48,11 @@
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['notagihan']; ?></td>
+                                <td><?= tanggal($r['tgltagihan']); ?></td>
                                 <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
+                                <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('tagihan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
@@ -56,7 +60,7 @@
                                         <a href="<?= base_url('realisasi/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                         <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
                                         <a href="<?= base_url('upload/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('tagihan/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('tagihan/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                                     </div>
                                 </td>
                             </tr>

@@ -53,6 +53,12 @@ class Tagihan extends CI_Controller
             'field' => 'notagihan',
             'label' => 'Nomor Tagihan',
             'rules' => 'required|trim|exact_length[5]'
+        ],
+
+        [
+            'field' => 'tgltagihan',
+            'label' => 'Tanggal Tagihan',
+            'rules' => 'required|trim'
         ]
     ];
 
@@ -67,6 +73,7 @@ class Tagihan extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
+                'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true))
@@ -98,6 +105,7 @@ class Tagihan extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
+                'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true))
@@ -127,95 +135,18 @@ class Tagihan extends CI_Controller
         redirect('tagihan');
     }
 
-    public function upload()
+    public function kirim($id = null)
     {
-        $validation = $this->form_validation->set_rules($this->rules);
+        // cek apakah ada id apa tidak
+        if (!isset($id)) show_404();
 
-
-        // meload view pada kapal/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('tagihan/upload');
-        $this->load->view('template/footer');
-    }
-
-    public function dnp()
-    {
-        $validation = $this->form_validation->set_rules($this->rules);
-
-
-        // menangkap data pencarian nama pegawai
-        $nmpeg = $this->input->post('nmpeg');
-
-        // settingan halaman
-        $config['base_url'] = base_url('data-tagihan/dnp');
-        $config['total_rows'] = 10;
-        $config['per_page'] = 5;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nmpeg'] = $nmpeg;
-        $limit = $config["per_page"];
-        $offset = $data['page'];
-
-        $data['dnp'] = [
-            [
-                'nip' => '196902241989121001',
-                'nmpeg' => 'I KETUT ARIMBAWA',
-                'golongan' => 'IV.b',
-                'bruto' => '2.532.000',
-                'potongan' => '0',
-                'netto' => '2.532.000',
-                'rekening' => '0126466638',
-                'bank' => 'BNI'
-            ],
-            [
-                'nip' => '198010172002122001',
-                'nmpeg' => 'TITIK WIJAYANTI',
-                'golongan' => 'IV.a',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '0009102196',
-                'bank' => 'BNI'
-            ],
-            [
-                'nip' => '198106222004121001',
-                'nmpeg' => 'HENDRA GUNAWAN',
-                'golongan' => 'III.c',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '050701017039507',
-                'bank' => 'BRI'
-            ],
-            [
-                'nip' => '198408282003121003',
-                'nmpeg' => 'ANDI MUJAHID DARWIS',
-                'golongan' => 'III.b',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '0212750271',
-                'bank' => 'BNI'
-            ],
-            [
-                'nip' => '199406142016122001',
-                'nmpeg' => 'DEWANTY ASMANINGRUM',
-                'golongan' => 'II.c',
-                'bruto' => '1.832.000',
-                'potongan' => '0',
-                'netto' => '1.832.000',
-                'rekening' => '050701017928502',
-                'bank' => 'BRI'
-            ]
+        $data = [
+            'status' => 1
         ];
 
-        // meload view pada kapal/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('tagihan/dnp', $data);
-        $this->load->view('template/footer');
+        // update data di database melalui model
+        $this->tagihan->updateTagihan($data, $id);
+        $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+        redirect('tagihan');
     }
 }

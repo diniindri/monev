@@ -4,7 +4,7 @@
         $kewenangan = $this->session->userdata('level');
         if ($kewenangan === '1') {
             $levels = [
-                
+
                 ['id' => 1, 'level' => 'halaman Utama'],
                 ['id' => 2, 'level' => 'Pejabat Pembuat Komitmen'],
                 ['id' => 3, 'level' => 'Bagian Keuangan']
@@ -23,8 +23,9 @@
             ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
             ['menu' => 'Monitoring Dokumen', 'level' => 2, 'url' => 'monitoring-dokumen'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
-            ['menu' => 'SP2D', 'level' => 3, 'url' => 'sp2d'],
-            ['menu' => 'Payroll', 'level' => 3, 'url' => 'payroll'],
+            ['menu' => 'Bendahara', 'level' => 3, 'url' => 'bendahara'],
+            ['menu' => 'Arsip', 'level' => 3, 'url' => 'arsip'],
+            ['menu' => 'Monitoring Per PPK', 'level' => 3, 'url' => 'monitoring-ppk'],
             ['menu' => 'Referensi', 'level' => 3, 'url' => 'referensi'],
 
         ];

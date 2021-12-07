@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Data SP2D</h1>
+        <h1 class="h2">Bendahara</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -14,6 +14,8 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
+            <a href="<?= base_url('bendahara/spp'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1">SPP</a>
+            <a href="<?= base_url('bendahara/spby'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1">SPBy</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
@@ -31,10 +33,11 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Nomor SPM</th>
-                            <th>Tanggal SPM</th>
-                            <th>Nomor SP2D</th>
-                            <th>Tanggal SP2D</th>
+                            <th>Jenis</th>
+                            <th>Nomor</th>
+                            <th>Tanggal</th>
+                            <th>Uraian</th>
+                            <th>Detail Akun</th>
                             <th>Bruto</th>
                             <th>Aksi</th>
                         </tr>
@@ -44,16 +47,17 @@
                         foreach ($tagihan as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['nospm']; ?></td>
-                                <td><?= $r['tglspm']; ?></td>
-                                <td><?= $r['nosp2d']; ?></td>
-                                <td><?= $r['tglsp2d']; ?></td>
+                                <td><?= $r['jenis']; ?></td>
+                                <td><?= $r['nomor']; ?></td>
+                                <td><?= $r['tanggal']; ?></td>
+                                <td><?= $r['uraian']; ?></td>
+                                <td><?= $r['detail']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('sp2d/input/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Input</a>
-                                        <a href="<?= base_url('sp2d/update/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
-                                        <a href="<?= base_url('data-tagihan/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('verifikasi/sp2d/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SP2D</a>
+                                        <a href="<?= base_url('verifikasi/payroll/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Payroll</a>
+                                        <a href="<?= base_url('verifikasi/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>
                             </tr>
@@ -65,7 +69,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nospm == null ? $pagination : ''; ?>
+            <?= $nomor == null ? $pagination : ''; ?>
         </div>
     </div>
 
