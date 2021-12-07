@@ -122,76 +122,21 @@ class Dnp extends CI_Controller
     // validasi inputan pada seluruh form
     private $rules = [
         [
-            'field' => 'program',
-            'label' => 'Program',
-            'rules' => 'required|trim|exact_length[2]'
+            'field' => 'bruto',
+            'label' => 'bruto',
+            'rules' => 'numeric'
         ],
         [
-            'field' => 'kegiatan',
-            'label' => 'Kegiatan',
-            'rules' => 'required|trim|exact_length[4]'
+            'field' => 'pph',
+            'label' => 'pph',
+            'rules' => 'numeric'
         ],
         [
-            'field' => 'kro',
-            'label' => 'KRO',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'ro',
-            'label' => 'RO',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'komponen',
-            'label' => 'Komponen',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'subkomponen',
-            'label' => 'Subkomponen',
-            'rules' => 'required|trim|exact_length[1]'
-        ],
-        [
-            'field' => 'akun',
-            'label' => 'akun',
-            'rules' => 'required|trim|exact_length[6]'
+            'field' => 'netto',
+            'label' => 'netto',
+            'rules' => 'numeric'
         ]
     ];
-
-    public function create($tagihan_id = null)
-    {
-        // cek apakah ada tagihan id apa tidak
-        if (!isset($tagihan_id)) show_404();
-
-        // tampilkan id tagihan
-        $data['tagihan_id'] = $tagihan_id;
-
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        if ($validation->run()) {
-            $data = [
-                'tagihan_id' => $tagihan_id,
-                'program' => htmlspecialchars($this->input->post('program', true)),
-                'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-                'kro' => htmlspecialchars($this->input->post('kro', true)),
-                'ro' => htmlspecialchars($this->input->post('ro', true)),
-                'komponen' => htmlspecialchars($this->input->post('komponen', true)),
-                'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
-                'akun' => htmlspecialchars($this->input->post('akun', true))
-            ];
-            // simpan data ke database melalui model
-            $this->realisasi->createRealisasi($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('realisasi/index/' . $tagihan_id . '');
-        }
-
-        // meload view pada realisasi/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('realisasi/create', $data);
-        $this->load->view('template/footer');
-    }
 
     public function update($id = null, $tagihan_id = null)
     {
@@ -201,34 +146,31 @@ class Dnp extends CI_Controller
 
         // load data tagihan id ke view
         $data['tagihan_id'] = $tagihan_id;
-        // load data realisasi ke view berdasarkan id realisasi
-        $data['realisasi'] = $this->realisasi->getDetailRealisasi($id);
+        // load data dnp ke view berdasarkan id dnp
+        $data['dnp'] = $this->dnp->getDetailDnp($id);
 
         $validation = $this->form_validation->set_rules($this->rules);
 
         // jika validasi sukses
         if ($validation->run()) {
+            $bruto = htmlspecialchars($this->input->post('bruto', true));
+            $pph = htmlspecialchars($this->input->post('pph', true));
             $data = [
                 'tagihan_id' => $tagihan_id,
-                'program' => htmlspecialchars($this->input->post('program', true)),
-                'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-                'kro' => htmlspecialchars($this->input->post('kro', true)),
-                'ro' => htmlspecialchars($this->input->post('ro', true)),
-                'komponen' => htmlspecialchars($this->input->post('komponen', true)),
-                'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
-                'akun' => htmlspecialchars($this->input->post('akun', true)),
-                'realisasi' => htmlspecialchars($this->input->post('realisasi', true))
+                'bruto' => $bruto,
+                'pph' => $pph,
+                'netto' => $bruto - $pph
             ];
             // update data di database melalui model
-            $this->realisasi->updateRealisasi($data, $id);
+            $this->dnp->updateDnp($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('realisasi/index/' . $tagihan_id . '');
+            redirect('dnp/index/' . $tagihan_id . '');
         }
 
         // meload view pada realisasi/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('realisasi/update', $data);
+        $this->load->view('dnp/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -239,9 +181,9 @@ class Dnp extends CI_Controller
         if (!isset($tagihan_id)) show_404();
 
         // hapus data di database melalui model
-        if ($this->realisasi->deleteRealisasi($id)) {
+        if ($this->dnp->deleteDnp($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('realisasi/index/' . $tagihan_id . '');
+        redirect('dnp/index/' . $tagihan_id . '');
     }
 }
