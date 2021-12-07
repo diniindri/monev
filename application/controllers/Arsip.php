@@ -45,4 +45,17 @@ class Arsip extends CI_Controller
         $this->load->view('arsip/index', $data);
         $this->load->view('template/footer');
     }
+
+    public function tolak($id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($id)) show_404();
+        $data = [
+            'status' => 2
+        ];
+        // update data di database melalui model
+        $this->tagihan->updateTagihan($data, $id);
+        $this->session->set_flashdata('pesan', 'Data berhasil ditolak.');
+        redirect('arsip');
+    }
 }
