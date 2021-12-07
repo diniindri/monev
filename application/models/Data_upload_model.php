@@ -15,7 +15,7 @@ class Data_upload_model extends CI_Model
         ]);
     }
 
-    public function getUpload($tagihan_id = null, $limit = 0, $offset = 0)
+    public function getUpload($tagihan_id = null, $limit = null, $offset = 0)
     {
         $this->db->select('a.*,b.nmberkas');
         $this->db->from('data_upload a');

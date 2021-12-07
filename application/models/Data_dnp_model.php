@@ -15,7 +15,7 @@ class Data_dnp_model extends CI_Model
         ]);
     }
 
-    public function getDnp($tagihan_id = null, $limit = 0, $offset = 0)
+    public function getDnp($tagihan_id = null, $limit = null, $offset = 0)
     {
         $this->db->where('tagihan_id', $tagihan_id);
         $this->db->limit($limit, $offset);

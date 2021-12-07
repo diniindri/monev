@@ -14,13 +14,10 @@
 		"php": ">=5.3.7",
 		"chriskacerguis/codeigniter-restserver": "^3.1",
 		"spipu/html2pdf": "^5.2",
-		"guzzlehttp/guzzle": "^7.2"
+		"guzzlehttp/guzzle": "^7.2",
+		"phpoffice/phpspreadsheet": "^1.20"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
-	},
-	"require-dev": {
-		"mikey179/vfsstream": "1.1.*",
-		"phpunit/phpunit": "4.* || 5.*"
 	}
 }

@@ -21,7 +21,7 @@ class Tagihan extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('tagihan/index');
-        $config['total_rows'] = $this->tagihan->countTagihan();
+        $config['total_rows'] = $this->viewtagihan->countTagihan(0);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -35,9 +35,9 @@ class Tagihan extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset);
+            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 0);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset);
+            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 0);
         }
 
         // meload view pada tagihan/index.php
@@ -54,7 +54,6 @@ class Tagihan extends CI_Controller
             'label' => 'Nomor Tagihan',
             'rules' => 'required|trim|exact_length[5]'
         ],
-
         [
             'field' => 'tgltagihan',
             'label' => 'Tanggal Tagihan',
@@ -139,11 +138,9 @@ class Tagihan extends CI_Controller
     {
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
-
         $data = [
             'status' => 1
         ];
-
         // update data di database melalui model
         $this->tagihan->updateTagihan($data, $id);
         $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
