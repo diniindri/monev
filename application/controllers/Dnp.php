@@ -8,6 +8,7 @@ class Dnp extends CI_Controller
         is_logged_in();
         // is_level();
         $this->load->model('Data_dnp_model', 'dnp');
+        $this->load->model('Ref_pph_model', 'pph');
     }
 
     public function index($tagihan_id = null)
@@ -154,7 +155,9 @@ class Dnp extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $bruto = htmlspecialchars($this->input->post('bruto', true));
-            $pph = htmlspecialchars($this->input->post('pph', true));
+            $kdgol = substr($this->dnp->getDetailDnp($id)['kdgol'], 0, 1);
+            $tarifpph = $this->pph->getTarifPph($kdgol);
+            $pph = $bruto * $tarifpph;
             $data = [
                 'tagihan_id' => $tagihan_id,
                 'bruto' => $bruto,
