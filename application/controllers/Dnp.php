@@ -102,7 +102,7 @@ class Dnp extends CI_Controller
             $data = [
                 'tagihan_id' => $tagihan_id,
                 'nip' => $r['nip'],
-                'nmpeg' => $r['nmpeg'],
+                'nama' => $r['nmpeg'],
                 'kdgol' => $r['kdgapok'],
                 'bruto' => 0,
                 'pph' => 0,
