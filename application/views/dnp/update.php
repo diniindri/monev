@@ -15,13 +15,6 @@
                         <?= form_error('bruto'); ?>
                     </div>
                 </div>
-                <div class="form-group mb-2">
-                    <label for="">Pph:</label>
-                    <input type="text" name="pph" class="form-control <?= form_error('pph') ? 'is-invalid' : ''; ?>" value="<?= $dnp['pph']; ?>">
-                    <div class="invalid-feedback">
-                        <?= form_error('pph'); ?>
-                    </div>
-                </div>
             </div>
             <div class="row mt-3">
                 <div class="col">

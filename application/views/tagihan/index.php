@@ -52,7 +52,7 @@
                                 <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
-                                <td><?= $r['bruto']; ?></td>
+                                <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('tagihan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>

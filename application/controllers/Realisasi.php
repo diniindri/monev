@@ -10,6 +10,8 @@ class Realisasi extends CI_Controller
         // meload file Data_realisasi_model.php
         $this->load->model('Data_realisasi_model', 'realisasi');
         $this->load->model('Ref_pagu_model', 'pagu');
+        $this->load->model('View_pagu_model', 'viewpagu');
+        $this->load->model('Data_tagihan_model', 'tagihan');
     }
 
     public function index($tagihan_id = null)
@@ -153,6 +155,9 @@ class Realisasi extends CI_Controller
             ];
             // update data di database melalui model
             $this->realisasi->updateRealisasi($data, $id);
+            // update bruto pada data_tagihan
+            $bruto = $this->realisasi->getBruto($tagihan_id)['bruto'];
+            $this->tagihan->updateTagihan(['bruto' => $bruto], $tagihan_id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
             redirect('realisasi/index/' . $tagihan_id . '');
         }
@@ -190,7 +195,7 @@ class Realisasi extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '');
-        $config['total_rows'] = $this->pagu->countPagu();
+        $config['total_rows'] = $this->viewpagu->countPagu();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -204,9 +209,9 @@ class Realisasi extends CI_Controller
         if ($kro) {
             $data['page'] = 0;
             $offset = 0;
-            $data['pagu'] = $this->pagu->findPagu($kro, $limit, $offset);
+            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset);
         } else {
-            $data['pagu'] = $this->pagu->getPagu($limit, $offset);
+            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset);
         }
 
         // meload view pada realisasi/tarik_detail_akun.php
