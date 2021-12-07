@@ -57,7 +57,7 @@
                                 <td><?= $r['komponen']; ?></td>
                                 <td><?= $r['subkomponen']; ?></td>
                                 <td><?= $r['akun']; ?></td>
-                                <td><?= $r['realisasi']; ?></td>
+                                <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('realisasi/update/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>

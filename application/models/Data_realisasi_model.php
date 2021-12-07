@@ -58,4 +58,10 @@ class Data_realisasi_model extends CI_Model
         $this->db->delete('data_realisasi', ['id' => $id]);
         return $this->db->affected_rows();
     }
+
+    public function getBruto($tagihan_id = null)
+    {
+        $query = "SELECT tagihan_id, SUM(realisasi) AS bruto FROM data_realisasi WHERE tagihan_id='$tagihan_id' GROUP BY tagihan_id";
+        return $this->db->query($query)->row_array();
+    }
 }
