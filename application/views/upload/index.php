@@ -40,8 +40,8 @@
                             <th>No</th>
                             <th>Berkas</th>
                             <th>Keterangan</th>
-                            <th>File</th>
                             <th>Tanggal</th>
+                            <th>File</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -52,12 +52,12 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nmberkas']; ?></td>
                                 <td><?= $r['keterangan']; ?></td>
+                                <td><?= tanggal($r['date_created']); ?></td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('assets/files/') . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" download>Download File</a>
                                     </div>
                                 </td>
-                                <td><?= tanggal($r['date_created']); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('upload/delete/') . $r['id'] . '/' . $tagihan_id . '/' . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>

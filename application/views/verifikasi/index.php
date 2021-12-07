@@ -31,11 +31,12 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Jenis</th>
                             <th>Nomor</th>
                             <th>Tanggal</th>
-                            <th>Uraian</th>
-                            <th>Detail Akun</th>
+                            <th>Tgl SPM</th>
+                            <th>Jenis Tagihan</th>
+                            <th>Unit</th>
+                            <th>Jenis Dokumen</th>
                             <th>Bruto</th>
                             <th>Aksi</th>
                         </tr>
@@ -45,18 +46,19 @@
                         foreach ($tagihan as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['jenis']; ?></td>
-                                <td><?= $r['nomor']; ?></td>
-                                <td><?= $r['tanggal']; ?></td>
-                                <td><?= $r['uraian']; ?></td>
-                                <td><?= $r['detail']; ?></td>
+                                <td><?= $r['notagihan']; ?></td>
+                                <td><?= tanggal($r['tgltagihan']); ?></td>
+                                <td><?= tanggal($r['tglspm']); ?></td>
+                                <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
+                                <td><?= $r['nmunit']; ?></td>
+                                <td><?= $r['nmdokumen']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('verifikasi/unduh/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Berkas</a>
-                                        <a href="<?= base_url('verifikasi/tolak/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
-                                        <a href="<?= base_url('verifikasi/upload/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
-                                        <a href="<?= base_url('verifikasi/kirim/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
+                                        <a href="<?= base_url('verifikasi/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPM</a>
+                                        <a href="<?= base_url('upload/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
+                                        <a href="<?= base_url('verifikasi/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
+                                        <a href="<?= base_url('verifikasi/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                                     </div>
                                 </td>
                             </tr>
@@ -68,7 +70,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nomor == null ? $pagination : ''; ?>
+            <?= $notagihan == null ? $pagination : ''; ?>
         </div>
     </div>
 

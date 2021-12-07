@@ -8,78 +8,37 @@ class Bendahara extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('View_tagihan_model', 'viewtagihan');
+        $this->load->model('Data_upload_model', 'data_upload');
+        $this->load->model('Data_tagihan_model', 'tagihan');
+        $this->load->model('Data_dnp_model', 'dnp');
     }
 
     public function index()
     {
-        // menangkap data pencarian nomor SPP/SPBy
-        $nomor = $this->input->post('nomor');
+        // menangkap data pencarian nomor tagihan
+        $notagihan = $this->input->post('notagihan');
 
         // settingan halaman
         $config['base_url'] = base_url('bendahara/index');
-        $config['total_rows'] = 10;
-        $config['per_page'] = 5;
+        $config['total_rows'] = $this->viewtagihan->countTagihan(2);
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nomor'] = $nomor;
+        $data['notagihan'] = $notagihan;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
-        $tagihan = [
-            [
-                'jenis' => 'SPP',
-                'nomor' => '00022',
-                'tanggal' => '15-01-2021',
-                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 33/C.3/P.18/I/2021 tanggal 8 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
-                'bruto' => '32.800.000'
-            ],
-            [
-                'jenis' => 'SPP',
-                'nomor' => '00023',
-                'tanggal' => '15-01-2021',
-                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 34/C.3/P.18/I/2021 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
-                'bruto' => '28.800.000'
-            ],
-            [
-                'jenis' => 'SPP',
-                'nomor' => '00024',
-                'tanggal' => '12-01-2021',
-                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010955 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.521111.008.5.16',
-                'bruto' => '2.988.700'
-            ],
-            [
-                'jenis' => 'SPP',
-                'nomor' => '00025',
-                'tanggal' => '12-01-2021',
-                'uraian' => 'Pembayaran belanja barang sesuai kuitansi nomor 1010938 tanggal 11 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522112.008.5.16',
-                'bruto' => '2.230.808'
-            ],
-            [
-                'jenis' => 'SPP',
-                'nomor' => '00033',
-                'tanggal' => '21-01-2021',
-                'uraian' => 'pembayaran belanja barang sesuai kuitansi nomor S-32/UN2.F1.MIKRO/KEU.01/21 tanggal 5 Januari 2021',
-                'detail' => '4701.EAC.001.002.A.522192.008.5.16',
-                'bruto' => '18.000.000'
-            ]
-        ];
-
-
-        // pilih tampilan data, semua atau berdasarkan pencarian nama jenis
-        if ($nomor) {
+        // pilih tampilan data, semua atau berdasarkan pencarian nomor tagihan
+        if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $tagihan;
+            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 2);
         } else {
-            $data['tagihan'] = $tagihan;
+            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 2);
         }
-
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -87,204 +46,144 @@ class Bendahara extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    // validasi inputan pada form
-    private $rules = [
-        [
-            'field' => 'kota_asal',
-            'label' => 'Kota Asal',
-            'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'kota_tujuan',
-            'label' => 'Kota Tujuan',
-            'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'jumlah',
-            'label' => 'Nominal',
-            'rules' => 'required|trim|numeric'
-        ]
-    ];
-
-    public function create()
+    public function kirim($id = null)
     {
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        // if ($validation->run()) {
-        //     $data = [
-        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
-        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
-        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
-        //     ];
-        //     // simpan data ke database melalui model
-        //     $this->kapal->createKapal($data);
-        //     $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        //     redirect('kapal');
-        // }
-
-        // meload view pada kapal/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('data_tagihan/create');
-        $this->load->view('template/footer');
+        // cek apakah ada id apa tidak
+        if (!isset($id)) show_404();
+        $data = [
+            'status' => 3
+        ];
+        // update data di database melalui model
+        $this->tagihan->updateTagihan($data, $id);
+        $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+        redirect('bendahara');
     }
 
     public function update($id = null)
     {
         // cek apakah ada id apa tidak
-        // if (!isset($id)) show_404();
+        if (!isset($id)) show_404();
 
-        // // load data kapal yang akan diubah
-        // $data['kapal'] = $this->kapal->getDetailKapal($id);
+        $data['tagihan'] = $this->tagihan->getDetailTagihan($id);
 
-        // $validation = $this->form_validation->set_rules($this->rules);
+        $rules = [
+            [
+                'field' => 'tglsp2d',
+                'label' => 'Tanggal SP2D',
+                'rules' => 'required|trim'
+            ],
+            [
+                'field' => 'nosp2d',
+                'label' => 'Nomor SP2D',
+                'rules' => 'required|trim|exact_length[15]'
+            ]
+        ];
+        $validation = $this->form_validation->set_rules($rules);
 
-        // // jika validasi sukses
-        // if ($validation->run()) {
-        //     $data = [
-        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
-        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
-        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
-        //     ];
-        //     // update data di database melalui model
-        //     $this->kapal->updateKapal($data, $id);
-        //     $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-        //     redirect('kapal');
-        // }
+        // jika validasi sukses
+        if ($validation->run()) {
+            $data = [
+                'tglsp2d' => strtotime(htmlspecialchars($this->input->post('tglsp2d', true))),
+                'nosp2d' => htmlspecialchars($this->input->post('nosp2d', true))
+            ];
+            // update data di database melalui model
+            $this->tagihan->updateTagihan($data, $id);
+            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
+            redirect('bendahara');
+        }
 
-        // meload view pada kapal/update.php
+        // meload view pada tagihan/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('data_tagihan/update');
+        $this->load->view('bendahara/update', $data);
         $this->load->view('template/footer');
     }
 
-    public function delete($id = null)
+    public function payroll($tagihan_id = null)
     {
         // cek apakah ada id apa tidak
-        // if (!isset($id)) show_404();
+        if (!isset($tagihan_id)) show_404();
+        $data['tagihan_id'] = $tagihan_id;
 
-        // // hapus data di database melalui model
-        // if ($this->kapal->deleteKapal($id)) {
-        //     $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
-        // }
-        // redirect('kapal');
-    }
-
-    public function upload()
-    {
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        // if ($validation->run()) {
-        //     $data = [
-        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
-        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
-        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
-        //     ];
-        //     // simpan data ke database melalui model
-        //     $this->kapal->createKapal($data);
-        //     $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        //     redirect('kapal');
-        // }
-
-        // meload view pada kapal/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('data_tagihan/upload');
-        $this->load->view('template/footer');
-    }
-
-    public function dnp()
-    {
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        // if ($validation->run()) {
-        //     $data = [
-        //         'kota_asal' => htmlspecialchars($this->input->post('kota_asal', true)),
-        //         'kota_tujuan' => htmlspecialchars($this->input->post('kota_tujuan', true)),
-        //         'jumlah' => htmlspecialchars($this->input->post('jumlah', true))
-        //     ];
-        //     // simpan data ke database melalui model
-        //     $this->kapal->createKapal($data);
-        //     $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        //     redirect('kapal');
-        // }
-
-        // menangkap data pencarian nama pegawai
-        $nmpeg = $this->input->post('nmpeg');
+        // menangkap data pencarian nama
+        $nama = $this->input->post('nama');
 
         // settingan halaman
-        $config['base_url'] = base_url('data-tagihan/dnp');
-        $config['total_rows'] = 10;
-        $config['per_page'] = 5;
+        $config['base_url'] = base_url('bendahara/payroll/' . $tagihan_id . '');
+        $config['total_rows'] = $this->dnp->countDnp($tagihan_id);
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nmpeg'] = $nmpeg;
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['nama'] = $nama;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
-        $data['dnp'] = [
-            [
-                'nip' => 'SPP',
-                'nmpeg' => '00001',
-                'golongan' => '07-01-2021',
-                'bruto' => 'Pembayaran Belanja Barang',
-                'potongan' => '4700.001.01.B.524111',
-                'netto' => '4,000,000',
-                'rekening' => '4,000,000',
-                'bank' => '4,000,000'
-            ],
-            [
-                'nip' => 'SPP',
-                'nmpeg' => '00001',
-                'golongan' => '07-01-2021',
-                'bruto' => 'Pembayaran Belanja Barang',
-                'potongan' => '4700.001.01.B.524111',
-                'netto' => '4,000,000',
-                'rekening' => '4,000,000',
-                'bank' => '4,000,000'
-            ],
-            [
-                'nip' => 'SPP',
-                'nmpeg' => '00001',
-                'golongan' => '07-01-2021',
-                'bruto' => 'Pembayaran Belanja Barang',
-                'potongan' => '4700.001.01.B.524111',
-                'netto' => '4,000,000',
-                'rekening' => '4,000,000',
-                'bank' => '4,000,000'
-            ],
-            [
-                'nip' => 'SPP',
-                'nmpeg' => '00001',
-                'golongan' => '07-01-2021',
-                'bruto' => 'Pembayaran Belanja Barang',
-                'potongan' => '4700.001.01.B.524111',
-                'netto' => '4,000,000',
-                'rekening' => '4,000,000',
-                'bank' => '4,000,000'
-            ],
-            [
-                'nip' => 'SPP',
-                'nmpeg' => '00001',
-                'golongan' => '07-01-2021',
-                'bruto' => 'Pembayaran Belanja Barang',
-                'potongan' => '4700.001.01.B.524111',
-                'netto' => '4,000,000',
-                'rekening' => '4,000,000',
-                'bank' => '4,000,000'
-            ]
-        ];
+        // pilih tampilan data, semua atau berdasarkan pencarian ro 
+        if ($nama) {
+            $data['page'] = 0;
+            $offset = 0;
+            $data['dnp'] = $this->dnp->findDnp($tagihan_id, $nama, $limit, $offset);
+        } else {
+            $data['dnp'] = $this->dnp->getDnp($tagihan_id, $limit, $offset);
+        }
 
-        // meload view pada kapal/create.php
+        // meload view pada tagihan/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('data_tagihan/dnp', $data);
+        $this->load->view('bendahara/payroll', $data);
         $this->load->view('template/footer');
+    }
+
+    public function excel($tagihan_id = null)
+    {
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'no');
+        $sheet->setCellValue('B1', 'nama');
+        $sheet->setCellValue('C1', 'nominal');
+        $sheet->setCellValue('D1', 'rekening');
+        $sheet->setCellValue('E1', 'nmbank');
+
+        $pegawai = $this->dnp->getDnp($tagihan_id);
+
+        $no = 1;
+        $i = 2;
+        foreach ($pegawai as $r) {
+            $sheet->setCellValue('A' . $i, $no++);
+            $sheet->setCellValue('B' . $i, ' ' . $r['nmrek']);
+            $sheet->setCellValue('C' . $i, $r['netto']);
+            $sheet->setCellValue('D' . $i, $r['rekening']);
+            $sheet->setCellValue('E' . $i, $r['nmbank']);
+            $i++;
+        }
+
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ];
+
+        $i = $i - 1;
+        $sheet->getStyle('A1:E' . $i)->applyFromArray($styleArray);
+
+        // simpan datanya
+        $date = date('d-m-y-' . substr((string)microtime(), 1, 8));
+        $date = str_replace(".", "", $date);
+        $filename = "excel_" . $date . ".xlsx";
+        try {
+            $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+            $writer->save($filename);
+            $content = file_get_contents($filename);
+        } catch (Exception $e) {
+            exit($e->getMessage());
+        }
+        header("Content-Disposition: attachment; filename=" . $filename);
+        unlink($filename);
+        exit($content);
     }
 }
