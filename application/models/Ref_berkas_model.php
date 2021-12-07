@@ -2,7 +2,7 @@
 
 class Ref_berkas_model extends CI_Model
 {
-    public function getBerkas($limit = 0, $offset = 0)
+    public function getBerkas($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get('ref_berkas')->result_array();
@@ -13,7 +13,7 @@ class Ref_berkas_model extends CI_Model
         return $this->db->get_where('ref_berkas', ['id' => $id])->row_array();
     }
 
-    public function findBerkas($nmberkas = null, $limit = 0, $offset = 0)
+    public function findBerkas($nmberkas = null, $limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get_where('ref_berkas', ['nmppk' => $nmberkas])->result_array();
