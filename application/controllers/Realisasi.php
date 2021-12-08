@@ -116,13 +116,16 @@ class Realisasi extends CI_Controller
 
         // mengirim data id tagihan ke view
         $data['tagihan_id'] = $tagihan_id;
+        $kdsatker = $this->session->userdata('kdsatker');
+        $kdppk = $this->session->userdata('kdppk');
+        $tahun = $this->session->userdata('tahun');
 
         // menangkap data pencarian kro
         $kro = $this->input->post('kro');
 
         // settingan halaman
         $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '');
-        $config['total_rows'] = $this->viewpagu->countPagu();
+        $config['total_rows'] = $this->viewpagu->countPagu($kdppk, $kdsatker, $tahun);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -136,9 +139,9 @@ class Realisasi extends CI_Controller
         if ($kro) {
             $data['page'] = 0;
             $offset = 0;
-            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset);
+            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset, $kdppk, $kdsatker, $tahun);
         } else {
-            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset);
+            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset, $kdppk, $kdsatker, $tahun);
         }
 
         // meload view pada realisasi/tarik_detail_akun.php
