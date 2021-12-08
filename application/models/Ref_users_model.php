@@ -60,6 +60,7 @@ class Ref_users_model extends CI_Model
                     'nama' => $user['nama'],
                     'kdppk' => $user['kdppk'],
                     'kdsatker' => $user['kdsatker'],
+                    'tahun' => date('Y'),
                     'level' => $user['is_active']
                 ];
                 $this->session->set_userdata($data);
