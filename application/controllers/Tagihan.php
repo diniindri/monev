@@ -18,10 +18,13 @@ class Tagihan extends CI_Controller
     {
         // menangkap data pencarian nomor tagihan
         $notagihan = $this->input->post('notagihan');
+        $kdsatker = $this->session->userdata('kdsatker');
+        $kdppk = $this->session->userdata('kdppk');
+        $tahun = $this->session->userdata('tahun');
 
         // settingan halaman
         $config['base_url'] = base_url('tagihan/index');
-        $config['total_rows'] = $this->viewtagihan->countTagihan(0);
+        $config['total_rows'] = $this->viewtagihan->countTagihanPpk(0, $kdppk, $kdsatker, $tahun);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -35,9 +38,9 @@ class Tagihan extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 0);
+            $data['tagihan'] = $this->viewtagihan->findTagihanPpk($notagihan, $limit, $offset, 0, $kdppk, $kdsatker, $tahun);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 0);
+            $data['tagihan'] = $this->viewtagihan->getTagihanPpk($limit, $offset, 0, $kdppk, $kdsatker, $tahun);
         }
 
         // meload view pada tagihan/index.php
@@ -75,7 +78,10 @@ class Tagihan extends CI_Controller
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
-                'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true))
+                'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true)),
+                'kdsatker' => $this->session->userdata('kdsatker'),
+                'tahun' => $this->session->userdata('tahun'),
+                'kdppk' => $this->session->userdata('kdppk')
             ];
             // simpan data ke database melalui model
             $this->tagihan->createTagihan($data);
