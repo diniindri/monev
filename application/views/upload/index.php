@@ -19,16 +19,10 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-5">
+            <a href="<?= base_url() . $asal; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Kembali ke Halaman Sebelumnya</a>
             <a href="<?= base_url('upload/create/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
         </div>
         <div class="col-lg-3">
-            <form action="" method="post" autocomplete="off">
-                <!-- <?= form_open(); ?> -->
-                <div class="input-group">
-                    <input type="text" name="keterangan" class="form-control" placeholder="Keterangan">
-                    <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
-                </div>
-            </form>
         </div>
     </div>
     <div class="row mb-3">
@@ -46,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = $page + 1;
+                        <?php $no = 1;
                         foreach ($upload as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
@@ -68,11 +62,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <?= $keterangan == null ? $pagination : ''; ?>
         </div>
     </div>
 

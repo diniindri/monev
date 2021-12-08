@@ -40,6 +40,7 @@
                             <th>Tgl SP2D</th>
                             <th>Jenis Tagihan</th>
                             <th>Unit</th>
+                            <th>PPK</th>
                             <th>Jenis Dokumen</th>
                             <th>Bruto</th>
                             <th>Aksi</th>
@@ -57,11 +58,15 @@
                                 <td><?= tanggal($r['tglsp2d']); ?></td>
                                 <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
                                 <td><?= $r['nmunit']; ?></td>
+                                <td><?= $r['nmppk']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('arsip/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
+                                        <a href="<?= base_url('arsip/dnp/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">DNP</a>
+                                        <a href="<?= base_url('arsip/realisasi/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Realisasi</a>
+                                        <a href="<?= base_url('arsip/dokumen/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Dokumen</a>
                                     </div>
                                 </td>
                             </tr>

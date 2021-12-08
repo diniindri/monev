@@ -11,37 +11,17 @@ class Upload extends CI_Controller
         $this->load->model('Ref_berkas_model', 'berkas');
     }
 
-    public function index($tagihan_id = null)
+    public function index($tagihan_id = null, $asal = null)
     {
         // cek apakah ada id apa tidak
         if (!isset($tagihan_id)) show_404();
 
         // mengirim data id tagihan ke view
         $data['tagihan_id'] = $tagihan_id;
+        $data['asal'] = $asal;
 
-        // menangkap data pencarian keterangan
-        $keterangan = $this->input->post('keterangan');
+        $data['upload'] = $this->data_upload->getUpload($tagihan_id);
 
-        // settingan halaman
-        $config['base_url'] = base_url('upload/index/' . $tagihan_id . '');
-        $config['total_rows'] = $this->data_upload->countUpload($tagihan_id);
-        $config['per_page'] = 10;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
-        $data['keterangan'] = $keterangan;
-        $limit = $config["per_page"];
-        $offset = $data['page'];
-
-        // pilih tampilan data, semua atau berdasarkan pencarian ro 
-        if ($keterangan) {
-            $data['page'] = 0;
-            $offset = 0;
-            $data['upload'] = $this->data_upload->findUpload($tagihan_id, $keterangan, $limit, $offset);
-        } else {
-            $data['upload'] = $this->data_upload->getUpload($tagihan_id, $limit, $offset);
-        }
 
         // meload view pada realisasi/index.php
         $this->load->view('template/header');

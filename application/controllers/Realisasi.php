@@ -56,76 +56,11 @@ class Realisasi extends CI_Controller
     // validasi inputan pada seluruh form
     private $rules = [
         [
-            'field' => 'program',
-            'label' => 'Program',
-            'rules' => 'required|trim|exact_length[2]'
-        ],
-        [
-            'field' => 'kegiatan',
-            'label' => 'Kegiatan',
-            'rules' => 'required|trim|exact_length[4]'
-        ],
-        [
-            'field' => 'kro',
-            'label' => 'KRO',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'ro',
-            'label' => 'RO',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'komponen',
-            'label' => 'Komponen',
-            'rules' => 'required|trim|exact_length[3]'
-        ],
-        [
-            'field' => 'subkomponen',
-            'label' => 'Subkomponen',
-            'rules' => 'required|trim|exact_length[1]'
-        ],
-        [
-            'field' => 'akun',
-            'label' => 'akun',
-            'rules' => 'required|trim|exact_length[6]'
+            'field' => 'realisasi',
+            'label' => 'realisasi',
+            'rules' => 'required|trim|numeric'
         ]
     ];
-
-    public function create($tagihan_id = null)
-    {
-        // cek apakah ada tagihan id apa tidak
-        if (!isset($tagihan_id)) show_404();
-
-        // tampilkan id tagihan
-        $data['tagihan_id'] = $tagihan_id;
-
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        if ($validation->run()) {
-            $data = [
-                'tagihan_id' => $tagihan_id,
-                'program' => htmlspecialchars($this->input->post('program', true)),
-                'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-                'kro' => htmlspecialchars($this->input->post('kro', true)),
-                'ro' => htmlspecialchars($this->input->post('ro', true)),
-                'komponen' => htmlspecialchars($this->input->post('komponen', true)),
-                'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
-                'akun' => htmlspecialchars($this->input->post('akun', true))
-            ];
-            // simpan data ke database melalui model
-            $this->realisasi->createRealisasi($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('realisasi/index/' . $tagihan_id . '');
-        }
-
-        // meload view pada realisasi/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('realisasi/create', $data);
-        $this->load->view('template/footer');
-    }
 
     public function update($id = null, $tagihan_id = null)
     {
@@ -143,14 +78,6 @@ class Realisasi extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'tagihan_id' => $tagihan_id,
-                'program' => htmlspecialchars($this->input->post('program', true)),
-                'kegiatan' => htmlspecialchars($this->input->post('kegiatan', true)),
-                'kro' => htmlspecialchars($this->input->post('kro', true)),
-                'ro' => htmlspecialchars($this->input->post('ro', true)),
-                'komponen' => htmlspecialchars($this->input->post('komponen', true)),
-                'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
-                'akun' => htmlspecialchars($this->input->post('akun', true)),
                 'realisasi' => htmlspecialchars($this->input->post('realisasi', true))
             ];
             // update data di database melalui model
@@ -189,13 +116,16 @@ class Realisasi extends CI_Controller
 
         // mengirim data id tagihan ke view
         $data['tagihan_id'] = $tagihan_id;
+        $kdsatker = $this->session->userdata('kdsatker');
+        $kdppk = $this->session->userdata('kdppk');
+        $tahun = $this->session->userdata('tahun');
 
         // menangkap data pencarian kro
         $kro = $this->input->post('kro');
 
         // settingan halaman
         $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '');
-        $config['total_rows'] = $this->viewpagu->countPagu();
+        $config['total_rows'] = $this->viewpagu->countPagu($kdppk, $kdsatker, $tahun);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -209,9 +139,9 @@ class Realisasi extends CI_Controller
         if ($kro) {
             $data['page'] = 0;
             $offset = 0;
-            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset);
+            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset, $kdppk, $kdsatker, $tahun);
         } else {
-            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset);
+            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset, $kdppk, $kdsatker, $tahun);
         }
 
         // meload view pada realisasi/tarik_detail_akun.php
