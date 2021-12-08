@@ -97,6 +97,8 @@ class Tagihan extends CI_Controller
 
         // load data packing yang akan diubah
         $data['tagihan'] = $this->tagihan->getDetailTagihan($id);
+        $data['unit'] = $this->unit->getUnit();
+        $data['dokumen'] = $this->dokumen->getDokumen();
 
         $validation = $this->form_validation->set_rules($this->rules);
 

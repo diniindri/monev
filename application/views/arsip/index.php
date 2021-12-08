@@ -42,6 +42,7 @@
                             <th>Unit</th>
                             <th>Jenis Dokumen</th>
                             <th>Bruto</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +59,11 @@
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
                                 <td><?= $r['bruto']; ?></td>
+                                <td class="pb-0">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="<?= base_url('arsip/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

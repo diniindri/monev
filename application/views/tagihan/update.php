@@ -30,17 +30,19 @@
                     </select>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="">Jenis Tagihan:</label>
+                    <label for="">Unit:</label>
                     <select class="form-select form-select-sm mb-3" name="kdunit">
-                        <option value="0" <?= $tagihan['kdunit'] == 0 ? 'selected' : ''; ?>>SPBy</option>
-                        <option value="1" <?= $tagihan['kdunit'] == 1 ? 'selected' : ''; ?>>SPP</option>
+                        <?php foreach ($unit as $r) : ?>
+                            <option value="<?= $r['kdunit']; ?>" <?= $tagihan['kdunit'] == $r['kdunit'] ? 'selected' : ''; ?>><?= $r['nmunit']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="">Jenis Tagihan:</label>
+                    <label for="">Jenis Dokumen:</label>
                     <select class="form-select form-select-sm mb-3" name="kddokumen">
-                        <option value="0" <?= $tagihan['kddokumen'] == 0 ? 'selected' : ''; ?>>SPBy</option>
-                        <option value="1" <?= $tagihan['kddokumen'] == 1 ? 'selected' : ''; ?>>SPP</option>
+                        <?php foreach ($dokumen as $r) : ?>
+                            <option value="<?= $r['kddokumen']; ?>" <?= $tagihan['kddokumen'] == $r['kddokumen'] ? 'selected' : ''; ?>><?= $r['nmdokumen']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
