@@ -9,57 +9,6 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="form-group mb-2">
-                <label for="">Program:</label>
-                <input type="text" name="program" class="form-control <?= form_error('program') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['program']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('program'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">Kegiatan:</label>
-                <input type="text" name="kegiatan" class="form-control <?= form_error('kegiatan') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['kegiatan']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('kegiatan'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">KRO:</label>
-                <input type="text" name="kro" class="form-control <?= form_error('kro') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['kro']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('kro'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">RO:</label>
-                <input type="text" name="ro" class="form-control <?= form_error('ro') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['ro']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('ro'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">Komponen:</label>
-                <input type="text" name="komponen" class="form-control <?= form_error('komponen') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['komponen']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('komponen'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">Subkomponen:</label>
-                <input type="text" name="subkomponen" class="form-control <?= form_error('subkomponen') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['subkomponen']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('subkomponen'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">Akun:</label>
-                <input type="text" name="akun" class="form-control <?= form_error('akun') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['akun']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('akun'); ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-group mb-2">
                 <label for="">Realisasi:</label>
                 <input type="text" name="realisasi" class="form-control <?= form_error('realisasi') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['realisasi']; ?>">
                 <div class="invalid-feedback">

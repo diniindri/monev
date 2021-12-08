@@ -59,7 +59,7 @@
                                         <a href="<?= base_url('tagihan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('realisasi/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                         <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
-                                        <a href="<?= base_url('upload/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
+                                        <a href="<?= base_url('upload/index/') . $r['id'] . '/tagihan'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
                                         <a href="<?= base_url('tagihan/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                                     </div>
                                 </td>
