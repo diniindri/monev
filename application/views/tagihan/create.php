@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label for="">Tanggal Tagihan:</label>
-                    <input type="text" name="tgltagihan" class="form-control <?= form_error('tgltagihan') ? 'is-invalid' : ''; ?>">
+                    <input type="text" name="tgltagihan" class="form-control <?= form_error('tgltagihan') ? 'is-invalid' : ''; ?>" placeholder="dd-mm-yyyy">
                     <div class="invalid-feedback">
                         <?= form_error('tgltagihan'); ?>
                     </div>

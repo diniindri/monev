@@ -2,7 +2,7 @@
 
 class Ref_tahun_model extends CI_Model
 {
-    public function getTahun($limit = 0, $offset = 0)
+    public function getTahun($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
         return $this->db->get('ref_tahun')->result_array();
