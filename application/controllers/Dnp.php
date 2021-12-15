@@ -1,5 +1,7 @@
 <?php
 
+use Spipu\Html2Pdf\Html2Pdf;
+
 class Dnp extends CI_Controller
 {
     public function __construct()
@@ -188,5 +190,26 @@ class Dnp extends CI_Controller
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
         redirect('dnp/index/' . $tagihan_id . '');
+    }
+
+    public function dnp($tagihan_id = null)
+    {
+        // cek apakah ada sk id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        $data['ppk'] = $this->ppk->getKodePpk();
+        $data['bendahara'] = $this->pejabat->getKodePejabat(2);
+        $data['data_dnp'] = $this->data_dnp->getBiayaPegawai($tagihan_id);
+        $data['tagihan'] = $this->tagihan->getDetailTagihan($tagihan_id);
+
+        ob_start();
+        $this->load->view('dnp/dnp', $data);
+        $html = ob_get_clean();
+
+        $html2pdf = new Html2Pdf('P', 'A4', 'en', false, 'UTF-8', array(20, 10, 20, 10));
+        $html2pdf->addFont('Arial');
+        $html2pdf->pdf->SetTitle('DNP');
+        $html2pdf->writeHTML($html);
+        $html2pdf->output('dnp-' . $tagihan_id . '.pdf', 'D');
     }
 }

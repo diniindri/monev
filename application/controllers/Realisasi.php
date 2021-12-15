@@ -12,6 +12,7 @@ class Realisasi extends CI_Controller
         $this->load->model('Ref_pagu_model', 'pagu');
         $this->load->model('View_pagu_model', 'viewpagu');
         $this->load->model('Data_tagihan_model', 'tagihan');
+        $this->load->model('View_sisa_model', 'viewsisa');
     }
 
     public function index($tagihan_id = null)
@@ -72,20 +73,26 @@ class Realisasi extends CI_Controller
         $data['tagihan_id'] = $tagihan_id;
         // load data realisasi ke view berdasarkan id realisasi
         $data['realisasi'] = $this->realisasi->getDetailRealisasi($id);
+        $sisa = $this->viewsisa->getDetailSisa($id)['sisa'];
 
         $validation = $this->form_validation->set_rules($this->rules);
 
+
         // jika validasi sukses
         if ($validation->run()) {
-            $data = [
-                'realisasi' => htmlspecialchars($this->input->post('realisasi', true))
-            ];
-            // update data di database melalui model
-            $this->realisasi->updateRealisasi($data, $id);
-            // update bruto pada data_tagihan
-            $bruto = $this->realisasi->getBruto($tagihan_id)['bruto'];
-            $this->tagihan->updateTagihan(['bruto' => $bruto], $tagihan_id);
-            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
+            $realisasi = htmlspecialchars($this->input->post('realisasi', true));
+            if ($sisa - $realisasi < 0) {
+                $this->session->set_flashdata('gagal', 'Data gagal disimpan, realisasi melebihi sisa pagu.');
+            } else {
+                $data = [
+                    'realisasi' => $realisasi
+                ];
+                $this->realisasi->updateRealisasi($data, $id);
+                $bruto = $this->realisasi->getBruto($tagihan_id)['bruto'];
+                $this->tagihan->updateTagihan(['bruto' => $bruto], $tagihan_id);
+                $this->session->set_flashdata('berhasil', 'Data berhasil diubah.');
+            }
+
             redirect('realisasi/index/' . $tagihan_id . '');
         }
 

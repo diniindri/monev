@@ -30,11 +30,12 @@ class Upload extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function create($tagihan_id = null)
+    public function create($tagihan_id = null, $asal = null)
     {
         if (!isset($tagihan_id)) show_404();
         $data['tagihan_id'] = $tagihan_id;
         $data['berkas'] = $this->berkas->getBerkas();
+        $data['asal'] = $asal;
 
         $validation = $this->form_validation->set_rules('file', 'File', 'trim');
         if ($validation->run() && $_FILES) {
@@ -61,11 +62,11 @@ class Upload extends CI_Controller
                     ];
                     $this->data_upload->createUpload($data);
                     $this->session->set_flashdata('pesan', 'Data berhasil diupload.');
-                    redirect('upload/index/' . $tagihan_id . '');
+                    redirect('upload/index/' . $tagihan_id . '/' . $asal . '');
                 } else {
                     echo $this->upload->display_errors();
                     $this->session->set_flashdata('pesan_gagal', 'Upload file gagal, mohon menggunakan format file pdf dan ukuran maksimal 10 MB!');
-                    redirect('upload/index/' . $tagihan_id . '');
+                    redirect('upload/index/' . $tagihan_id . '/' . $asal . '');
                 }
             }
         }

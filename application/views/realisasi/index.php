@@ -4,9 +4,14 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if ($this->session->flashdata('pesan')) : ?>
+            <?php if ($this->session->flashdata('berhasil')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Selamat!</strong> <?= $this->session->flashdata('pesan'); ?>
+                    <strong>Selamat!</strong> <?= $this->session->flashdata('berhasil'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('gagal')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Maaf!</strong> <?= $this->session->flashdata('gagal'); ?>
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
