@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label for="">Tanggal Tagihan:</label>
-                    <input type="text" name="tgltagihan" class="form-control <?= form_error('tgltagihan') ? 'is-invalid' : ''; ?>" value="<?= date('d-m-Y', $tagihan['tgltagihan']); ?>" placeholder="dd-mm-yyyy">
+                    <input type="text" name="tgltagihan" id="myFlat" class="form-control <?= form_error('tgltagihan') ? 'is-invalid' : ''; ?>" value="<?= date('d-m-Y', $tagihan['tgltagihan']); ?>" placeholder="dd-mm-yyyy">
                     <div class="invalid-feedback">
                         <?= form_error('tgltagihan'); ?>
                     </div>
