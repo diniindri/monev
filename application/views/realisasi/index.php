@@ -26,7 +26,8 @@
             <form action="" method="post" autocomplete="off">
                 <!-- <?= form_open(); ?> -->
                 <div class="input-group">
-                    <input type="text" name="ro" class="form-control" placeholder="Rincian Output">
+                    <input type="text" name="kro" class="form-control" placeholder="KRO">
+                    <input type="text" name="ro" class="form-control" placeholder="RO">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
@@ -78,7 +79,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $ro == null ? $pagination : ''; ?>
+            <?= $kro == null ? $pagination : ''; ?>
         </div>
     </div>
 

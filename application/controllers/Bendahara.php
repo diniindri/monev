@@ -9,7 +9,7 @@ class Bendahara extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('View_tagihan_model', 'viewtagihan');
-        $this->load->model('Data_upload_model', 'data_upload');
+        $this->load->model('Data_upload_model', 'upload');
         $this->load->model('Data_tagihan_model', 'tagihan');
         $this->load->model('Data_dnp_model', 'dnp');
     }
@@ -53,9 +53,27 @@ class Bendahara extends CI_Controller
         $data = [
             'status' => 3
         ];
-        // update data di database melalui model
-        $this->tagihan->updateTagihan($data, $id);
-        $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+        $nosp2d = $this->viewtagihan->getDetailTagihan($id)['nosp2d'];
+        $kddokumen = $this->viewtagihan->getDetailTagihan($id)['kddokumen'];
+        $berkas05 = $this->upload->cekBerkas($id, '05');
+        if ($nosp2d != null) {
+            if ($kddokumen != '04' and $kddokumen != '05') {
+                // jika tagihan memiliki dnp
+                // cek berkas 05
+                if ($berkas05 > 0) {
+                    $this->tagihan->updateTagihan($data, $id);
+                    $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
+                } else {
+                    $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                }
+            } else {
+                // jika tagihan tidak memiliki dnp
+                $this->tagihan->updateTagihan($data, $id);
+                $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
+            }
+        } else {
+            $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena belum dilakukan input data sp2d.');
+        }
         redirect('bendahara');
     }
 
@@ -141,16 +159,16 @@ class Bendahara extends CI_Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $sheet->setCellValue('A1', 'no');
-        $sheet->setCellValue('B1', 'nama');
-        $sheet->setCellValue('C1', 'nominal');
-        $sheet->setCellValue('D1', 'rekening');
-        $sheet->setCellValue('E1', 'nmbank');
+        $sheet->setCellValue('A4', 'no');
+        $sheet->setCellValue('B4', 'nama');
+        $sheet->setCellValue('C4', 'nominal');
+        $sheet->setCellValue('D4', 'rekening');
+        $sheet->setCellValue('E4', 'nmbank');
 
         $pegawai = $this->dnp->getDnp($tagihan_id);
 
         $no = 1;
-        $i = 2;
+        $i = 5;
         foreach ($pegawai as $r) {
             $sheet->setCellValue('A' . $i, $no++);
             $sheet->setCellValue('B' . $i, ' ' . $r['nmrek']);
@@ -169,7 +187,7 @@ class Bendahara extends CI_Controller
         ];
 
         $i = $i - 1;
-        $sheet->getStyle('A1:E' . $i)->applyFromArray($styleArray);
+        $sheet->getStyle('A4:E' . $i)->applyFromArray($styleArray);
 
         // simpan datanya
         $date = date('d-m-y-' . substr((string)microtime(), 1, 8));

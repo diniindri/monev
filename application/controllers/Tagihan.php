@@ -12,6 +12,9 @@ class Tagihan extends CI_Controller
         $this->load->model('Ref_unit_model', 'unit');
         $this->load->model('Ref_dokumen_model', 'dokumen');
         $this->load->model('View_tagihan_model', 'viewtagihan');
+        $this->load->model('Data_upload_model', 'upload');
+        $this->load->model('Data_dnp_model', 'dnp');
+        $this->load->model('Data_realisasi_model', 'realisasi');
     }
 
     public function index()
@@ -61,6 +64,11 @@ class Tagihan extends CI_Controller
             'field' => 'tgltagihan',
             'label' => 'Tanggal Tagihan',
             'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'uraian',
+            'label' => 'Uraian Tagihan',
+            'rules' => 'required|trim'
         ]
     ];
 
@@ -76,6 +84,7 @@ class Tagihan extends CI_Controller
             $data = [
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
+                'uraian' => htmlspecialchars($this->input->post('uraian', true)),
                 'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true)),
@@ -113,6 +122,7 @@ class Tagihan extends CI_Controller
             $data = [
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
+                'uraian' => htmlspecialchars($this->input->post('uraian', true)),
                 'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true))
@@ -137,6 +147,9 @@ class Tagihan extends CI_Controller
 
         // hapus data di database melalui model
         if ($this->tagihan->deleteTagihan($id)) {
+            $this->dnp->deletePerTagihan($id);
+            $this->realisasi->deletePerTagihan($id);
+            $this->upload->deletePerTagihan($id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
         redirect('tagihan');
@@ -149,9 +162,53 @@ class Tagihan extends CI_Controller
         $data = [
             'status' => 1
         ];
-        // update data di database melalui model
-        $this->tagihan->updateTagihan($data, $id);
-        $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+
+        $kddokumen = $this->viewtagihan->getDetailTagihan($id)['kddokumen'];
+        $bruto = $this->viewtagihan->getDetailTagihan($id)['bruto'];
+        $dnp = $this->dnp->sumDnp($id)['bruto'];
+        $berkas01 = $this->upload->cekBerkas($id, '01');
+        $berkas02 = $this->upload->cekBerkas($id, '02');
+        if ($bruto > 0) {
+            if ($kddokumen != '04' and $kddokumen != '05') {
+                // harus cek dnp 
+                if ($bruto == $dnp) {
+                    // jika tagihan sama dengan dnp
+                    // cek berkas 01
+                    if ($berkas01 > 0) {
+                        //cek berkas 02
+                        if ($berkas02 > 0) {
+                            $this->tagihan->updateTagihan($data, $id);
+                            $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
+                        } else {
+                            $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                        }
+                    } else {
+                        $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                    }
+                } else {
+                    // jika tagihan tidak sama dengan dnp
+                    $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena total dnp tidak sama dengan total tagihan.');
+                }
+            } else {
+                // tidak cek dnp
+                // cek berkas 01
+                if ($berkas01 > 0) {
+                    //cek berkas 02
+                    if ($berkas02 > 0) {
+                        $this->tagihan->updateTagihan($data, $id);
+                        $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
+                    } else {
+                        $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                    }
+                } else {
+                    $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                }
+            }
+        } else {
+            $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena belum dilakukan input realisasi.');
+        }
+
+
         redirect('tagihan');
     }
 }

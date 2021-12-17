@@ -78,15 +78,16 @@ class Upload extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function delete($id = null, $tagihan_id = null, $file = null)
+    public function delete($id = null, $tagihan_id = null, $file = null, $asal = null)
     {
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
+        $data['asal'] = $asal;
         // hapus data di database melalui model
         if ($this->data_upload->deleteUpload($id)) {
             unlink('assets/files/' . $file);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('upload/index/' . $tagihan_id . '');
+        redirect('upload/index/' . $tagihan_id . '/' . $asal . '');
     }
 }

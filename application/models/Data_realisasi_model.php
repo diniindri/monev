@@ -27,8 +27,9 @@ class Data_realisasi_model extends CI_Model
         return $this->db->get_where('data_realisasi', ['id' => $id])->row_array();
     }
 
-    public function findRealisasi($tagihan_id = null, $ro = null, $limit = null, $offset = 0)
+    public function findRealisasi($tagihan_id = null, $kro = null, $ro = null, $limit = null, $offset = 0)
     {
+        $this->db->like('kro', $kro);
         $this->db->like('ro', $ro);
         $this->db->where('tagihan_id', $tagihan_id);
         $this->db->limit($limit, $offset);
@@ -56,6 +57,12 @@ class Data_realisasi_model extends CI_Model
     public function deleteRealisasi($id = null)
     {
         $this->db->delete('data_realisasi', ['id' => $id]);
+        return $this->db->affected_rows();
+    }
+
+    public function deletePerTagihan($tagihan_id = null)
+    {
+        $this->db->delete('data_realisasi', ['tagihan_id' => $tagihan_id]);
         return $this->db->affected_rows();
     }
 

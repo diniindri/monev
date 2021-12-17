@@ -46,5 +46,6 @@ function tanggal($tgl)
         '12' => 'Desember',
     ];
     $nama_bulan = $daftar_bulan[$bulan];
-    return date('d', $tgl) . ' ' . $nama_bulan . ' ' . date('Y', $tgl);
+
+    return $tgl == null ? '' : date('d', $tgl) . ' ' . $nama_bulan . ' ' . date('Y', $tgl);
 }

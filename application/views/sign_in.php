@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Alika</title>
-    <link rel="shortcut icon" href="<?= base_url(); ?>assets/img/alika.png" type=" image/x-icon">
+    <title>Monev</title>
+    <link rel="shortcut icon" href="<?= base_url(); ?>assets/img/monev.png" type=" image/x-icon">
     <link href="<?= base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/css/signin.css" rel="stylesheet">
 </head>
@@ -17,7 +17,7 @@
     <main class="form-signin">
         <form action="" method="post" autocomplete="off">
             <!-- <?= form_open(); ?> -->
-            <img class="mb-4" src="<?= base_url(); ?>assets/img/alika.png" alt="" width="72" height="72">
+            <img class="mb-4" src="<?= base_url(); ?>assets/img/monev.png" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <div class="row">
                 <div class="col">

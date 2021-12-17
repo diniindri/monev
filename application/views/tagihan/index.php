@@ -4,7 +4,17 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if ($this->session->flashdata('pesan')) : ?>
+            <?php if ($this->session->flashdata('berhasil')) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Selamat!</strong> <?= $this->session->flashdata('berhasil'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('gagal')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Perhatian!</strong> <?= $this->session->flashdata('gagal'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('pesan')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Selamat!</strong> <?= $this->session->flashdata('pesan'); ?>
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
@@ -35,6 +45,7 @@
                             <th>No</th>
                             <th>Nomor</th>
                             <th>Tanggal</th>
+                            <th>Uraian</th>
                             <th>Jenis Tagihan</th>
                             <th>Unit</th>
                             <th>Jenis Dokumen</th>
@@ -49,6 +60,7 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['notagihan']; ?></td>
                                 <td><?= tanggal($r['tgltagihan']); ?></td>
+                                <td><?= $r['uraian']; ?></td>
                                 <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
@@ -58,7 +70,9 @@
                                         <a href="<?= base_url('tagihan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('tagihan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('realisasi/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                        <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
+                                        <?php if ($r['kddokumen'] != '04' and $r['kddokumen'] != '05') : ?>
+                                            <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
+                                        <?php endif; ?>
                                         <a href="<?= base_url('upload/index/') . $r['id'] . '/tagihan'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
                                         <a href="<?= base_url('tagihan/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
                                     </div>

@@ -4,7 +4,17 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if ($this->session->flashdata('pesan')) : ?>
+            <?php if ($this->session->flashdata('berhasil')) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Selamat!</strong> <?= $this->session->flashdata('berhasil'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('gagal')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Perhatian!</strong> <?= $this->session->flashdata('gagal'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('pesan')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Selamat!</strong> <?= $this->session->flashdata('pesan'); ?>
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
@@ -54,7 +64,7 @@
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmppk']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
-                                <td><?= $r['bruto']; ?></td>
+                                <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('verifikasi/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPM</a>

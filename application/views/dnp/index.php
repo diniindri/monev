@@ -4,9 +4,19 @@
     </div>
     <div class="row">
         <div class="col">
-            <?php if ($this->session->flashdata('pesan')) : ?>
+            <?php if ($this->session->flashdata('kurang')) : ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Perhatian!</strong> <?= $this->session->flashdata('kurang'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('lebih')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Perhatian!</strong> <?= $this->session->flashdata('lebih'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('sama')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Selamat!</strong> <?= $this->session->flashdata('pesan'); ?>
+                    <strong>Selamat!</strong> <?= $this->session->flashdata('sama'); ?>
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php endif; ?>
@@ -16,7 +26,7 @@
         <div class="col-lg-7">
             <a href="<?= base_url('tagihan'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Kembali ke Halaman Sebelumnya</a>
             <a href="<?= base_url('dnp/tarik-pegawai-gaji/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Tarik Data Gaji</a>
-            <a href="<?= base_url('dnp/dnp/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Cetak</a>
+            <a href="<?= base_url('dnp/cetak/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2" target="_blank">Cetak</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">

@@ -24,6 +24,7 @@ class Realisasi extends CI_Controller
         $data['tagihan_id'] = $tagihan_id;
 
         // menangkap data pencarian ro
+        $kro = $this->input->post('Kro');
         $ro = $this->input->post('ro');
 
         // settingan halaman
@@ -34,15 +35,15 @@ class Realisasi extends CI_Controller
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
-        $data['ro'] = $ro;
+        $data['kro'] = $kro;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
         // pilih tampilan data, semua atau berdasarkan pencarian ro 
-        if ($ro) {
+        if ($kro) {
             $data['page'] = 0;
             $offset = 0;
-            $data['realisasi'] = $this->realisasi->findRealisasi($tagihan_id, $ro, $limit, $offset);
+            $data['realisasi'] = $this->realisasi->findRealisasi($tagihan_id, $kro, $ro, $limit, $offset);
         } else {
             $data['realisasi'] = $this->realisasi->getRealisasi($tagihan_id, $limit, $offset);
         }
@@ -111,6 +112,8 @@ class Realisasi extends CI_Controller
 
         // hapus data di database melalui model
         if ($this->realisasi->deleteRealisasi($id)) {
+            $bruto = $this->realisasi->getBruto($tagihan_id)['bruto'];
+            $this->tagihan->updateTagihan(['bruto' => $bruto], $tagihan_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
         redirect('realisasi/index/' . $tagihan_id . '');

@@ -59,6 +59,19 @@ class Data_dnp_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+    public function deletePerTagihan($tagihan_id = null)
+    {
+        $this->db->delete('data_dnp', ['tagihan_id' => $tagihan_id]);
+        return $this->db->affected_rows();
+    }
+
+    public function sumDnp($tagihan_id = null)
+    {
+        $query = "select tagihan_id, sum(bruto) as bruto from data_dnp where tagihan_id='$tagihan_id' group by tagihan_id";
+        return $this->db->query($query)->row_array();
+    }
+
+
     // data pegawai gaji
 
     public function getPegawaiGaji($id = null, $limit = 0, $offset = 0)

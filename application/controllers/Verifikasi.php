@@ -9,7 +9,7 @@ class Verifikasi extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('View_tagihan_model', 'viewtagihan');
-        $this->load->model('Data_upload_model', 'data_upload');
+        $this->load->model('Data_upload_model', 'upload');
         $this->load->model('Data_tagihan_model', 'tagihan');
     }
 
@@ -65,9 +65,27 @@ class Verifikasi extends CI_Controller
         $data = [
             'status' => 2
         ];
-        // update data di database melalui model
-        $this->tagihan->updateTagihan($data, $id);
-        $this->session->set_flashdata('pesan', 'Data berhasil dikirim.');
+        $tglspm = $this->viewtagihan->getDetailTagihan($id)['tglspm'];
+        $berkas03 = $this->upload->cekBerkas($id, '03');
+        $berkas04 = $this->upload->cekBerkas($id, '04');
+        if ($tglspm != null) {
+            // jika tgl spm sudah terisi
+            // cek berkas 03
+            if ($berkas03 > 0) {
+                //cek berkas 04
+                if ($berkas04 > 0) {
+                    $this->tagihan->updateTagihan($data, $id);
+                    $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
+                } else {
+                    $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                }
+            } else {
+                $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+            }
+        } else {
+            // jika tgl spm belum terisi
+            $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena  tanggal spm belum terisi.');
+        }
         redirect('verifikasi');
     }
 

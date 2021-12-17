@@ -23,6 +23,13 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
+                    <label for="">Uraian Tagihan:</label>
+                    <input type="text" name="uraian" class="form-control <?= form_error('uraian') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['uraian']; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('uraian'); ?>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
                     <label for="">Jenis Tagihan:</label>
                     <select class="form-select form-select-sm mb-3" name="jnstagihan">
                         <option value="0" <?= $tagihan['jnstagihan'] == 0 ? 'selected' : ''; ?>>SPBy</option>

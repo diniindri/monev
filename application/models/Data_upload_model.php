@@ -64,4 +64,17 @@ class Data_upload_model extends CI_Model
         $this->db->delete('data_upload', ['id' => $id]);
         return $this->db->affected_rows();
     }
+
+    public function deletePerTagihan($tagihan_id = null)
+    {
+        $this->db->delete('data_upload', ['tagihan_id' => $tagihan_id]);
+        return $this->db->affected_rows();
+    }
+
+    public function cekBerkas($tagihan_id = null, $kdberkas = null)
+    {
+        $this->db->where('kdberkas', $kdberkas);
+        $this->db->where('tagihan_id', $tagihan_id);
+        return $this->db->get('data_upload')->num_rows();
+    }
 }

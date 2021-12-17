@@ -11,6 +11,7 @@ class Dnp extends CI_Controller
         // is_level();
         $this->load->model('Data_dnp_model', 'dnp');
         $this->load->model('Ref_pph_model', 'pph');
+        $this->load->model('View_tagihan_model', 'viewtagihan');
     }
 
     public function index($tagihan_id = null)
@@ -158,8 +159,15 @@ class Dnp extends CI_Controller
         if ($validation->run()) {
             $bruto = htmlspecialchars($this->input->post('bruto', true));
             $kdgol = substr($this->dnp->getDetailDnp($id)['kdgol'], 0, 1);
-            $tarifpph = $this->pph->getTarifPph($kdgol);
-            $pph = $bruto * $tarifpph;
+
+            $kddokumen = $this->viewtagihan->getDetailTagihan($tagihan_id)['kddokumen'];
+            if ($kddokumen == '02' or $kddokumen == '03') {
+                $tarifpph = $this->pph->getTarifPph($kdgol);
+                $pph = $bruto * $tarifpph;
+            } else {
+                $pph = 0;
+            }
+
             $data = [
                 'tagihan_id' => $tagihan_id,
                 'bruto' => $bruto,
@@ -168,7 +176,15 @@ class Dnp extends CI_Controller
             ];
             // update data di database melalui model
             $this->dnp->updateDnp($data, $id);
-            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
+            $bruto = $this->viewtagihan->getDetailTagihan($tagihan_id)['bruto'];
+            $dnp = $this->dnp->sumDnp($tagihan_id)['bruto'];
+            if ($bruto > $dnp) {
+                $this->session->set_flashdata('kurang', 'total dnp kurang dari jumlah bruto tagihan.');
+            } elseif ($bruto < $dnp) {
+                $this->session->set_flashdata('lebih', 'total dnp lebih dari jumlah bruto tagihan.');
+            } else {
+                $this->session->set_flashdata('sama', 'total dnp sama dengan jumlah bruto tagihan.');
+            }
             redirect('dnp/index/' . $tagihan_id . '');
         }
 
@@ -187,29 +203,35 @@ class Dnp extends CI_Controller
 
         // hapus data di database melalui model
         if ($this->dnp->deleteDnp($id)) {
-            $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
+            $bruto = $this->viewtagihan->getDetailTagihan($tagihan_id)['bruto'];
+            $dnp = $this->dnp->sumDnp($tagihan_id)['bruto'];
+            if ($bruto > $dnp) {
+                $this->session->set_flashdata('kurang', 'total dnp kurang dari jumlah bruto tagihan.');
+            } elseif ($bruto < $dnp) {
+                $this->session->set_flashdata('lebih', 'total dnp lebih dari jumlah bruto tagihan.');
+            } else {
+                $this->session->set_flashdata('sama', 'total dnp sama dengan jumlah bruto tagihan.');
+            }
         }
         redirect('dnp/index/' . $tagihan_id . '');
     }
 
-    public function dnp($tagihan_id = null)
+    public function cetak($tagihan_id = null)
     {
         // cek apakah ada sk id apa tidak
         if (!isset($tagihan_id)) show_404();
 
-        $data['ppk'] = $this->ppk->getKodePpk();
-        $data['bendahara'] = $this->pejabat->getKodePejabat(2);
-        $data['data_dnp'] = $this->data_dnp->getBiayaPegawai($tagihan_id);
-        $data['tagihan'] = $this->tagihan->getDetailTagihan($tagihan_id);
+        $data['dnp'] = $this->dnp->getDnp($tagihan_id);
+        $data['tagihan'] = $this->viewtagihan->getDetailTagihan($tagihan_id);
 
         ob_start();
-        $this->load->view('dnp/dnp', $data);
+        $this->load->view('dnp/cetak', $data);
         $html = ob_get_clean();
 
         $html2pdf = new Html2Pdf('P', 'A4', 'en', false, 'UTF-8', array(20, 10, 20, 10));
         $html2pdf->addFont('Arial');
         $html2pdf->pdf->SetTitle('DNP');
         $html2pdf->writeHTML($html);
-        $html2pdf->output('dnp-' . $tagihan_id . '.pdf', 'D');
+        $html2pdf->output('dnp-' . $tagihan_id . '.pdf');
     }
 }

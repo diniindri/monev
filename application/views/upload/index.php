@@ -47,14 +47,14 @@
                                 <td><?= $r['nmberkas']; ?></td>
                                 <td><?= $r['keterangan']; ?></td>
                                 <td><?= tanggal($r['date_created']); ?></td>
-                                <td>
+                                <td class="text-center">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('assets/files/') . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" download>Download File</a>
+                                        <a href="<?= base_url('assets/files/') . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" target="_blank">Preview File</a>
                                     </div>
                                 </td>
-                                <td class="pb-0">
+                                <td class="text-center pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('upload/delete/') . $r['id'] . '/' . $tagihan_id . '/' . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                                        <a href="<?= base_url('upload/delete/') . $r['id'] . '/' . $tagihan_id . '/' . $r['file'] . '/' . $asal; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>
                             </tr>

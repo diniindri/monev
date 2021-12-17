@@ -20,7 +20,7 @@
             <!-- <form action="" method="post" autocomplete="off"> -->
             <?= form_open(); ?>
             <div class="input-group">
-                <input type="text" name="kro" class="form-control" placeholder="KRO">
+                <input type="text" name="kro" class="form-control" placeholder="Kegiatan+KRO+RO">
                 <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
             </div>
             </form>
