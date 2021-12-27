@@ -12,6 +12,7 @@ class Dnp extends CI_Controller
         $this->load->model('Data_dnp_model', 'dnp');
         $this->load->model('Ref_pph_model', 'pph');
         $this->load->model('View_tagihan_model', 'viewtagihan');
+        $this->load->model('Ref_nondjkn_model', 'nondjkn');
     }
 
     public function index($tagihan_id = null)
@@ -118,6 +119,74 @@ class Dnp extends CI_Controller
             // simpan data di database melalui model
             $this->dnp->createDnp($data);
         }
+        // update timeline
+        $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+        redirect('dnp/index/' . $tagihan_id . '');
+    }
+
+    public function tarik_pegawai_nondjkn($tagihan_id = null)
+    {
+        // cek apakah ada rute id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        // mengirim data id sk ke view
+        $data['tagihan_id'] = $tagihan_id;
+
+        // menangkap data pencarian pegawai non djkn
+        $nama = $this->input->post('nama');
+
+        // settingan halaman
+        $config['base_url'] = base_url('dnp/tarik-pegawai-nondjkn/' . $tagihan_id . '');
+        $config['total_rows'] = $this->nondjkn->countNondjkn();
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['nama'] = $nama;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // pilih tampilan data, semua atau berdasarkan pencarian pegawai non djkn
+        if ($nama) {
+            $data['page'] = 0;
+            $offset = 0;
+            $data['nondjkn'] = $this->nondjkn->findNondjkn($nama, $limit, $offset);
+        } else {
+            $data['nondjkn'] = $this->nondjkn->getNondjkn($limit, $offset);
+        }
+
+        // meload view pada pegawai/tarik_pegawai_gaji.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('dnp/tarik_pegawai_nondjkn', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function pilih_pegawai_nondjkn($nip = null, $tagihan_id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($nip)) show_404();
+        if (!isset($tagihan_id)) show_404();
+
+        //load data berdasarkan nip dari data pegawai nondjkn
+        $pegawai = $this->nondjkn->getNipNondjkn($nip);
+
+        $data = [
+            'tagihan_id' => $tagihan_id,
+            'nip' => $pegawai['nip'],
+            'nama' => $pegawai['nama'],
+            'kdgol' => $pegawai['kdgol'],
+            'bruto' => 0,
+            'pph' => 0,
+            'netto' => 0,
+            'rekening' => $pegawai['rekening'],
+            'nmbank' => $pegawai['nmbank'],
+            'nmrek' => $pegawai['nmrek']
+        ];
+        // simpan data di database melalui model
+        $this->dnp->createDnp($data);
+
         // update timeline
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
         redirect('dnp/index/' . $tagihan_id . '');

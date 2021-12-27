@@ -10,7 +10,7 @@
             <div class="col-lg-6">
                 <div class="form-group mb-2">
                     <label for="">Tanggal SP2D:</label>
-                    <input type="text" name="tglsp2d" class="form-control <?= form_error('tglsp2d') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglsp2d'] == null ? '' : date('d-m-Y', $tagihan['tglsp2d']); ?>" placeholder="dd-mm-yyyy">
+                    <input type="text" name="tglsp2d" id="myFlat" class="form-control <?= form_error('tglsp2d') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglsp2d'] == null ? '' : date('d-m-Y', $tagihan['tglsp2d']); ?>" placeholder="dd-mm-yyyy">
                     <div class="invalid-feedback">
                         <?= form_error('tglsp2d'); ?>
                     </div>

@@ -12,6 +12,7 @@ class Arsip extends CI_Controller
         $this->load->model('Data_upload_model', 'data_upload');
         $this->load->model('Data_tagihan_model', 'tagihan');
         $this->load->model('Data_dnp_model', 'dnp');
+        $this->load->model('Data_realisasi_model', 'realisasi');
     }
 
     public function index()
@@ -43,6 +44,104 @@ class Arsip extends CI_Controller
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('arsip/index', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function dnp($tagihan_id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        // mengirim data id tagihan ke view
+        $data['tagihan_id'] = $tagihan_id;
+
+        // menangkap data pencarian nama
+        $nama = $this->input->post('nama');
+
+        // settingan halaman
+        $config['base_url'] = base_url('arsip/dnp/' . $tagihan_id . '');
+        $config['total_rows'] = $this->dnp->countDnp($tagihan_id);
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['nama'] = $nama;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // pilih tampilan data, semua atau berdasarkan pencarian ro 
+        if ($nama) {
+            $data['page'] = 0;
+            $offset = 0;
+            $data['dnp'] = $this->dnp->findDnp($tagihan_id, $nama, $limit, $offset);
+        } else {
+            $data['dnp'] = $this->dnp->getDnp($tagihan_id, $limit, $offset);
+        }
+
+        // meload view pada realisasi/index.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('arsip/dnp', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function coa($tagihan_id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        // mengirim data id tagihan ke view
+        $data['tagihan_id'] = $tagihan_id;
+
+        // menangkap data pencarian ro
+        $kro = $this->input->post('Kro');
+        $ro = $this->input->post('ro');
+
+        // settingan halaman
+        $config['base_url'] = base_url('arsip/coa/' . $tagihan_id . '');
+        $config['total_rows'] = $this->realisasi->countRealisasi($tagihan_id);
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['kro'] = $kro;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // pilih tampilan data, semua atau berdasarkan pencarian ro 
+        if ($kro) {
+            $data['page'] = 0;
+            $offset = 0;
+            $data['realisasi'] = $this->realisasi->findRealisasi($tagihan_id, $kro, $ro, $limit, $offset);
+        } else {
+            $data['realisasi'] = $this->realisasi->getRealisasi($tagihan_id, $limit, $offset);
+        }
+
+        // meload view pada realisasi/index.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('arsip/coa', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function dokumen($tagihan_id = null, $asal = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        // mengirim data id tagihan ke view
+        $data['tagihan_id'] = $tagihan_id;
+        $data['asal'] = $asal;
+
+        $data['upload'] = $this->data_upload->getUpload($tagihan_id);
+
+
+        // meload view pada realisasi/index.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('arsip/dokumen', $data);
         $this->load->view('template/footer');
     }
 

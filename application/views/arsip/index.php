@@ -64,9 +64,9 @@
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('arsip/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
-                                        <a href="<?= base_url('arsip/dnp/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">DNP</a>
-                                        <a href="<?= base_url('arsip/realisasi/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Realisasi</a>
-                                        <a href="<?= base_url('arsip/dokumen/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Dokumen</a>
+                                        <a href="<?= base_url('arsip/dnp/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
+                                        <a href="<?= base_url('arsip/coa/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">COA</a>
+                                        <a href="<?= base_url('arsip/dokumen/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Dokumen</a>
                                     </div>
                                 </td>
                             </tr>

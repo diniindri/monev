@@ -2,31 +2,9 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">DNP</h1>
     </div>
-    <div class="row">
-        <div class="col">
-            <?php if ($this->session->flashdata('kurang')) : ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Perhatian!</strong> <?= $this->session->flashdata('kurang'); ?>
-                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php elseif ($this->session->flashdata('lebih')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Perhatian!</strong> <?= $this->session->flashdata('lebih'); ?>
-                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php elseif ($this->session->flashdata('sama')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Selamat!</strong> <?= $this->session->flashdata('sama'); ?>
-                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('tagihan'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Halaman Sebelumnya</a>
-            <a href="<?= base_url('dnp/tarik-pegawai-gaji/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Gaji</a>
-            <a href="<?= base_url('dnp/tarik-pegawai-nondjkn/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Pegawai Non DJKN</a>
+            <a href="<?= base_url('arsip'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Kembali ke Halaman Sebelumnya</a>
             <a href="<?= base_url('dnp/cetak/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2" target="_blank">Cetak</a>
         </div>
         <div class="col-lg-5">
@@ -54,7 +32,6 @@
                             <th>Netto</th>
                             <th>Rekening</th>
                             <th>Nama Bank</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,12 +47,6 @@
                                 <td class="text-right"><?= number_format($r['netto'], 0, ',', '.'); ?></td>
                                 <td><?= $r['rekening']; ?></td>
                                 <td><?= $r['nmbank']; ?></td>
-                                <td class="pb-0">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('dnp/update/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Nominal</a>
-                                        <a href="<?= base_url('dnp/delete/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
-                                    </div>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

@@ -54,11 +54,11 @@ class Tagihan extends CI_Controller
     }
 
     // validasi inputan pada form
-    private $rules = [
+    private $rules1 = [
         [
             'field' => 'notagihan',
             'label' => 'Nomor Tagihan',
-            'rules' => 'required|trim|exact_length[5]'
+            'rules' => 'required|trim|numeric|exact_length[5]|is_unique[view_spp.notagihan]'
         ],
         [
             'field' => 'tgltagihan',
@@ -72,9 +72,31 @@ class Tagihan extends CI_Controller
         ]
     ];
 
+    private $rules2 = [
+        [
+            'field' => 'notagihan',
+            'label' => 'Nomor Tagihan',
+            'rules' => 'required|trim|numeric|exact_length[5]|is_unique[view_spby.notagihan]'
+        ],
+        [
+            'field' => 'tgltagihan',
+            'label' => 'Tanggal Tagihan',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'uraian',
+            'label' => 'Uraian Tagihan',
+            'rules' => 'required|trim'
+        ]
+    ];
     public function create()
     {
-        $validation = $this->form_validation->set_rules($this->rules);
+        $jnstagihan = htmlspecialchars($this->input->post('jnstagihan', true));
+        if ($jnstagihan == 1) {
+            $validation = $this->form_validation->set_rules($this->rules1);
+        } else {
+            $validation = $this->form_validation->set_rules($this->rules2);
+        }
         $data['unit'] = $this->unit->getUnit();
         $data['dokumen'] = $this->dokumen->getDokumen();
 
@@ -85,7 +107,7 @@ class Tagihan extends CI_Controller
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'uraian' => htmlspecialchars($this->input->post('uraian', true)),
-                'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
+                'jnstagihan' => $jnstagihan,
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true)),
                 'kdsatker' => $this->session->userdata('kdsatker'),
@@ -111,11 +133,17 @@ class Tagihan extends CI_Controller
         if (!isset($id)) show_404();
 
         // load data packing yang akan diubah
+
+
+        $jnstagihan = htmlspecialchars($this->input->post('jnstagihan', true));
+        if ($jnstagihan == 1) {
+            $validation = $this->form_validation->set_rules($this->rules1);
+        } else {
+            $validation = $this->form_validation->set_rules($this->rules2);
+        }
         $data['tagihan'] = $this->tagihan->getDetailTagihan($id);
         $data['unit'] = $this->unit->getUnit();
         $data['dokumen'] = $this->dokumen->getDokumen();
-
-        $validation = $this->form_validation->set_rules($this->rules);
 
         // jika validasi sukses
         if ($validation->run()) {
@@ -123,7 +151,7 @@ class Tagihan extends CI_Controller
                 'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'uraian' => htmlspecialchars($this->input->post('uraian', true)),
-                'jnstagihan' => htmlspecialchars($this->input->post('jnstagihan', true)),
+                'jnstagihan' => $jnstagihan,
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true))
             ];

@@ -86,13 +86,31 @@
                             </td>
                         </tr>
                         <tr>
+                        <tr>
                             <td>9</td>
-                            <td>Users</td>
+                            <td>Pejabat</td>
                             <td class="pb-0 pr-0">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="<?= base_url('users/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                    <a href="<?= base_url('pejabat/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Pegawai Non DJKN</td>
+                            <td class="pb-0 pr-0">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="<?= base_url('nondjkn/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <td>11</td>
+                        <td>Users</td>
+                        <td class="pb-0 pr-0">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="<?= base_url('users/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                            </div>
+                        </td>
                         </tr>
                     </tbody>
                 </table>

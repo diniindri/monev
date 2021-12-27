@@ -10,7 +10,7 @@
             <div class="col-lg-6">
                 <div class="form-group mb-2">
                     <label for="">Tanggal SPM:</label>
-                    <input type="text" name="tglspm" class="form-control <?= form_error('tglspm') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglspm'] == null ? '' : date('d-m-Y', $tagihan['tglspm']); ?>" placeholder="dd-mm-yyyy">
+                    <input type="text" name="tglspm" id="myFlat" class="form-control <?= form_error('tglspm') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglspm'] == null ? '' : date('d-m-Y', $tagihan['tglspm']); ?>" placeholder="dd-mm-yyyy">
                     <div class="invalid-feedback">
                         <?= form_error('tglspm'); ?>
                     </div>
