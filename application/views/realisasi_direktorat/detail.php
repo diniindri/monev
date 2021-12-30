@@ -32,6 +32,7 @@
                             <th>Subkomponen</th>
                             <th>Akun</th>
                             <th>Realisasi</th>
+                            <th>PPK</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +48,7 @@
                                 <td><?= $r['subkomponen']; ?></td>
                                 <td><?= $r['akun']; ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
+                                <td><?= $r['nmppk']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

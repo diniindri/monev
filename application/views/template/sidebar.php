@@ -32,7 +32,6 @@
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'Bendahara', 'level' => 3, 'url' => 'bendahara'],
             ['menu' => 'Arsip', 'level' => 3, 'url' => 'arsip'],
-            ['menu' => 'Monitoring Per PPK', 'level' => 3, 'url' => 'monitoring-ppk'],
             ['menu' => 'Referensi', 'level' => 3, 'url' => 'referensi'],
 
         ];

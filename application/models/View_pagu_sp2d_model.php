@@ -39,4 +39,10 @@ class View_pagu_sp2d_model extends CI_Model
         $query = "SELECT a.kdunit,b.nmunit,sum(a.anggaran) AS pagu, sum(a.realisasi) AS realisasi, sum(a.sisa) AS sisa FROM view_pagu_sp2d a LEFT JOIN ref_unit b ON a.kdunit=b.kdunit WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' GROUP BY a.kdunit,b.nmunit";
         return $this->db->query($query)->result_array();
     }
+
+    public function realisasiPpk($kdsatker = null, $tahun = null)
+    {
+        $query = "SELECT a.kdppk,b.nmppk,sum(a.anggaran) AS pagu, sum(a.realisasi) AS realisasi, sum(a.sisa) AS sisa FROM view_pagu_sp2d a LEFT JOIN ref_ppk b ON a.kdppk=b.kdppk WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' GROUP BY a.kdppk,b.nmppk";
+        return $this->db->query($query)->result_array();
+    }
 }

@@ -4,14 +4,10 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
+            <a href="<?= base_url('realisasi-ppk/index/1'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2 <?= $jenis == 1 ? 'active' : ''; ?>">Per Tagihan</a>
+            <a href="<?= base_url('realisasi-ppk/index/2'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2 <?= $jenis == 2 ? 'active' : ''; ?>">Per SP2D</a>
         </div>
         <div class="col-lg-5">
-            <form action="" method="post" autocomplete="off">
-                <div class="input-group">
-                    <input type="text" name="ppk" class="form-control" placeholder="Nama PPK">
-                    <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
-                </div>
-            </form>
         </div>
     </div>
     <div class="row mb-3">
@@ -21,7 +17,7 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>Nomor</th>
-                            <th>Nama PPK</th>
+                            <th>PPK</th>
                             <th>Pagu</th>
                             <th>Realisasi</th>
                             <th>Sisa Pagu</th>
@@ -36,14 +32,14 @@
 
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['nama']; ?></td>
-                                <td class="text-right"><?= $r['pagu']; ?></td>
-                                <td class="text-right"><?= $r['realisasi']; ?></td>
-                                <td class="text-right"><?= $r['sisa']; ?></td>
-                                <td class="text-center"><?= $r['persentase']; ?></td>
+                                <td><?= $r['nmppk']; ?></td>
+                                <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['sisa'], 0, ',', '.'); ?></td>
+                                <td class="text-center"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('realisasi-ppk/detail/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                        <a href="<?= base_url('realisasi-ppk/detail/') . $jenis . '/' . $r['kdppk']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                     </div>
                                 </td>
                             </tr>
@@ -53,11 +49,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <?= $nama == null ? $pagination : ''; ?>
         </div>
     </div>
 </main>
