@@ -70,7 +70,7 @@
                                         <a href="<?= base_url('tagihan/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('tagihan/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('realisasi/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                        <?php if ($r['kddokumen'] != '04' and $r['kddokumen'] != '05') : ?>
+                                        <?php if ($r['statusdok'] != 0) : ?>
                                             <a href="<?= base_url('dnp/index/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">DNP</a>
                                         <?php endif; ?>
                                         <a href="<?= base_url('upload/index/') . $r['id'] . '/tagihan'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>

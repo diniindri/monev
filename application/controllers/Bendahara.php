@@ -86,6 +86,11 @@ class Bendahara extends CI_Controller
 
         $rules = [
             [
+                'field' => 'tglspm',
+                'label' => 'Tanggal SPM',
+                'rules' => 'required|trim'
+            ],
+            [
                 'field' => 'tglsp2d',
                 'label' => 'Tanggal SP2D',
                 'rules' => 'required|trim'
@@ -101,6 +106,7 @@ class Bendahara extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
+                'tglspm' => strtotime(htmlspecialchars($this->input->post('tglspm', true))),
                 'tglsp2d' => strtotime(htmlspecialchars($this->input->post('tglsp2d', true))),
                 'nosp2d' => htmlspecialchars($this->input->post('nosp2d', true))
             ];

@@ -89,6 +89,19 @@ class Tagihan extends CI_Controller
             'rules' => 'required|trim'
         ]
     ];
+
+    private $rules3 = [
+        [
+            'field' => 'tgltagihan',
+            'label' => 'Tanggal Tagihan',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'uraian',
+            'label' => 'Uraian Tagihan',
+            'rules' => 'required|trim'
+        ]
+    ];
     public function create()
     {
         $jnstagihan = htmlspecialchars($this->input->post('jnstagihan', true));
@@ -136,11 +149,8 @@ class Tagihan extends CI_Controller
 
 
         $jnstagihan = htmlspecialchars($this->input->post('jnstagihan', true));
-        if ($jnstagihan == 1) {
-            $validation = $this->form_validation->set_rules($this->rules1);
-        } else {
-            $validation = $this->form_validation->set_rules($this->rules2);
-        }
+        $validation = $this->form_validation->set_rules($this->rules3);
+
         $data['tagihan'] = $this->tagihan->getDetailTagihan($id);
         $data['unit'] = $this->unit->getUnit();
         $data['dokumen'] = $this->dokumen->getDokumen();
@@ -148,7 +158,6 @@ class Tagihan extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'notagihan' => htmlspecialchars($this->input->post('notagihan', true)),
                 'tgltagihan' => strtotime(htmlspecialchars($this->input->post('tgltagihan', true))),
                 'uraian' => htmlspecialchars($this->input->post('uraian', true)),
                 'jnstagihan' => $jnstagihan,
@@ -191,13 +200,13 @@ class Tagihan extends CI_Controller
             'status' => 1
         ];
 
-        $kddokumen = $this->viewtagihan->getDetailTagihan($id)['kddokumen'];
+        $statusdok = $this->viewtagihan->getDetailTagihan($id)['statusdok'];
         $bruto = $this->viewtagihan->getDetailTagihan($id)['bruto'];
         $dnp = $this->dnp->sumDnp($id)['bruto'];
         $berkas01 = $this->upload->cekBerkas($id, '01');
         $berkas02 = $this->upload->cekBerkas($id, '02');
         if ($bruto > 0) {
-            if ($kddokumen != '04' and $kddokumen != '05') {
+            if ($statusdok != 0) {
                 // harus cek dnp 
                 if ($bruto == $dnp) {
                     // jika tagihan sama dengan dnp

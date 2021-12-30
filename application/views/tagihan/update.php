@@ -10,7 +10,7 @@
             <div class="col-lg-6">
                 <div class="form-group mb-2">
                     <label for="">Nomor Tagihan:</label>
-                    <input type="text" name="notagihan" class="form-control <?= form_error('notagihan') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['notagihan']; ?>">
+                    <input type="text" name="notagihan" class="form-control <?= form_error('notagihan') ? 'is-invalid' : ''; ?>" readonly value="<?= $tagihan['notagihan']; ?>">
                     <div class="invalid-feedback">
                         <?= form_error('notagihan'); ?>
                     </div>

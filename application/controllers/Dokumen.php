@@ -67,7 +67,8 @@ class Dokumen extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true)),
-                'nmdokumen' => htmlspecialchars($this->input->post('nmdokumen', true))
+                'nmdokumen' => htmlspecialchars($this->input->post('nmdokumen', true)),
+                'status' => htmlspecialchars($this->input->post('status', true))
             ];
             // simpan data ke database melalui model
             $this->dokumen->createDokumen($data);
@@ -96,7 +97,8 @@ class Dokumen extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'kddokumen' => htmlspecialchars($this->input->post('kddokumen', true)),
-                'nmdokumen' => htmlspecialchars($this->input->post('nmdokumen', true))
+                'nmdokumen' => htmlspecialchars($this->input->post('nmdokumen', true)),
+                'status' => htmlspecialchars($this->input->post('status', true))
             ];
             // update data di database melalui model
             $this->dokumen->updateDokumen($data, $id);

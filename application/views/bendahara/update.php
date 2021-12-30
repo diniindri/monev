@@ -9,6 +9,13 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group mb-2">
+                    <label for="">Tanggal SPM:</label>
+                    <input type="text" name="tglspm" id="myFlat" class="form-control <?= form_error('tglspm') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglspm'] == null ? '' : date('d-m-Y', $tagihan['tglspm']); ?>" placeholder="dd-mm-yyyy">
+                    <div class="invalid-feedback">
+                        <?= form_error('tglspm'); ?>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
                     <label for="">Tanggal SP2D:</label>
                     <input type="text" name="tglsp2d" id="myFlat" class="form-control <?= form_error('tglsp2d') ? 'is-invalid' : ''; ?>" value="<?= $tagihan['tglsp2d'] == null ? '' : date('d-m-Y', $tagihan['tglsp2d']); ?>" placeholder="dd-mm-yyyy">
                     <div class="invalid-feedback">

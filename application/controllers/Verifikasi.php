@@ -65,27 +65,31 @@ class Verifikasi extends CI_Controller
         $data = [
             'status' => 2
         ];
+        $jnstagihan = $this->viewtagihan->getDetailTagihan($id)['jnstagihan'];
         $tglspm = $this->viewtagihan->getDetailTagihan($id)['tglspm'];
         $berkas03 = $this->upload->cekBerkas($id, '03');
-        $berkas04 = $this->upload->cekBerkas($id, '04');
-        if ($tglspm != null) {
-            // jika tgl spm sudah terisi
-            // cek berkas 03
-            if ($berkas03 > 0) {
-                //cek berkas 04
-                if ($berkas04 > 0) {
+
+        if ($jnstagihan == 1) {
+            if ($tglspm != null) {
+                // jika tgl spm sudah terisi
+                // cek berkas 03
+                if ($berkas03 > 0) {
                     $this->tagihan->updateTagihan($data, $id);
                     $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
                 } else {
                     $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
                 }
             } else {
-                $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena berkas belum lengkap.');
+                // jika tgl spm belum terisi
+                $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena  tanggal spm belum terisi.');
             }
         } else {
-            // jika tgl spm belum terisi
-            $this->session->set_flashdata('gagal', 'Data tidak dapat dikirim karena  tanggal spm belum terisi.');
+            $this->tagihan->updateTagihan($data, $id);
+            $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
         }
+
+
+
         redirect('verifikasi');
     }
 

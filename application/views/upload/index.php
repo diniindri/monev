@@ -19,7 +19,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-5">
-            <a href="<?= base_url() . $asal; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2"> Kembali ke Halaman Sebelumnya</a>
+            <a href="<?= base_url() . $asal; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Halaman Sebelumnya</a>
             <a href="<?= base_url('upload/create/') . $tagihan_id . '/' . $asal; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
         </div>
         <div class="col-lg-3">

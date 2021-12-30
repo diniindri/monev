@@ -67,7 +67,9 @@
                                 <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('verifikasi/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPM</a>
+                                        <?php if ($r['jnstagihan'] != 0) : ?>
+                                            <a href="<?= base_url('verifikasi/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SPM</a>
+                                        <?php endif; ?>
                                         <a href="<?= base_url('upload/index/') . $r['id'] . '/verifikasi'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Upload</a>
                                         <a href="<?= base_url('verifikasi/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>
                                         <a href="<?= base_url('verifikasi/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>

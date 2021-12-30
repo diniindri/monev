@@ -6,12 +6,18 @@
             $levels = [
 
                 ['id' => 1, 'level' => 'halaman Utama'],
+                ['id' => 2, 'level' => 'Pejabat Pembuat Komitmen']
+            ];
+        } else if ($kewenangan === '2') {
+            $levels = [
+                ['id' => 1, 'level' => 'halaman Utama'],
                 ['id' => 2, 'level' => 'Pejabat Pembuat Komitmen'],
                 ['id' => 3, 'level' => 'Bagian Keuangan']
             ];
         } else {
             $levels = [
                 ['id' => 1, 'level' => 'halaman Utama']
+
             ];
         }
 
@@ -22,6 +28,7 @@
             ['menu' => 'Data Tagihan', 'level' => 2, 'url' => 'tagihan'],
             ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
             ['menu' => 'Monitoring Dokumen', 'level' => 2, 'url' => 'monitoring-dokumen'],
+            ['menu' => 'Pegawai Non DJKN', 'level' => 2, 'url' => 'nondjkn'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'Bendahara', 'level' => 3, 'url' => 'bendahara'],
             ['menu' => 'Arsip', 'level' => 3, 'url' => 'arsip'],

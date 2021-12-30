@@ -22,6 +22,13 @@
                         <?= form_error('nmdokumen'); ?>
                     </div>
                 </div>
+                <div class="form-group mb-2">
+                    <label for="">Status:</label>
+                    <select class="form-select form-select-sm mb-3" name="status">
+                        <option value="0">Non DNP</option>
+                        <option value="1">DNP</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="row mt-3">

@@ -4,8 +4,8 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-8">
-            <?php foreach ($bulan as $b) : ?>
-                <a href="<?= base_url('realisasi-direktorat/detail/') . $b; ?>" class="btn btn-sm btn-outline-secondary <?= $b == $bln ? 'active' : '' ?> ml-1 mt-2 mb-2"><?= $b; ?></a>
+            <?php foreach ($bln as $b) : ?>
+                <a href="<?= base_url('realisasi-direktorat/detail/') . $jenis . '/' . $kdunit . '/' . $b['bulan']; ?>" class="btn btn-sm btn-outline-secondary <?= $b['bulan'] == $bulan ? 'active' : '' ?> ml-1 mt-2 mb-2"><?= $b['bulan']; ?></a>
             <?php endforeach; ?>
         </div>
         <div class="col-lg-4">
@@ -23,28 +23,32 @@
                 <table class="table table-bordered table-hover">
                     <thead class="text-center">
                         <tr class="align-middle">
-                            <th>Nomor</th>
-                            <th>Detail Akun</th>
-                            <th>Keterangan</th>
-                            <th>PPK</th>
-                            <th>Januari</th>
+                            <th>No</th>
+                            <th>Program</th>
+                            <th>Kegiatan</th>
+                            <th>KRO</th>
+                            <th>RO</th>
+                            <th>Komponen</th>
+                            <th>Subkomponen</th>
+                            <th>Akun</th>
+                            <th>Realisasi</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <?php $no = 1;
-                        foreach ($detail as $r) : ?>
-
+                        <?php $no = $page + 1;
+                        foreach ($realisasi as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['kode']; ?></td>
-                                <td><?= $r['keterangan']; ?></td>
-                                <td><?= $r['ppk']; ?></td>
-                                <td class="text-right"><?= $r['januari']; ?></td>
+                                <td><?= $r['program']; ?></td>
+                                <td><?= $r['kegiatan']; ?></td>
+                                <td><?= $r['kro']; ?></td>
+                                <td><?= $r['ro']; ?></td>
+                                <td><?= $r['komponen']; ?></td>
+                                <td><?= $r['subkomponen']; ?></td>
+                                <td><?= $r['akun']; ?></td>
+                                <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
                             </tr>
-
                         <?php endforeach; ?>
-
                     </tbody>
                 </table>
             </div>
@@ -55,4 +59,5 @@
             <?= $kode == null ? $pagination : ''; ?>
         </div>
     </div>
+
 </main>

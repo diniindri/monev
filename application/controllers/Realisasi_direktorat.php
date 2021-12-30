@@ -8,63 +8,23 @@ class Realisasi_direktorat extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('View_pagu_model', 'tagihan');
+        $this->load->model('View_pagu_sp2d_model', 'sp2d');
+        $this->load->model('View_realisasi_model', 'viewtagihan');
+        $this->load->model('View_realisasi_sp2d_model', 'viewsp2d');
     }
 
-    public function index()
+
+    public function index($jenis = 1)
     {
-
-        // menangkap data pencarian nomor SPP/SPBy
-        $unit = $this->input->post('unit');
-
-        // settingan halaman
-        $config['base_url'] = base_url('realisasi-direktorat/index');
-        $config['total_rows'] = 10;
-        $config['per_page'] = 5;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['unit'] = $unit;
-        $limit = $config["per_page"];
-        $offset = $data['page'];
-
-        $data['direktorat'] = [
-            [
-                'unit' => 'BMN',
-                'pagu' => '4.114.367.000',
-                'realisasi' => '149.872.144',
-                'sisa' => '3.964.494.856',
-                'persentase' => '3,64%'
-            ],
-            [
-                'unit' => 'KND',
-                'pagu' => '1.604.153.000',
-                'realisasi' => '189.019.515',
-                'sisa' => '1.415.133.485',
-                'persentase' => '11,78%'
-            ],
-            [
-                'unit' => 'HUHU',
-                'pagu' => '832.237.000',
-                'realisasi' => '190.943.731',
-                'sisa' => '641.293.269',
-                'persentase' => '22,94%'
-            ],
-            [
-                'unit' => 'PKNSI',
-                'pagu' => '16.270.227.000',
-                'realisasi' => '10.765.012.835',
-                'sisa' => '5.505.214.165',
-                'persentase' => '66,16%'
-            ],
-            [
-                'unit' => 'Lelang',
-                'pagu' => '949.950.000',
-                'realisasi' => '422.185.868',
-                'sisa' => '527.764.132',
-                'persentase' => '44,44%'
-            ]
-        ];
+        $data['jenis'] = $jenis;
+        $kdsatker = $this->session->userdata('kdsatker');
+        $tahun = $this->session->userdata('tahun');
+        if ($jenis == 1) {
+            $data['unit'] = $this->tagihan->realisasiUnit($kdsatker, $tahun);
+        } else {
+            $data['unit'] = $this->sp2d->realisasiUnit($kdsatker, $tahun);
+        }
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -72,65 +32,51 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function detail($bln = null)
+    public function detail($jenis = null, $kdunit = null, $bulan = null)
     {
-        if (!isset($bln)) $bln = '01';
+        if (!isset($bulan)) $bulan = '01';
+        $kdsatker = $this->session->userdata('kdsatker');
+        $tahun = $this->session->userdata('tahun');
 
-        // menangkap data pencarian nmpeg
+        // menangkap data pencarian kode
         $kode = $this->input->post('kode');
 
         // settingan halaman
-        $config['base_url'] = base_url('realisasi-direktorat/detail/');
-        $config['total_rows'] = 10;
-        $config['per_page'] = 5;
+        $config['base_url'] = base_url('realisasi-direktorat/detail/' . $jenis . '/' . $kdunit . '/' . $bulan . '');
+        $config['total_rows']  = $this->viewtagihan->countRealisasi($kdsatker, $tahun, $kdunit, $bulan);
+        $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
-        $data['kode'] = $kode;
+        $data['page'] = $this->uri->segment(6) ? $this->uri->segment(6) : 0;
         $limit = $config["per_page"];
+        $data['kode'] = $kode;
         $offset = $data['page'];
 
-        $data['bulan'] = [
-            '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'
-        ];
+        $data['jenis'] = $jenis;
+        $data['kdunit'] = $kdunit;
+        $data['bulan'] = $bulan;
 
-        $data['bln'] = $bln;
-
-        $data['detail'] = [
-            [
-                'kode' => '4701.EAC.001.002.A.521111',
-                'keterangan' => 'Belanja Keperluan Perkantoran',
-                'ppk' => 'Wahyu Setiadi',
-                'januari' => '13.536.600'
-
-            ],
-            [
-                'kode' => '4701.EAC.001.002.A.521811',
-                'keterangan' => 'Belanja Barang Persediaan Barang Konsumsi',
-                'ppk' => 'Wahyu Setiadi',
-                'januari' => '11.657.250'
-            ],
-            [
-                'kode' => '4701.EAC.001.002.A.522192',
-                'keterangan' => 'Belanja Jasa Penanganan Pandemi COVID19',
-                'ppk' => 'Wahyu Setiadi',
-                'januari' => '89.500.000'
-            ],
-            [
-                'kode' => '4701.EAD.001.002.A.523121',
-                'keterangan' => 'Belanja Pemeliharaan Peralatan dan Mesin',
-                'ppk' => 'Eko Hardiyanto',
-                'januari' => '76.498.448'
-            ],
-            [
-                'kode' => '4701.EAD.002.100.A.53211',
-                'keterangan' => 'Belanja Modal Peralatan dan Mesin',
-                'ppk' => 'Eko Hardiyanto',
-                'januari' => '16.500.000'
-            ]
-        ];
-
+        // pilih tampilan data, semua atau berdasarkan pencarian kode 
+        if ($jenis == 1) {
+            $data['bln'] = $this->viewtagihan->getBulan($kdsatker, $tahun, $kdunit);
+            if ($kode) {
+                $data['page'] = 0;
+                $offset = 0;
+                $data['realisasi'] = $this->viewtagihan->findRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset, $kode);
+            } else {
+                $data['realisasi'] = $this->viewtagihan->getRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset);
+            }
+        } else {
+            $data['bln'] = $this->viewsp2d->getBulan($kdsatker, $tahun, $kdunit);
+            if ($kode) {
+                $data['page'] = 0;
+                $offset = 0;
+                $data['realisasi'] = $this->viewsp2d->findRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset, $kode);
+            } else {
+                $data['realisasi'] = $this->viewsp2d->getRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset);
+            }
+        }
 
         // meload view pada pegawai/index.php
         $this->load->view('template/header');

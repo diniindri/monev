@@ -35,6 +35,7 @@
                             <th>No</th>
                             <th>Kode Dokumen</th>
                             <th>Nama Dokumen</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,6 +46,7 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['kddokumen']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
+                                <td><?= $r['status']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('dokumen/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
