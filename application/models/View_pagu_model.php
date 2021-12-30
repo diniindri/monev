@@ -45,4 +45,22 @@ class View_pagu_model extends CI_Model
         $query = "SELECT a.kdppk,b.nmppk,sum(a.anggaran) AS pagu, sum(a.realisasi) AS realisasi, sum(a.sisa) AS sisa FROM view_pagu a LEFT JOIN ref_ppk b ON a.kdppk=b.kdppk WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' GROUP BY a.kdppk,b.nmppk";
         return $this->db->query($query)->result_array();
     }
+
+    public function getJenisBelanja()
+    {
+        $query = "SELECT left(a.akun,2) AS jenis_belanja, sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi, sum(a.sisa) as sisa,b.nama from view_pagu a left join ref_jenis_belanja b on left(a.akun,2)=b.kode group by left(a.akun,2),b.nama";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getRealisasiPpk()
+    {
+        $query = "SELECT b.kdppk,b.nmppk,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu a left join ref_ppk b on a.kdppk=b.kdppk group by b.kdppk,b.nmppk order by b.kdppk asc";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getRealisasiUnit()
+    {
+        $query = "SELECT b.kdunit,b.nmunit,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu a left join ref_unit b on a.kdunit=b.kdunit group by b.kdunit,b.nmunit order by b.kdunit asc";
+        return $this->db->query($query)->result_array();
+    }
 }

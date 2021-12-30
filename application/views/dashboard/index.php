@@ -6,6 +6,12 @@
             </div>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col">
+            <a href="<?= base_url('dashboard/index/1'); ?>" class="btn btn-sm btn-outline-primary <?= $jenis == 1 ? 'active' : ''; ?>">Per Tagihan</a>
+            <a href="<?= base_url('dashboard/index/2'); ?>" class="btn btn-sm btn-outline-primary ml-2 <?= $jenis == 2 ? 'active' : ''; ?>">Per SP2D</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-8">
             <div class="row">
@@ -25,16 +31,14 @@
 
                             <?php $no = 1;
                             foreach ($realisasi as $r) : ?>
-
                                 <tr>
                                     <td class="text-center"><?= $no++; ?></td>
-                                    <td><?= $r['jenis']; ?></td>
-                                    <td class="text-right"><?= $r['pagu']; ?></td>
-                                    <td class="text-right"><?= $r['realisasi']; ?></td>
-                                    <td class="text-right"><?= $r['sisa']; ?></td>
-                                    <td class="text-center"><?= $r['persentase']; ?></td>
+                                    <td><?= $r['nama']; ?></td>
+                                    <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
+                                    <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
+                                    <td class="text-right"><?= number_format($r['sisa'], 0, ',', '.'); ?></td>
+                                    <td class="text-right"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.'); ?>%</td>
                                 </tr>
-
                             <?php endforeach; ?>
 
                         </tbody>
@@ -54,70 +58,21 @@
                         <b>Realisasi per PPK</b>
                         <span><b>Persentase</b></span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Wielly Prasekti
-                        <span class="badge bg-danger rounded-pill">3,53%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Nandang Supriyadi
-                        <span class="badge bg-danger rounded-pill">12,31%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Eny Susanti
-                        <span class="badge bg-danger rounded-pill">16,19%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Anwar Sulaiman
-                        <span class="badge bg-danger rounded-pill">24,57%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Yuzuardi Haban
-                        <span class="badge bg-primary rounded-pill">79,12%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Abdul Ghofar
-                        <span class="badge bg-primary rounded-pill">43,02%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Jundi Widiantoro
-                        <span class="badge bg-danger rounded-pill">17,45%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Istina Setya Lestari
-                        <span class="badge bg-warning rounded-pill">34,20%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Mufid Hamdani
-                        <span class="badge bg-primary rounded-pill">68,85%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Lilik Hermawan
-                        <span class="badge bg-danger rounded-pill">1,67%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Bagus Kurniawan
-                        <span class="badge bg-primary rounded-pill">61,13%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Kiki Normansyah
-                        <span class="badge bg-danger rounded-pill">14,94%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Moh. Arif Rochman
-                        <span class="badge bg-danger rounded-pill">1,08%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        R. Hariyadi Murti Kurniawan
-                        <span class="badge bg-danger rounded-pill">4,50%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Eko Hardiyanto
-                        <span class="badge bg-danger rounded-pill">22,69%</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Wahyu Setiadi
-                        <span class="badge bg-primary rounded-pill">40,66%</span>
-                    </li>
+                    <?php foreach ($ppk as $r) : ?>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <?= $r['nmppk']; ?>
+                            <?php
+                            if (($r['realisasi'] / $r['pagu'] * 100) < 40) {
+                                $warna = 'bg-danger';
+                            } else if (($r['realisasi'] / $r['pagu'] * 100) < 70) {
+                                $warna = 'bg-warning';
+                            } else {
+                                $warna = 'bg-success';
+                            }
+                            ?>
+                            <span class="badge <?= $warna; ?> rounded-pill"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.'); ?>%</span>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
