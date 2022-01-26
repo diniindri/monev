@@ -12,6 +12,7 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->model('View_pagu_sp2d_model', 'sp2d');
         $this->load->model('View_realisasi_model', 'viewtagihan');
         $this->load->model('View_realisasi_sp2d_model', 'viewsp2d');
+        $this->load->model('Ref_bulan_model', 'bulan');
     }
 
 
@@ -29,6 +30,25 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('realisasi_direktorat/index', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function bulan($jenis = 1, $kdunit = null)
+    {
+        $data['jenis'] = $jenis;
+        $data['kdunit'] = $kdunit;
+        $kdsatker = $this->session->userdata('kdsatker');
+        $tahun = $this->session->userdata('tahun');
+
+        if ($jenis == 1) {
+            $data['unit'] = $this->viewtagihan->getRealisasiBulan($kdsatker, $tahun, $kdunit);
+        } else {
+            $data['unit'] = $this->viewsp2d->getRealisasiBulan($kdsatker, $tahun, $kdunit);
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_direktorat/bulan', $data);
         $this->load->view('template/footer');
     }
 

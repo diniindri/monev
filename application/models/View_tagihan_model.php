@@ -59,4 +59,23 @@ class View_tagihan_model extends CI_Model
         $this->db->where('status', $status);
         return $this->db->get('data_tagihan')->num_rows();
     }
+
+    public function getTagihanAll($limit = null, $offset = 0)
+    {
+        $this->db->order_by('notagihan', 'DESC');
+        $this->db->limit($limit, $offset);
+        return $this->db->get('view_tagihan')->result_array();
+    }
+
+    public function findTagihanAll($notagihan = null, $limit = null, $offset = 0)
+    {
+        $this->db->like('notagihan', $notagihan);
+        $this->db->limit($limit, $offset);
+        return $this->db->get('view_tagihan')->result_array();
+    }
+
+    public function countTagihanAll()
+    {
+        return $this->db->get('data_tagihan')->num_rows();
+    }
 }

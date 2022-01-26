@@ -8,7 +8,7 @@
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
                 <div class="input-group">
-                    <input type="text" name="nomor" class="form-control" placeholder="Nomor SPP/SPBy">
+                    <input type="text" name="nomor" class="form-control" placeholder="nomor SPP/SPBy">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
@@ -20,40 +20,42 @@
                 <table class="table table-bordered table-hover">
                     <thead class="text-center">
                         <tr class="align-middle">
+                            <th>No</th>
                             <th>Nomor</th>
+                            <th>Tanggal</th>
+                            <th>Tgl SPM</th>
+                            <th>No SP2D</th>
+                            <th>Tgl SP2D</th>
                             <th>Jenis Tagihan</th>
-                            <th>Nomor Tagihan</th>
-                            <th>Jenis Dokumen</th>
-                            <th>Tanggal Tagihan</th>
-                            <th>Nomor SPM</th>
-                            <th>Tanggal SPM</th>
-                            <th>Nomor SP2D</th>
-                            <th>Tanggal SP2D</th>
-                            <th>Bruto</th>
                             <th>Unit</th>
+                            <th>PPK</th>
+                            <th>Jenis Dokumen</th>
+                            <th>Bruto</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <?php $no = 1;
+                        <?php $no = $page + 1;
                         foreach ($tagihan as $r) : ?>
-
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['jenis']; ?></td>
-                                <td><?= $r['nomor']; ?></td>
-                                <td><?= $r['dokumen']; ?></td>
-                                <td><?= $r['tanggal']; ?></td>
-                                <td><?= $r['nospm']; ?></td>
-                                <td><?= $r['tglspm']; ?></td>
+                                <td><?= $r['notagihan']; ?></td>
+                                <td><?= tanggal($r['tgltagihan']); ?></td>
+                                <td><?= tanggal($r['tglspm']); ?></td>
                                 <td><?= $r['nosp2d']; ?></td>
-                                <td><?= $r['tglsp2d']; ?></td>
-                                <td class="text-right"><?= $r['bruto']; ?></td>
-                                <td><?= $r['unit']; ?></td>
+                                <td><?= tanggal($r['tglsp2d']); ?></td>
+                                <td><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
+                                <td><?= $r['nmunit']; ?></td>
+                                <td><?= $r['nmppk']; ?></td>
+                                <td><?= $r['nmdokumen']; ?></td>
+                                <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.');  ?></td>
+                                <td class="pb-0">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="<?= base_url('monitoring-tagihan/dokumen/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Dokumen</a>
+                                    </div>
+                                </td>
                             </tr>
-
                         <?php endforeach; ?>
-
                     </tbody>
                 </table>
             </div>
@@ -61,7 +63,8 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nomor == null ? $pagination : ''; ?>
+            <?= $notagihan == null ? $pagination : ''; ?>
         </div>
     </div>
+
 </main>

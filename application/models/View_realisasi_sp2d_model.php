@@ -53,6 +53,12 @@ class view_realisasi_sp2d_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getRealisasiBulan($kdsatker = null, $tahun = null, $kdunit = null)
+    {
+        $query = "SELECT b.nmbulan,sum(a.realisasi) as realisasi FROM view_realisasi_sp2d a left join ref_bulan b on a.bulan = b.kdbulan WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' AND a.kdunit='$kdunit' group by b.nmbulan ";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getBulanPpk($kdsatker = null, $tahun = null, $kdppk = null)
     {
         $query = "SELECT DISTINCT bulan FROM view_realisasi_sp2d WHERE kdsatker='$kdsatker' AND tahun='$tahun' AND kdppk='$kdppk' order by bulan asc";
@@ -90,5 +96,11 @@ class view_realisasi_sp2d_model extends CI_Model
         $this->db->where('a.kdppk', $kdppk);
         $this->db->limit($limit, $offset);
         return $this->db->get()->result_array();
+    }
+
+    public function getRealisasiBulanPpk($kdsatker = null, $tahun = null, $kdppk = null)
+    {
+        $query = "SELECT b.nmbulan,sum(a.realisasi) as realisasi FROM view_realisasi_sp2d a left join ref_bulan b on a.bulan = b.kdbulan WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' AND a.kdppk='$kdppk' group by b.nmbulan ";
+        return $this->db->query($query)->result_array();
     }
 }

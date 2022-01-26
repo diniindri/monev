@@ -27,7 +27,6 @@
             ['menu' => 'Realisasi PPK', 'level' => 1, 'url' => 'realisasi-ppk'],
             ['menu' => 'Data Tagihan', 'level' => 2, 'url' => 'tagihan'],
             ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
-            ['menu' => 'Monitoring Dokumen', 'level' => 2, 'url' => 'monitoring-dokumen'],
             ['menu' => 'Pegawai Non DJKN', 'level' => 2, 'url' => 'nondjkn'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'Bendahara', 'level' => 3, 'url' => 'bendahara'],

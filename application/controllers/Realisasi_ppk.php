@@ -32,6 +32,25 @@ class Realisasi_ppk extends CI_Controller
         $this->load->view('template/footer');
     }
 
+    public function bulan($jenis = 1, $kdppk = null)
+    {
+        $data['jenis'] = $jenis;
+        $data['kdppk'] = $kdppk;
+        $kdsatker = $this->session->userdata('kdsatker');
+        $tahun = $this->session->userdata('tahun');
+
+        if ($jenis == 1) {
+            $data['unit'] = $this->viewtagihan->getRealisasiBulanPpk($kdsatker, $tahun, $kdppk);
+        } else {
+            $data['unit'] = $this->viewsp2d->getRealisasiBulanPpk($kdsatker, $tahun, $kdppk);
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_ppk/bulan', $data);
+        $this->load->view('template/footer');
+    }
+
     public function detail($jenis = null, $kdppk = null, $bulan = null)
     {
         if (!isset($bulan)) $bulan = '01';

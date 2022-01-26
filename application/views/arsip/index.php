@@ -58,7 +58,7 @@
                                 <td><?= $r['nmunit']; ?></td>
                                 <td><?= $r['nmppk']; ?></td>
                                 <td><?= $r['nmdokumen']; ?></td>
-                                <td><?= $r['bruto']; ?></td>
+                                <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('arsip/tolak/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menolak data ini?');">Tolak</a>

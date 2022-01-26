@@ -12,6 +12,7 @@ class Bendahara extends CI_Controller
         $this->load->model('Data_upload_model', 'upload');
         $this->load->model('Data_tagihan_model', 'tagihan');
         $this->load->model('Data_dnp_model', 'dnp');
+        $this->load->model('Data_realisasi_model', 'realisasi');
     }
 
     public function index()
@@ -222,5 +223,88 @@ class Bendahara extends CI_Controller
         $this->tagihan->updateTagihan($data, $id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditolak.');
         redirect('bendahara');
+    }
+
+    public function detail($tagihan_id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($tagihan_id)) show_404();
+
+        // mengirim data id tagihan ke view
+        $data['tagihan_id'] = $tagihan_id;
+
+        // menangkap data pencarian ro
+        $kro = $this->input->post('kro');
+        $ro = $this->input->post('ro');
+
+        // settingan halaman
+        $config['base_url'] = base_url('bendahara/detail/' . $tagihan_id . '');
+        $config['total_rows'] = $this->realisasi->countRealisasi($tagihan_id);
+        $config['per_page'] = 10;
+        $config["num_links"] = 3;
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['kro'] = $kro;
+        $limit = $config["per_page"];
+        $offset = $data['page'];
+
+        // pilih tampilan data, semua atau berdasarkan pencarian ro 
+        if ($kro) {
+            $data['page'] = 0;
+            $offset = 0;
+            $data['realisasi'] = $this->realisasi->findRealisasi($tagihan_id, $kro, $ro, $limit, $offset);
+        } else {
+            $data['realisasi'] = $this->realisasi->getRealisasi($tagihan_id, $limit, $offset);
+        }
+
+        // meload view pada sspb/index.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('bendahara/detail', $data);
+        $this->load->view('template/footer');
+    }
+
+    // validasi inputan pada seluruh form
+    private $rules = [
+        [
+            'field' => 'sspb',
+            'label' => 'sspb',
+            'rules' => 'required|trim|numeric'
+        ]
+    ];
+
+    public function sspb($id = null, $tagihan_id = null)
+    {
+        // cek apakah ada id apa tidak
+        if (!isset($id)) show_404();
+        if (!isset($tagihan_id)) show_404();
+
+        // load data tagihan id ke view
+        $data['tagihan_id'] = $tagihan_id;
+        // load data realisasi ke view berdasarkan id realisasi
+        $data['realisasi'] = $this->realisasi->getDetailRealisasi($id);
+
+        $validation = $this->form_validation->set_rules($this->rules);
+
+
+        // jika validasi sukses
+        if ($validation->run()) {
+            $sspb = htmlspecialchars($this->input->post('sspb', true));
+            $data = [
+                'sspb' => $sspb
+            ];
+            $this->realisasi->updateRealisasi($data, $id);
+            $this->session->set_flashdata('berhasil', 'Data berhasil diubah.');
+
+
+            redirect('bendahara/detail/' . $tagihan_id . '');
+        }
+
+        // meload view pada bendahara/sspb.php
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('bendahara/sspb', $data);
+        $this->load->view('template/footer');
     }
 }

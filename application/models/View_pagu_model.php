@@ -46,9 +46,9 @@ class View_pagu_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
-    public function getJenisBelanja()
+    public function getJenisBelanja($kdsatker = null, $tahun = null)
     {
-        $query = "SELECT left(a.akun,2) AS jenis_belanja, sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi, sum(a.sisa) as sisa,b.nama from view_pagu a left join ref_jenis_belanja b on left(a.akun,2)=b.kode group by left(a.akun,2),b.nama";
+        $query = "SELECT left(a.akun,2) AS jenis_belanja, sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi, sum(a.sisa) as sisa,b.nama from view_pagu a left join ref_jenis_belanja b on left(a.akun,2)=b.kode WHERE a.kdsatker='$kdsatker' AND a.tahun='$tahun' group by left(a.akun,2),b.nama";
         return $this->db->query($query)->result_array();
     }
 

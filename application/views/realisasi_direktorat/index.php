@@ -39,7 +39,7 @@
                                 <td class="text-center"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('realisasi-direktorat/detail/') . $jenis . '/' . $r['kdunit']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                        <a href="<?= base_url('realisasi-direktorat/bulan/') . $jenis . '/' . $r['kdunit']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                     </div>
                                 </td>
                             </tr>

@@ -48,7 +48,7 @@
                                 <td><?= $r['nomor']; ?></td>
                                 <td><?= $r['tanggal']; ?></td>
                                 <td><?= $r['uraian']; ?></td>
-                                <td><?= $r['bruto']; ?></td>
+                                <td class="text-right"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('payroll/excel/') ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin setuju dengan data ini?');">Lampiran Payroll</a>

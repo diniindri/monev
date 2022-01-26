@@ -17,17 +17,18 @@ class Dashboard extends CI_Controller
     public function index($jenis = 1)
     {
         $data['jenis'] = $jenis;
+        $tahun = $this->session->userdata('tahun');
         $kdsatker = $this->session->userdata('kdsatker');
         $kdppk = $this->session->userdata('kdppk');
         $data['nmsatker'] = $this->satker->getNamaSatker($kdsatker);
         $data['nmppk'] = $this->ppk->getNamaPpk($kdppk);
 
         if ($jenis == 1) {
-            $data['realisasi'] = $this->tagihan->getJenisBelanja();
+            $data['realisasi'] = $this->tagihan->getJenisBelanja($kdsatker, $tahun);
             $data['ppk'] = $this->tagihan->getRealisasiPpk();
             $data['unit'] = $this->tagihan->getRealisasiUnit();
         } else {
-            $data['realisasi'] = $this->sp2d->getJenisBelanja();
+            $data['realisasi'] = $this->sp2d->getJenisBelanja($kdsatker, $tahun);
             $data['ppk'] = $this->sp2d->getRealisasiPpk();
             $data['unit'] = $this->sp2d->getRealisasiUnit();
         }
