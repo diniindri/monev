@@ -30,16 +30,31 @@
                         <tbody>
 
                             <?php $no = 1;
+                            $jpagu = 0;
+                            $jrealisasi = 0;
                             foreach ($realisasi as $r) : ?>
                                 <tr>
                                     <td class="text-center"><?= $no++; ?></td>
                                     <td><?= $r['nama']; ?></td>
                                     <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
                                     <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                    <td class="text-right"><?= number_format($r['sisa'], 0, ',', '.'); ?></td>
+                                    <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
                                     <td class="text-right"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.'); ?>%</td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php
+                                $jpagu += $r['pagu'];
+                                $jrealisasi += $r['realisasi'];
+                            endforeach;
+                            $jsisa = $jpagu - $jrealisasi;
+                            $jpagu == 0 ? $jpersen = 0 : $jpersen = $jrealisasi / $jpagu * 100;
+                            ?>
+                            <tr>
+                                <th class="text-center" colspan="2">Jumlah</th>
+                                <th class="text-right"><?= number_format($jpagu, 0, ',', '.'); ?></th>
+                                <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
+                                <th class="text-right"><?= number_format($jsisa, 0, ',', '.'); ?></th>
+                                <th class="text-right"><?= number_format($jpersen, 2, ',', '.'); ?>%</th>
+                            </tr>
 
                         </tbody>
                     </table>

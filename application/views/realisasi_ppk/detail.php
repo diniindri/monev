@@ -4,21 +4,6 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-8">
-            <?php foreach ($bln as $b) : ?>
-                <a href="<?= base_url('realisasi-ppk/detail/') . $jenis . '/' . $kdppk . '/' . $b['bulan']; ?>" class="btn btn-sm btn-outline-secondary <?= $b['bulan'] == $bulan ? 'active' : '' ?> ml-1 mt-2 mb-2"><?= $b['bulan']; ?></a>
-            <?php endforeach; ?>
-        </div>
-        <div class="col-lg-4">
-            <form action="" method="post" autocomplete="off">
-                <div class="input-group">
-                    <input type="text" name="kode" class="form-control" placeholder="Kode">
-                    <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="text-center">
@@ -32,12 +17,15 @@
                             <th>Subkomponen</th>
                             <th>Akun</th>
                             <th>Realisasi</th>
-                            <th>Unit</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = $page + 1;
-                        foreach ($realisasi as $r) : ?>
+                        <?php $no = 1;
+                        $jrealisasi = 0;
+                        foreach ($ppk as $r) :
+                            $kode = $r['program'] . $r['kegiatan'] . $r['kro'] . $r['ro'] . $r['komponen'] . $r['subkomponen'] . $r['akun'];
+                        ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['program']; ?></td>
@@ -48,17 +36,24 @@
                                 <td><?= $r['subkomponen']; ?></td>
                                 <td><?= $r['akun']; ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                <td><?= $r['nmunit']; ?></td>
+                                <td class="pb-0">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="<?= base_url('realisasi-ppk/tagihan/') . $jenis . '/' . $kdppk . '/' . $kdbulan . '/' . $kode; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                    </div>
+                                </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php
+                            $jrealisasi += $r['realisasi'];
+                        endforeach;
+                        ?>
+                        <tr>
+                            <th class="text-center" colspan="8">Jumlah</th>
+                            <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
+                            <th></th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <?= $kode == null ? $pagination : ''; ?>
         </div>
     </div>
 

@@ -38,7 +38,7 @@
             <div class="invalid-feedback">
                 <?= form_error('password'); ?>
             </div>
-            <button class="btn btn-lg btn-success btn-block mt-4 mb-4" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-info btn-block mt-4 mb-4" type="submit">Sign in</button>
         </form>
     </main>
 
