@@ -4,20 +4,20 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('realisasi-ppk/index/1'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2 <?= $jenis == 1 ? 'active' : ''; ?>">Per Tagihan</a>
-            <a href="<?= base_url('realisasi-ppk/index/2'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2 <?= $jenis == 2 ? 'active' : ''; ?>">Per SP2D</a>
+            <a href="<?= base_url('realisasi-ppk/index/1'); ?>" class="btn btn-sm btn-outline-primary mt-1 <?= $jenis == 1 ? 'active' : ''; ?>">Per Tagihan</a>
+            <a href="<?= base_url('realisasi-ppk/index/2'); ?>" class="btn btn-sm btn-outline-primary mt-1 ml-2 <?= $jenis == 2 ? 'active' : ''; ?>">Per SP2D</a>
         </div>
         <div class="col-lg-5">
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col">
+        <div class="col-lg-8">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>Nomor</th>
-                            <th>PPK</th>
+                            <th>Unit</th>
                             <th>Pagu</th>
                             <th>Realisasi</th>
                             <th>Sisa Pagu</th>
@@ -28,6 +28,8 @@
                     <tbody>
 
                         <?php $no = 1;
+                        $jpagu = 0;
+                        $jrealisasi = 0;
                         foreach ($ppk as $r) : ?>
 
                             <tr>
@@ -35,7 +37,7 @@
                                 <td><?= $r['nmppk']; ?></td>
                                 <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['sisa'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
                                 <td class="text-center"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
@@ -44,7 +46,22 @@
                                 </td>
                             </tr>
 
-                        <?php endforeach; ?>
+                        <?php
+                            $jpagu += $r['pagu'];
+                            $jrealisasi += $r['realisasi'];
+                        endforeach;
+                        $jsisa = $jpagu - $jrealisasi;
+                        $jpersen = $jrealisasi / $jpagu * 100;
+                        ?>
+
+                        <tr>
+                            <th class="text-center" colspan="2">Jumlah</th>
+                            <th class="text-right"><?= number_format($jpagu, 0, ',', '.'); ?></th>
+                            <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
+                            <th class="text-right"><?= number_format($jsisa, 0, ',', '.'); ?></th>
+                            <th class="text-center"><?= number_format($jpersen, 2, ',', '.'); ?>%</th>
+                            <th></th>
+                        </tr>
 
                     </tbody>
                 </table>

@@ -10,28 +10,18 @@ class Dashboard extends CI_Controller
         is_logged_in();
         $this->load->model('ref_satker_model', 'satker');
         $this->load->model('ref_ppk_model', 'ppk');
-        $this->load->model('View_pagu_model', 'tagihan');
-        $this->load->model('View_pagu_sp2d_model', 'sp2d');
+        $this->load->model('View_data_realisasi_model', 'realisasi');
     }
 
     public function index($jenis = 1)
     {
         $data['jenis'] = $jenis;
-        $tahun = $this->session->userdata('tahun');
-        $kdsatker = $this->session->userdata('kdsatker');
-        $kdppk = $this->session->userdata('kdppk');
-        $data['nmsatker'] = $this->satker->getNamaSatker($kdsatker);
-        $data['nmppk'] = $this->ppk->getNamaPpk($kdppk);
+        $data['nmsatker'] = $this->satker->getNamaSatker(sesi()['kdsatker']);
+        $data['nmppk'] = $this->ppk->getNamaPpk(sesi()['kdppk']);
 
-        if ($jenis == 1) {
-            $data['realisasi'] = $this->tagihan->getJenisBelanja($kdsatker, $tahun);
-            $data['ppk'] = $this->tagihan->getRealisasiPpk();
-            $data['unit'] = $this->tagihan->getRealisasiUnit();
-        } else {
-            $data['realisasi'] = $this->sp2d->getJenisBelanja($kdsatker, $tahun);
-            $data['ppk'] = $this->sp2d->getRealisasiPpk();
-            $data['unit'] = $this->sp2d->getRealisasiUnit();
-        }
+        $data['realisasi'] = $this->realisasi->getJenisBelanja($jenis);
+        $data['ppk'] = $this->realisasi->getRealisasiPpk($jenis);
+        $data['unit'] = $this->realisasi->getRealisasiUnit($jenis);
 
         $this->load->view('dashboard/header_grafik');
         $this->load->view('template/sidebar');

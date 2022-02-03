@@ -49,3 +49,13 @@ function tanggal($tgl)
 
     return $tgl == null ? '' : date('d', $tgl) . ' ' . $nama_bulan . ' ' . date('Y', $tgl);
 }
+
+function sesi()
+{
+    $ci = get_instance();
+    return [
+        'tahun' => $ci->session->userdata('tahun'),
+        'kdsatker' => $ci->session->userdata('kdsatker'),
+        'kdppk' => $ci->session->userdata('kdppk'),
+    ];
+}

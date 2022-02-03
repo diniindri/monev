@@ -8,24 +8,13 @@ class Realisasi_direktorat extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
-        $this->load->model('View_pagu_model', 'tagihan');
-        $this->load->model('View_pagu_sp2d_model', 'sp2d');
-        $this->load->model('View_realisasi_model', 'viewtagihan');
-        $this->load->model('View_realisasi_sp2d_model', 'viewsp2d');
-        $this->load->model('Ref_bulan_model', 'bulan');
+        $this->load->model('View_data_realisasi_model', 'realisasi');
     }
-
 
     public function index($jenis = 1)
     {
         $data['jenis'] = $jenis;
-        $kdsatker = $this->session->userdata('kdsatker');
-        $tahun = $this->session->userdata('tahun');
-        if ($jenis == 1) {
-            $data['unit'] = $this->tagihan->realisasiUnit($kdsatker, $tahun);
-        } else {
-            $data['unit'] = $this->sp2d->realisasiUnit($kdsatker, $tahun);
-        }
+        $data['unit'] = $this->realisasi->getRealisasiUnit($jenis);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -37,14 +26,7 @@ class Realisasi_direktorat extends CI_Controller
     {
         $data['jenis'] = $jenis;
         $data['kdunit'] = $kdunit;
-        $kdsatker = $this->session->userdata('kdsatker');
-        $tahun = $this->session->userdata('tahun');
-
-        if ($jenis == 1) {
-            $data['unit'] = $this->viewtagihan->getRealisasiBulan($kdsatker, $tahun, $kdunit);
-        } else {
-            $data['unit'] = $this->viewsp2d->getRealisasiBulan($kdsatker, $tahun, $kdunit);
-        }
+        $data['unit'] = $this->realisasi->getRealisasiUnitBulan($jenis, $kdunit);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -52,56 +34,29 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function detail($jenis = null, $kdunit = null, $bulan = null)
+    public function detail($jenis = null, $kdunit = null, $kdbulan = null)
     {
-        if (!isset($bulan)) $bulan = '01';
-        $kdsatker = $this->session->userdata('kdsatker');
-        $tahun = $this->session->userdata('tahun');
-
-        // menangkap data pencarian kode
-        $kode = $this->input->post('kode');
-
-        // settingan halaman
-        $config['base_url'] = base_url('realisasi-direktorat/detail/' . $jenis . '/' . $kdunit . '/' . $bulan . '');
-        $config['total_rows']  = $this->viewtagihan->countRealisasi($kdsatker, $tahun, $kdunit, $bulan);
-        $config['per_page'] = 10;
-        $config["num_links"] = 3;
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(6) ? $this->uri->segment(6) : 0;
-        $limit = $config["per_page"];
-        $data['kode'] = $kode;
-        $offset = $data['page'];
-
         $data['jenis'] = $jenis;
         $data['kdunit'] = $kdunit;
-        $data['bulan'] = $bulan;
+        $data['kdbulan'] = $kdbulan;
+        $data['unit'] = $this->realisasi->getDetailRealisasiUnitBulan($jenis, $kdunit, $kdbulan);
 
-        // pilih tampilan data, semua atau berdasarkan pencarian kode 
-        if ($jenis == 1) {
-            $data['bln'] = $this->viewtagihan->getBulan($kdsatker, $tahun, $kdunit);
-            if ($kode) {
-                $data['page'] = 0;
-                $offset = 0;
-                $data['realisasi'] = $this->viewtagihan->findRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset, $kode);
-            } else {
-                $data['realisasi'] = $this->viewtagihan->getRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset);
-            }
-        } else {
-            $data['bln'] = $this->viewsp2d->getBulan($kdsatker, $tahun, $kdunit);
-            if ($kode) {
-                $data['page'] = 0;
-                $offset = 0;
-                $data['realisasi'] = $this->viewsp2d->findRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset, $kode);
-            } else {
-                $data['realisasi'] = $this->viewsp2d->getRealisasi($kdsatker, $tahun, $kdunit, $bulan, $limit, $offset);
-            }
-        }
-
-        // meload view pada pegawai/index.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
         $this->load->view('realisasi_direktorat/detail', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function tagihan($jenis = null, $kdunit = null, $kdbulan = null, $kode = null)
+    {
+        $data['jenis'] = $jenis;
+        $data['kdunit'] = $kdunit;
+        $data['kdbulan'] = $kdbulan;
+        $data['unit'] = $this->realisasi->getDetailRealisasiUnitBulanTagihan($jenis, $kdunit, $kdbulan, $kode);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_direktorat/tagihan', $data);
         $this->load->view('template/footer');
     }
 }

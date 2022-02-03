@@ -48,19 +48,19 @@ class View_pagu_sp2d_model extends CI_Model
 
     public function getJenisBelanja()
     {
-        $query = "SELECT left(a.akun,2) AS jenis_belanja, sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi, sum(a.sisa) as sisa,b.nama from view_pagu_sp2d a left join ref_jenis_belanja b on left(a.akun,2)=b.kode group by left(a.akun,2),b.nama";
+        $query = "SELECT left(a.akun,2) AS jenis_belanja, sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi, sum(a.sisa) as sisa,b.nama from view_pagu_sp2d a left join ref_jenis_belanja b on left(a.akun,2)=b.kode WHERE a.kdsatker=" . sesi()['kdsatker'] . " AND a.tahun=" . sesi()['tahun'] . " group by left(a.akun,2),b.nama";
         return $this->db->query($query)->result_array();
     }
 
     public function getRealisasiPpk()
     {
-        $query = "SELECT b.kdppk,b.nmppk,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu_sp2d a left join ref_ppk b on a.kdppk=b.kdppk group by b.kdppk,b.nmppk order by b.kdppk asc";
+        $query = "SELECT b.kdppk,b.nmppk,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu_sp2d a left join ref_ppk b on a.kdppk=b.kdppk WHERE a.kdsatker=" . sesi()['kdsatker'] . " AND a.tahun=" . sesi()['tahun'] . " group by b.kdppk,b.nmppk order by b.kdppk asc";
         return $this->db->query($query)->result_array();
     }
 
     public function getRealisasiUnit()
     {
-        $query = "SELECT b.kdunit,b.nmunit,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu_sp2d a left join ref_unit b on a.kdunit=b.kdunit group by b.kdunit,b.nmunit order by b.kdunit asc";
+        $query = "SELECT b.kdunit,b.nmunit,sum(a.anggaran) AS pagu, sum(a.realisasi) as realisasi from view_pagu_sp2d a left join ref_unit b on a.kdunit=b.kdunit  WHERE a.kdsatker=" . sesi()['kdsatker'] . " AND a.tahun=" . sesi()['tahun'] . " group by b.kdunit,b.nmunit order by b.kdunit asc";
         return $this->db->query($query)->result_array();
     }
 }
