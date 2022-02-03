@@ -20,7 +20,7 @@
             <!-- <form action="" method="post" autocomplete="off"> -->
             <?= form_open(); ?>
             <div class="input-group">
-                <input type="text" name="kro" class="form-control" placeholder="Kegiatan+KRO+RO">
+                <input type="text" name="kode" class="form-control" placeholder="detail akun">
                 <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
             </div>
             </form>
@@ -60,7 +60,7 @@
                                 <td><?= $r['akun']; ?></td>
                                 <td class="text-right"><?= number_format($r['anggaran'], 0, ',', '.'); ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['sisa'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['anggaran'] - $r['realisasi'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('realisasi/pilih-detail-akun/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Pilih</a>
@@ -75,7 +75,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $kro == null ? $pagination : ''; ?>
+            <?= $kode == null ? $pagination : ''; ?>
         </div>
     </div>
 

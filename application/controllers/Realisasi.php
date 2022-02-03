@@ -7,12 +7,10 @@ class Realisasi extends CI_Controller
         parent::__construct();
         is_logged_in();
         // is_level();
-        // meload file Data_realisasi_model.php
-        $this->load->model('Data_realisasi_model', 'realisasi');
         $this->load->model('Ref_pagu_model', 'pagu');
-        $this->load->model('View_pagu_model', 'viewpagu');
+        $this->load->model('Data_realisasi_model', 'realisasi');
+        $this->load->model('View_sisa_pagu_model', 'view_sisa_pagu');
         $this->load->model('Data_tagihan_model', 'tagihan');
-        $this->load->model('View_sisa_model', 'viewsisa');
     }
 
     public function index($tagihan_id = null)
@@ -64,7 +62,7 @@ class Realisasi extends CI_Controller
         ]
     ];
 
-    public function update($id = null, $tagihan_id = null)
+    public function update($id = null, $tagihan_id = null, $kode = null)
     {
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
@@ -74,7 +72,7 @@ class Realisasi extends CI_Controller
         $data['tagihan_id'] = $tagihan_id;
         // load data realisasi ke view berdasarkan id realisasi
         $data['realisasi'] = $this->realisasi->getDetailRealisasi($id);
-        $sisa = $this->viewsisa->getDetailSisa($id)['sisa'];
+        $sisa = $this->view_sisa_pagu->getDetailSisaPagu($kode)['sisa'];
 
         $validation = $this->form_validation->set_rules($this->rules);
 
@@ -126,32 +124,29 @@ class Realisasi extends CI_Controller
 
         // mengirim data id tagihan ke view
         $data['tagihan_id'] = $tagihan_id;
-        $kdsatker = $this->session->userdata('kdsatker');
-        $kdppk = $this->session->userdata('kdppk');
-        $tahun = $this->session->userdata('tahun');
 
-        // menangkap data pencarian kro
-        $kro = $this->input->post('kro');
+        // menangkap data pencarian kode
+        $kode = $this->input->post('kode');
 
         // settingan halaman
         $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '');
-        $config['total_rows'] = $this->viewpagu->countPagu($kdppk, $kdsatker, $tahun);
+        $config['total_rows'] = $this->view_sisa_pagu->countSisaPagu();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
-        $data['kro'] = $kro;
+        $data['kode'] = $kode;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
         // pilih tampilan data, semua atau berdasarkan pencarian ro
-        if ($kro) {
+        if ($kode) {
             $data['page'] = 0;
             $offset = 0;
-            $data['pagu'] = $this->viewpagu->findPagu($kro, $limit, $offset, $kdppk, $kdsatker, $tahun);
+            $data['pagu'] = $this->view_sisa_pagu->findSisaPagu($kode, $limit, $offset);
         } else {
-            $data['pagu'] = $this->viewpagu->getPagu($limit, $offset, $kdppk, $kdsatker, $tahun);
+            $data['pagu'] = $this->view_sisa_pagu->getSisaPagu($limit, $offset);
         }
 
         // meload view pada realisasi/tarik_detail_akun.php
