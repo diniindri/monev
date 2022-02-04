@@ -51,7 +51,7 @@
                             $jrealisasi += $r['realisasi'];
                         endforeach;
                         $jsisa = $jpagu - $jrealisasi;
-                        $jpersen = $jrealisasi / $jpagu * 100;
+                        $jpagu > 0 ? $jpersen = $jrealisasi / $jpagu * 100 : $jpersen = 0;
                         ?>
 
                         <tr>

@@ -10,7 +10,7 @@ class View_data_realisasi_model extends CI_Model
                         sum(a.anggaran) AS pagu, 
                         sum(b.realisasi) as realisasi,
                         c.nama 
-                        FROM view_ref_pagu_unit a 
+                        FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
                                                     AND a.kdsatker=b.kdsatker 
                                                     AND a.program=b.program 
@@ -34,7 +34,7 @@ class View_data_realisasi_model extends CI_Model
         $query = "SELECT c.kdunit, c.nmunit,
                         sum(a.anggaran) AS pagu, 
                         sum(b.realisasi) as realisasi
-                        FROM view_ref_pagu_unit a 
+                        FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
                                                     AND a.kdsatker=b.kdsatker 
                                                     AND a.program=b.program 
@@ -107,7 +107,7 @@ class View_data_realisasi_model extends CI_Model
         $query = "SELECT c.kdppk, c.nmppk,
                         sum(a.anggaran) AS pagu, 
                         sum(b.realisasi) as realisasi
-                        FROM view_ref_pagu_ppk a 
+                        FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
                                                     AND a.kdsatker=b.kdsatker 
                                                     AND a.program=b.program 

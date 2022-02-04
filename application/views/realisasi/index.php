@@ -53,7 +53,9 @@
                     </thead>
                     <tbody>
                         <?php $no = $page + 1;
-                        foreach ($realisasi as $r) : ?>
+                        foreach ($realisasi as $r) :
+                            $kode = $r['program'] . $r['kegiatan'] . $r['kro'] . $r['ro'] . $r['komponen'] . $r['subkomponen'] . $r['akun'];
+                        ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['program']; ?></td>
@@ -66,7 +68,7 @@
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('realisasi/update/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Realisasi</a>
+                                        <a href="<?= base_url('realisasi/update/') . $r['id'] . '/' . $tagihan_id . '/' . $kode; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Realisasi</a>
                                         <a href="<?= base_url('realisasi/delete/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>

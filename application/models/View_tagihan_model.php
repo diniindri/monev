@@ -62,6 +62,9 @@ class View_tagihan_model extends CI_Model
 
     public function getTagihanAll($limit = null, $offset = 0)
     {
+        $this->db->where('tahun', sesi()['tahun']);
+        $this->db->where('kdsatker', sesi()['kdsatker']);
+        $this->db->where('kdppk', sesi()['kdppk']);
         $this->db->order_by('notagihan', 'DESC');
         $this->db->limit($limit, $offset);
         return $this->db->get('view_tagihan')->result_array();
@@ -69,6 +72,9 @@ class View_tagihan_model extends CI_Model
 
     public function findTagihanAll($notagihan = null, $limit = null, $offset = 0)
     {
+        $this->db->where('tahun', sesi()['tahun']);
+        $this->db->where('kdsatker', sesi()['kdsatker']);
+        $this->db->where('kdppk', sesi()['kdppk']);
         $this->db->like('notagihan', $notagihan);
         $this->db->limit($limit, $offset);
         return $this->db->get('view_tagihan')->result_array();
@@ -76,6 +82,9 @@ class View_tagihan_model extends CI_Model
 
     public function countTagihanAll()
     {
+        $this->db->where('tahun', sesi()['tahun']);
+        $this->db->where('kdsatker', sesi()['kdsatker']);
+        $this->db->where('kdppk', sesi()['kdppk']);
         return $this->db->get('data_tagihan')->num_rows();
     }
 }

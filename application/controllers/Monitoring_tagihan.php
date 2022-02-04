@@ -18,7 +18,7 @@ class Monitoring_tagihan extends CI_Controller
         $notagihan = $this->input->post('notagihan');
 
         // settingan halaman
-        $config['base_url'] = base_url('bendahara/index');
+        $config['base_url'] = base_url('monitoring-tagihan/index');
         $config['total_rows'] = $this->viewtagihan->countTagihanAll();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
