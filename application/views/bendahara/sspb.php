@@ -9,10 +9,17 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="form-group mb-2">
-                <label for="">pengembalian:</label>
+                <label for="">SSPB:</label>
                 <input type="text" name="sspb" class="form-control <?= form_error('sspb') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['sspb']; ?>">
                 <div class="invalid-feedback">
                     <?= form_error('sspb'); ?>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="">Tanggal SSPB:</label>
+                <input type="text" name="tglsspb" id="myFlat" class="form-control <?= form_error('tglsspb') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['tglsspb']; ?>" placeholder="dd-mm-yyyy">
+                <div class="invalid-feedback">
+                    <?= form_error('tglsspb'); ?>
                 </div>
             </div>
         </div>

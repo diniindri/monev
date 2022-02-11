@@ -26,6 +26,7 @@
             ['menu' => 'Realisasi Direktorat', 'level' => 1, 'url' => 'realisasi-direktorat'],
             ['menu' => 'Realisasi PPK', 'level' => 1, 'url' => 'realisasi-ppk'],
             ['menu' => 'Data Tagihan', 'level' => 2, 'url' => 'tagihan'],
+            ['menu' => 'Kirim Tagihan', 'level' => 2, 'url' => 'register'],
             ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
             ['menu' => 'Pegawai Non DJKN', 'level' => 2, 'url' => 'nondjkn'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],

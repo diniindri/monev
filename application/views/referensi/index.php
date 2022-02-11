@@ -113,7 +113,16 @@
                                 </div>
                             </td>
                         </tr>
-                        <td>12</td>
+                        <tr>
+                            <td>12</td>
+                            <td>Nomor</td>
+                            <td class="pb-0 pr-0">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="<?= base_url('nomor/index'); ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <td>13</td>
                         <td>Users</td>
                         <td class="pb-0 pr-0">
                             <div class="btn-group btn-group-sm" role="group">

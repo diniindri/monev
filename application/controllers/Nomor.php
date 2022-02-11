@@ -2,65 +2,70 @@
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class Ppk extends CI_Controller
+class Nomor extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         is_logged_in();
-        // meload file ref_ppk_model.php
-        $this->load->model('Ref_ppk_model', 'ppk');
+        // meload file ref_nomor_model.php
+        $this->load->model('Ref_nomor_model', 'nomor');
     }
 
     public function index()
     {
-        // menangkap data pencarian ppk
-        $nmppk = $this->input->post('nmppk');
+        // menangkap data pencarian nomor
+        $nomor = $this->input->post('nomor');
 
         // settingan halaman
-        $config['base_url'] = base_url('ppk/index');
-        $config['total_rows'] = $this->ppk->countPpk();
+        $config['base_url'] = base_url('nomor/index');
+        $config['total_rows'] = $this->nomor->countNomor();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nmppk'] = $nmppk;
+        $data['nomor'] = $nomor;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
-        // pilih tampilan data, semua atau berdasarkan pencarian ppk
-        if ($nmppk) {
+        // pilih tampilan data, semua atau berdasarkan pencarian nomor
+        if ($nomor) {
             $data['page'] = 0;
             $offset = 0;
-            $data['ppk'] = $this->ppk->findPpk($nmppk, $limit, $offset);
+            $data['nomor'] = $this->nomor->findNomor($nomor, $limit, $offset);
         } else {
-            $data['ppk'] = $this->ppk->getPpk($limit, $offset);
+            $data['nomor'] = $this->nomor->getNomor($limit, $offset);
         }
 
-        // meload view pada ppk/index.php
+        // meload view pada nomor/index.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('ppk/index', $data);
+        $this->load->view('nomor/index', $data);
         $this->load->view('template/footer');
     }
 
     // validasi inputan pada form
     private $rules = [
         [
-            'field' => 'kdppk',
-            'label' => 'Kode PPK',
+            'field' => 'nomor',
+            'label' => 'Nomor',
             'rules' => 'required|trim|numeric'
         ],
         [
-            'field' => 'nmppk',
-            'label' => 'Nama PPK',
+            'field' => 'ekstensi',
+            'label' => 'Ekstensi',
             'rules' => 'required|trim'
         ],
         [
-            'field' => 'nip',
-            'label' => 'NIP',
-            'rules' => 'required|trim|numeric|exact_length[18]'
+            'field' => 'tahun',
+            'label' => 'Tahun',
+            'rules' => 'required|trim'
+        ],
+        [
+            'field' => 'kdsatker',
+            'label' => 'Kode Satker',
+            'rules' => 'required|trim'
         ]
     ];
 
@@ -71,20 +76,21 @@ class Ppk extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
-                'nmppk' => htmlspecialchars($this->input->post('nmppk', true)),
-                'nip' => htmlspecialchars($this->input->post('nip', true))
+                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
+                'ekstensi' => htmlspecialchars($this->input->post('ekstensi', true)),
+                'tahun' => htmlspecialchars($this->input->post('tahun', true)),
+                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
             ];
             // simpan data ke database melalui model
-            $this->ppk->createPpk($data);
+            $this->nomor->createNomor($data);
             $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('ppk');
+            redirect('nomor');
         }
 
-        // meload view pada ppk/create.php
+        // meload view pada nomor/create.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('ppk/create');
+        $this->load->view('nomor/create');
         $this->load->view('template/footer');
     }
 
@@ -93,28 +99,29 @@ class Ppk extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
 
-        // load data ppk yang akan diubah
-        $data['ppk'] = $this->ppk->getDetailPpk($id);
+        // load data nomor yang akan diubah
+        $data['nomor'] = $this->nomor->getDetailNomor($id);
 
         $validation = $this->form_validation->set_rules($this->rules);
 
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
-                'nmppk' => htmlspecialchars($this->input->post('nmppk', true)),
-                'nip' => htmlspecialchars($this->input->post('nip', true))
+                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
+                'ekstensi' => htmlspecialchars($this->input->post('ekstensi', true)),
+                'tahun' => htmlspecialchars($this->input->post('tahun', true)),
+                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
             ];
             // update data di database melalui model
-            $this->ppk->updatePpk($data, $id);
+            $this->nomor->updateNomor($data, $id);
             $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('ppk');
+            redirect('nomor');
         }
 
-        // meload view pada ppk/update.php
+        // meload view pada nomor/update.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('ppk/update', $data);
+        $this->load->view('nomor/update', $data);
         $this->load->view('template/footer');
     }
 
@@ -124,9 +131,9 @@ class Ppk extends CI_Controller
         if (!isset($id)) show_404();
 
         // hapus data di database melalui model
-        if ($this->ppk->deletePpk($id)) {
+        if ($this->nomor->deleteNomor($id)) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('ppk');
+        redirect('nomor');
     }
 }

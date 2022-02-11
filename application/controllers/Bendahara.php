@@ -271,6 +271,11 @@ class Bendahara extends CI_Controller
             'field' => 'sspb',
             'label' => 'sspb',
             'rules' => 'required|trim|numeric'
+        ],
+        [
+            'field' => 'tglsspb',
+            'label' => 'Tanggal SSPB',
+            'rules' => 'required|trim'
         ]
     ];
 
@@ -290,9 +295,10 @@ class Bendahara extends CI_Controller
 
         // jika validasi sukses
         if ($validation->run()) {
-            $sspb = htmlspecialchars($this->input->post('sspb', true));
+
             $data = [
-                'sspb' => $sspb
+                'sspb' => htmlspecialchars($this->input->post('sspb', true)),
+                'tglsspb' => strtotime(htmlspecialchars($this->input->post('tglsspb', true)))
             ];
             $this->realisasi->updateRealisasi($data, $id);
             $this->session->set_flashdata('berhasil', 'Data berhasil diubah.');

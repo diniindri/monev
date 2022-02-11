@@ -22,6 +22,13 @@
                         <?= form_error('nmppk'); ?>
                     </div>
                 </div>
+                <div class="form-group mb-2">
+                    <label for="">NIP:</label>
+                    <input type="text" name="nip" class="form-control <?= form_error('nip') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('nip'); ?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row mt-3">

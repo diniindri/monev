@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">PPK</h1>
+        <h1 class="h2">Nomor Register</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -14,13 +14,13 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('ppk/create'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
+            <a href="<?= base_url('nomor/create'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
                 <!-- <?= form_open(); ?> -->
                 <div class="input-group">
-                    <input type="text" name="nmppk" class="form-control" placeholder="Nama ppk">
+                    <input type="text" name="nomor" class="form-control" placeholder="nomor">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
@@ -33,24 +33,26 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Kode PPK</th>
-                            <th>Nama PPK</th>
-                            <th>NIP</th>
+                            <th>Nomor Register</th>
+                            <th>Ekstensi</th>
+                            <th>Tahun</th>
+                            <th>Kode Satker</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = $page + 1;
-                        foreach ($ppk as $r) : ?>
+                        foreach ($nomor as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['kdppk']; ?></td>
-                                <td><?= $r['nmppk']; ?></td>
-                                <td><?= $r['nip']; ?></td>
+                                <td><?= $r['nomor']; ?></td>
+                                <td><?= $r['ekstensi']; ?></td>
+                                <td><?= $r['tahun']; ?></td>
+                                <td><?= $r['kdsatker']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('ppk/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
-                                        <a href="<?= base_url('ppk/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
+                                        <a href="<?= base_url('nomor/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
+                                        <a href="<?= base_url('nomor/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>
                             </tr>
@@ -62,7 +64,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nmppk == null ? $pagination : ''; ?>
+            <?= $nomor == null ? $pagination : ''; ?>
         </div>
     </div>
 

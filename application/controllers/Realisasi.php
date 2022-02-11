@@ -72,13 +72,14 @@ class Realisasi extends CI_Controller
         $data['tagihan_id'] = $tagihan_id;
         // load data realisasi ke view berdasarkan id realisasi
         $data['realisasi'] = $this->realisasi->getDetailRealisasi($id);
-        $sisa = $this->view_sisa_pagu->getDetailSisaPagu($kode)['sisa'];
 
         $validation = $this->form_validation->set_rules($this->rules);
 
 
         // jika validasi sukses
         if ($validation->run()) {
+            $this->realisasi->updateRealisasi(['realisasi' => 0], $id);
+            $sisa = $this->view_sisa_pagu->getDetailSisaPagu($kode)['sisa'];
             $realisasi = htmlspecialchars($this->input->post('realisasi', true));
             if ($sisa - $realisasi < 0) {
                 $this->session->set_flashdata('gagal', 'Data gagal disimpan, realisasi melebihi sisa pagu.');
