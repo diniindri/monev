@@ -29,6 +29,7 @@
             ['menu' => 'Kirim Tagihan', 'level' => 2, 'url' => 'register'],
             ['menu' => 'Monitoring Tagihan', 'level' => 2, 'url' => 'monitoring-tagihan'],
             ['menu' => 'Pegawai Non DJKN', 'level' => 2, 'url' => 'nondjkn'],
+            ['menu' => 'PPSPM', 'level' => 3, 'url' => 'ppspm'],
             ['menu' => 'Verifikasi', 'level' => 3, 'url' => 'verifikasi'],
             ['menu' => 'Bendahara', 'level' => 3, 'url' => 'bendahara'],
             ['menu' => 'Arsip', 'level' => 3, 'url' => 'arsip'],

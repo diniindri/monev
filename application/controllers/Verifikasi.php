@@ -20,7 +20,7 @@ class Verifikasi extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('verifikasi/index');
-        $config['total_rows'] = $this->viewtagihan->countTagihan(1);
+        $config['total_rows'] = $this->viewtagihan->countTagihan(2);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -34,9 +34,9 @@ class Verifikasi extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 1);
+            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 2);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 1);
+            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 2);
         }
 
         $this->load->view('template/header');
@@ -63,7 +63,7 @@ class Verifikasi extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 2
+            'status' => 3
         ];
         $jnstagihan = $this->viewtagihan->getDetailTagihan($id)['jnstagihan'];
         $tglspm = $this->viewtagihan->getDetailTagihan($id)['tglspm'];

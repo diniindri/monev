@@ -2,7 +2,7 @@
 
 use Spipu\Html2Pdf\Html2Pdf;
 
-class Register extends CI_Controller
+class Ppspm extends CI_Controller
 {
     public function __construct()
     {
@@ -21,8 +21,8 @@ class Register extends CI_Controller
         $nomor = $this->input->post('nomor');
 
         // settingan halaman
-        $config['base_url'] = base_url('register/index');
-        $config['total_rows'] = $this->register->countRegister();
+        $config['base_url'] = base_url('ppspm/index');
+        $config['total_rows'] = $this->register->countRegisterPpspm();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -36,15 +36,15 @@ class Register extends CI_Controller
         if ($nomor) {
             $data['page'] = 0;
             $offset = 0;
-            $data['register'] = $this->register->findRegister($nomor, $limit, $offset);
+            $data['register'] = $this->register->findRegisterPpspm($nomor, $limit, $offset);
         } else {
-            $data['register'] = $this->register->getRegister($limit, $offset);
+            $data['register'] = $this->register->getRegisterPpspm($limit, $offset);
         }
 
-        // meload view pada register/index.php
+        // meload view pada ppspm/index.php
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('register/index', $data);
+        $this->load->view('ppspm/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -152,10 +152,14 @@ class Register extends CI_Controller
 
     public function kirim($id = null)
     {
+        // cek apakah ada id apa tidak
+        if (!isset($id)) show_404();
+        $data = [
+            'status' => 2
+        ];
 
-        $this->tagihan->updateTagihanRegister(['status' => 2], $id);
-        $this->register->updateRegister(['status' => 1], $id);
+        $this->tagihan->updateTagihan($data, $id);
         $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
-        redirect('register');
+        redirect('registrasi');
     }
 }

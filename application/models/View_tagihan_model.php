@@ -4,7 +4,6 @@ class View_tagihan_model extends CI_Model
 {
     public function getTagihanPpk($limit = null, $offset = 0, $status = 0)
     {
-        $this->db->where(['register_id' => null]);
         $this->db->where('status', $status);
         $this->db->where('kdppk', sesi()['kdppk']);
         $this->db->where('kdsatker', sesi()['kdsatker']);
@@ -21,7 +20,6 @@ class View_tagihan_model extends CI_Model
 
     public function findTagihanPpk($notagihan = null, $limit = null, $offset = 0, $status = 0)
     {
-        $this->db->where(['register_id' => null]);
         $this->db->where('status', $status);
         $this->db->where('kdppk', sesi()['kdppk']);
         $this->db->where('kdsatker', sesi()['kdsatker']);
@@ -33,7 +31,6 @@ class View_tagihan_model extends CI_Model
 
     public function countTagihanPpk($status = 0)
     {
-        $this->db->where(['register_id' => null]);
         $this->db->where('status', $status);
         $this->db->where('kdppk', sesi()['kdppk']);
         $this->db->where('kdsatker', sesi()['kdsatker']);
@@ -110,7 +107,7 @@ class View_tagihan_model extends CI_Model
         return $this->db->get('view_tagihan')->result_array();
     }
 
-    public function getTagihanRegister($status = 0)
+    public function getTagihanRegister($status = 1)
     {
         $this->db->where(['register_id' => null]);
         $this->db->where('status', $status);

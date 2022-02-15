@@ -22,7 +22,7 @@ class Bendahara extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('bendahara/index');
-        $config['total_rows'] = $this->viewtagihan->countTagihan(2);
+        $config['total_rows'] = $this->viewtagihan->countTagihan(3);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -36,9 +36,9 @@ class Bendahara extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 2);
+            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 3);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 2);
+            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 3);
         }
 
         $this->load->view('template/header');
@@ -52,7 +52,7 @@ class Bendahara extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 3
+            'status' => 4
         ];
         $nosp2d = $this->viewtagihan->getDetailTagihan($id)['nosp2d'];
         $kddokumen = $this->viewtagihan->getDetailTagihan($id)['kddokumen'];
@@ -217,7 +217,7 @@ class Bendahara extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 1
+            'status' => 2
         ];
         // update data di database melalui model
         $this->tagihan->updateTagihan($data, $id);

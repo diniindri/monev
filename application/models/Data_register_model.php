@@ -4,6 +4,7 @@ class Data_register_model extends CI_Model
 {
     public function getRegister($limit = null, $offset = 0)
     {
+        $this->db->where('status', 0);
         $this->db->limit($limit, $offset);
         return $this->db->get('data_register')->result_array();
     }
@@ -15,12 +16,14 @@ class Data_register_model extends CI_Model
 
     public function findRegister($nomor = null, $limit = 0, $offset = 0)
     {
+        $this->db->where('status', 0);
         $this->db->limit($limit, $offset);
         return $this->db->get_where('data_register', ['nomor' => $nomor])->result_array();
     }
 
     public function countRegister()
     {
+        $this->db->where('status', 0);
         return $this->db->get('data_register')->num_rows();
     }
 
@@ -51,5 +54,25 @@ class Data_register_model extends CI_Model
     public function findJumlahRegister($nomor = null)
     {
         return $this->db->get_where('data_register', ['nomor' => $nomor])->row_array();
+    }
+
+    public function getRegisterPpspm($limit = null, $offset = 0)
+    {
+        $this->db->where('status', 1);
+        $this->db->limit($limit, $offset);
+        return $this->db->get('data_register')->result_array();
+    }
+
+    public function findRegisterPpspm($nomor = null, $limit = 0, $offset = 0)
+    {
+        $this->db->where('status', 1);
+        $this->db->limit($limit, $offset);
+        return $this->db->get_where('data_register', ['nomor' => $nomor])->result_array();
+    }
+
+    public function countRegisterPpspm()
+    {
+        $this->db->where('status', 1);
+        return $this->db->get('data_register')->num_rows();
     }
 }

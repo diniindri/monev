@@ -22,7 +22,7 @@ class Arsip extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('arsip/index');
-        $config['total_rows'] = $this->viewtagihan->countTagihan(3);
+        $config['total_rows'] = $this->viewtagihan->countTagihan(4);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -36,9 +36,9 @@ class Arsip extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 3);
+            $data['tagihan'] = $this->viewtagihan->findTagihan($notagihan, $limit, $offset, 4);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 3);
+            $data['tagihan'] = $this->viewtagihan->getTagihan($limit, $offset, 4);
         }
 
         $this->load->view('template/header');
@@ -150,7 +150,7 @@ class Arsip extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 2
+            'status' => 3
         ];
         // update data di database melalui model
         $this->tagihan->updateTagihan($data, $id);

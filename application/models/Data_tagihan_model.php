@@ -49,4 +49,10 @@ class Data_tagihan_model extends CI_Model
         $this->db->order_by('notagihan', 'DESC');
         return $this->db->get('data_tagihan')->result_array();
     }
+
+    public function updateTagihanRegister($data = null, $id = null)
+    {
+        $this->db->update('data_tagihan', $data, ['register_id' => $id]);
+        return $this->db->affected_rows();
+    }
 }

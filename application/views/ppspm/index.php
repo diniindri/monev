@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Register Tagihan</h1>
+        <h1 class="h2">PPSPM</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -14,16 +14,14 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('register'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Sebelumnya</a>
-            <a href="<?= base_url('register/create/'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
         </div>
         <div class="col-lg-5">
-            <!-- <form action="" method="post" autocomplete="off"> -->
-            <?= form_open(); ?>
-            <div class="input-group">
-                <input type="text" name="notagihan" class="form-control" placeholder="Nomor Register">
-                <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
-            </div>
+            <form action="" method="post" autocomplete="off">
+                <!-- <?= form_open(); ?> -->
+                <div class="input-group">
+                    <input type="text" name="nomor" class="form-control" placeholder="nomor">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
+                </div>
             </form>
         </div>
     </div>
@@ -43,25 +41,22 @@
                     </thead>
                     <tbody>
                         <?php $no = $page + 1;
-                        $jml = 0;
-                        $nmnl = 0;
                         foreach ($register as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['noregister']; ?></td>
-                                <td><?= date('d-m-Y', $r['tglregister']); ?></td>
-                                <td class="text-right"><?= number_format($r['jumlah'], 0, ',', '.'); ?></td>
+                                <td><?= $r['nomor'] . $r['ekstensi']; ?></td>
+                                <td><?= tanggal($r['tanggal']); ?></td>
+                                <td><?= $r['jumlah']; ?></td>
                                 <td><?= $r['status']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('register/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
-                                        <a href="<?= base_url('register/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
-                                        <a href="<?= base_url('register/detaail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                        <a href="<?= base_url('register/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                        <a href="<?= base_url('register/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Preview</a>
+                                        <a href="<?= base_url('register/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Terima</a>
                                     </div>
                                 </td>
                             </tr>
-                        <?php $jml += $r['jumlah'];
-                        endforeach; ?>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -69,7 +64,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $notagihan == null ? $pagination : ''; ?>
+            <?= $nomor == null ? $pagination : ''; ?>
         </div>
     </div>
 
