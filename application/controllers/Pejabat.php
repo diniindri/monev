@@ -15,7 +15,7 @@ class Pejabat extends CI_Controller
     public function index()
     {
         // menangkap data pencarian nama pejabat
-        $nama = $this->input->post('nama');
+        $nmbendahara = $this->input->post('nmbendahara');
 
         // settingan halaman
         $config['base_url'] = base_url('pejabat/index');
@@ -25,15 +25,15 @@ class Pejabat extends CI_Controller
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
         $data['page'] = $this->uri->segment(3) ? $this->uri->segment(3) : 0;
-        $data['nama'] = $nama;
+        $data['nmbendahara'] = $nmbendahara;
         $limit = $config["per_page"];
         $offset = $data['page'];
 
         // pilih tampilan data, semua atau berdasarkan pencarian nama pejabat
-        if ($nama) {
+        if ($nmbendahara) {
             $data['page'] = 0;
             $offset = 0;
-            $data['pejabat'] = $this->pejabat->findPejabat($nama, $limit, $offset);
+            $data['pejabat'] = $this->pejabat->findPejabat($nmbendahara, $limit, $offset);
         } else {
             $data['pejabat'] = $this->pejabat->getPejabat($limit, $offset);
         }
@@ -48,25 +48,10 @@ class Pejabat extends CI_Controller
     // validasi inputan pada form
     private $rules = [
         [
-            'field' => 'kode',
-            'label' => 'Kode',
-            'rules' => 'required|trim|numeric'
-        ],
-        [
-            'field' => 'nip',
-            'label' => 'NIP',
-            'rules' => 'required|trim|exact_length[18]'
-        ],
-        [
-            'field' => 'nama',
+            'field' => 'nmbendahara',
             'label' => 'Nama',
             'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'jabatan',
-            'label' => 'jabatan',
-            'rules' => 'required|trim'
-        ],
+        ]
     ];
 
     public function create()
@@ -76,10 +61,9 @@ class Pejabat extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kode' => htmlspecialchars($this->input->post('kode', true)),
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'jabatan' => htmlspecialchars($this->input->post('jabatan', true))
+                'nmbendahara' => htmlspecialchars($this->input->post('nmbendahara', true)),
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // simpan data ke database melalui model
             $this->pejabat->createPejabat($data);
@@ -107,10 +91,9 @@ class Pejabat extends CI_Controller
         // jika validasi sukses
         if ($validation->run()) {
             $data = [
-                'kode' => htmlspecialchars($this->input->post('kode', true)),
-                'nip' => htmlspecialchars($this->input->post('nip', true)),
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'jabatan' => htmlspecialchars($this->input->post('jabatan', true))
+                'nmbendahara' => htmlspecialchars($this->input->post('nmbendahara', true)),
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // update data di database melalui model
             $this->pejabat->updatePejabat($data, $id);

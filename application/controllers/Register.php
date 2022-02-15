@@ -95,36 +95,6 @@ class Register extends CI_Controller
         // $this->load->view('template/footer');
     }
 
-    public function update($id = null)
-    {
-        // cek apakah ada id apa tidak
-        if (!isset($id)) show_404();
-
-        // load data refister yang akan diubah
-        $data['register'] = $this->register->getDetailRegister($id);
-
-        $validation = $this->form_validation->set_rules($this->rules);
-
-        // jika validasi sukses
-        if ($validation->run()) {
-            $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'tanggal' => htmlspecialchars($this->input->post('tanggal', true)),
-                'jumlah' => htmlspecialchars($this->input->post('jumlah', true)),
-                'status' => htmlspecialchars($this->input->post('status', true))
-            ];
-            // update data di database melalui model
-            $this->register->updateRegister($data, $id);
-            $this->session->set_flashdata('pesan', 'Data berhasil diubah.');
-            redirect('register');
-        }
-
-        // meload view pada register/update.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('register/update', $data);
-        $this->load->view('template/footer');
-    }
 
     public function delete($id = null)
     {

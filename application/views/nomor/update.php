@@ -22,20 +22,6 @@
                         <?= form_error('ekstensi'); ?>
                     </div>
                 </div>
-                <div class="form-group mb-2">
-                    <label for="">Tahun:</label>
-                    <input type="text" name="tahun" class="form-control <?= form_error('tahun') ? 'is-invalid' : ''; ?>" value="<?= $nomor['tahun']; ?>">
-                    <div class="invalid-feedback">
-                        <?= form_error('tahun'); ?>
-                    </div>
-                </div>
-                <div class="form-group mb-2">
-                    <label for="">Kode Satker:</label>
-                    <input type="text" name="kdsatker" class="form-control <?= form_error('kdsatker') ? 'is-invalid' : ''; ?>" value="<?= $nomor['kdsatker']; ?>">
-                    <div class="invalid-feedback">
-                        <?= form_error('kdsatker'); ?>
-                    </div>
-                </div>
             </div>
             <div class="row mt-3">
                 <div class="col">

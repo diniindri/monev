@@ -1,6 +1,6 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Pejabat</h1>
+        <h1 class="h2">Pejabat Bendahara</h1>
     </div>
     <div class="row">
         <div class="col">
@@ -20,7 +20,7 @@
             <!-- <form action="" method="post" autocomplete="off"> -->
             <?= form_open(); ?>
             <div class="input-group">
-                <input type="text" name="nama" class="form-control" placeholder="nama">
+                <input type="text" name="nmbendahara" class="form-control" placeholder="nama">
                 <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
             </div>
             </form>
@@ -33,8 +33,8 @@
                     <thead class="text-center">
                         <tr class="align-middle">
                             <th>No</th>
-                            <th>Kode Satker</th>
                             <th>Tahun</th>
+                            <th>Kode Satker</th>
                             <th>Nama</th>
                             <th>Aksi</th>
                         </tr>
@@ -44,8 +44,8 @@
                         foreach ($pejabat as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['kdsatker']; ?></td>
                                 <td><?= $r['tahun']; ?></td>
+                                <td><?= $r['kdsatker']; ?></td>
                                 <td><?= $r['nmbendahara']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
@@ -62,7 +62,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $nama == null ? $pagination : ''; ?>
+            <?= $nmbendahara == null ? $pagination : ''; ?>
         </div>
     </div>
 

@@ -45,13 +45,12 @@
                         foreach ($register as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
-                                <td><?= $r['nomor']; ?></td>
+                                <td><?= $r['nomor'] . $r['ekstensi']; ?></td>
                                 <td><?= tanggal($r['tanggal']); ?></td>
                                 <td><?= $r['jumlah']; ?></td>
                                 <td><?= $r['status']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('register/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
                                         <a href="<?= base_url('register/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('register/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                         <a href="<?= base_url('register/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Preview</a>

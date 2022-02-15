@@ -56,16 +56,6 @@ class Nomor extends CI_Controller
             'field' => 'ekstensi',
             'label' => 'Ekstensi',
             'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'tahun',
-            'label' => 'Tahun',
-            'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'kdsatker',
-            'label' => 'Kode Satker',
-            'rules' => 'required|trim'
         ]
     ];
 
@@ -78,12 +68,19 @@ class Nomor extends CI_Controller
             $data = [
                 'nomor' => htmlspecialchars($this->input->post('nomor', true)),
                 'ekstensi' => htmlspecialchars($this->input->post('ekstensi', true)),
-                'tahun' => htmlspecialchars($this->input->post('tahun', true)),
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
+
             ];
             // simpan data ke database melalui model
-            $this->nomor->createNomor($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+            $nomor = $this->nomor->getNoreg();
+            if ($nomor) {
+                $this->session->set_flashdata('pesan', 'Data tidak berhasil disimpan.');
+            } else {
+                $this->nomor->createNomor($data);
+                $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+            }
+
             redirect('nomor');
         }
 
@@ -109,8 +106,8 @@ class Nomor extends CI_Controller
             $data = [
                 'nomor' => htmlspecialchars($this->input->post('nomor', true)),
                 'ekstensi' => htmlspecialchars($this->input->post('ekstensi', true)),
-                'tahun' => htmlspecialchars($this->input->post('tahun', true)),
-                'kdsatker' => htmlspecialchars($this->input->post('kdsatker', true))
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // update data di database melalui model
             $this->nomor->updateNomor($data, $id);

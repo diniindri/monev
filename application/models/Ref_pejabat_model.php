@@ -5,6 +5,7 @@ class Ref_pejabat_model extends CI_Model
     public function getPejabat($limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_bendahara')->result_array();
     }
 
@@ -16,11 +17,13 @@ class Ref_pejabat_model extends CI_Model
     public function findPejabat($nama = null, $limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_bendahara', ['nama' => $nama])->result_array();
     }
 
     public function countPejabat()
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_bendahara')->num_rows();
     }
 
@@ -45,11 +48,13 @@ class Ref_pejabat_model extends CI_Model
     public function getAllPejabat()
     {
         $this->db->order_by('nama', 'ASC');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_bendahara')->result_array();
     }
 
     public function getKodePejabat($kode = null)
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_bendahara', ['kode' => $kode])->row_array();
     }
 }

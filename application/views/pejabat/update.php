@@ -9,20 +9,6 @@
     <div class="row">
         <div class="col-lg-3">
             <div class="form-group mb-2">
-                <label for="">Kode Satker:</label>
-                <input type="text" name="kdsatker" class="form-control <?= form_error('kdsatker') ? 'is-invalid' : ''; ?>" value="<?= $pejabat['kdsatker']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('kdsatker'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="">Tahun:</label>
-                <input type="text" name="tahun" class="form-control <?= form_error('tahun') ? 'is-invalid' : ''; ?>" value="<?= $pejabat['tahun']; ?>">
-                <div class="invalid-feedback">
-                    <?= form_error('tahun'); ?>
-                </div>
-            </div>
-            <div class="form-group mb-2">
                 <label for="">Nama Bendahara:</label>
                 <input type="text" name="nmbendahara" class="form-control <?= form_error('nmbendahara') ? 'is-invalid' : ''; ?>" value="<?= $pejabat['nmbendahara']; ?>">
                 <div class="invalid-feedback">

@@ -5,6 +5,7 @@ class Ref_pagu_model extends CI_Model
     public function getPagu($limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_pagu')->result_array();
     }
 
@@ -16,11 +17,13 @@ class Ref_pagu_model extends CI_Model
     public function findPagu($kro = null, $limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_pagu', ['kro' => $kro])->result_array();
     }
 
     public function countPagu()
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_pagu')->num_rows();
     }
 
@@ -45,11 +48,13 @@ class Ref_pagu_model extends CI_Model
     public function getAllPagu()
     {
         $this->db->order_by('kegiatan', 'ASC');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_pagu')->result_array();
     }
 
     public function findJumlahPagu($kro = null, $ro = null)
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_pagu', ['kro' => $kro, 'ro' => $ro])->row_array();
     }
 }

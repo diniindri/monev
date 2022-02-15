@@ -5,6 +5,7 @@ class Ref_unit_model extends CI_Model
     public function getUnit($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_unit')->result_array();
     }
 
@@ -16,11 +17,13 @@ class Ref_unit_model extends CI_Model
     public function findUnit($nmunit = null, $limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_unit', ['nmunit' => $nmunit])->result_array();
     }
 
     public function countUnit()
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_unit')->num_rows();
     }
 
@@ -45,11 +48,13 @@ class Ref_unit_model extends CI_Model
     public function getAllUnit()
     {
         $this->db->order_by('kegiatan', 'ASC');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_unit')->result_array();
     }
 
     public function findJumlahUnit($kdunit = null, $nmunit = null)
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_unit', ['kdunit' => $kdunit, 'nmunit' => $nmunit])->row_array();
     }
 }

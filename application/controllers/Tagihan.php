@@ -27,7 +27,7 @@ class Tagihan extends CI_Controller
 
         // settingan halaman
         $config['base_url'] = base_url('tagihan/index');
-        $config['total_rows'] = $this->viewtagihan->countTagihanPpk(0, $kdppk, $kdsatker, $tahun);
+        $config['total_rows'] = $this->viewtagihan->countTagihanPpk(0);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
@@ -41,9 +41,9 @@ class Tagihan extends CI_Controller
         if ($notagihan) {
             $data['page'] = 0;
             $offset = 0;
-            $data['tagihan'] = $this->viewtagihan->findTagihanPpk($notagihan, $limit, $offset, 0, $kdppk, $kdsatker, $tahun);
+            $data['tagihan'] = $this->viewtagihan->findTagihanPpk($notagihan, $limit, $offset, 0);
         } else {
-            $data['tagihan'] = $this->viewtagihan->getTagihanPpk($limit, $offset, 0, $kdppk, $kdsatker, $tahun);
+            $data['tagihan'] = $this->viewtagihan->getTagihanPpk($limit, $offset, 0);
         }
 
         // meload view pada tagihan/index.php

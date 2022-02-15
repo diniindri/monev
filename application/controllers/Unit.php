@@ -67,7 +67,9 @@ class Unit extends CI_Controller
         if ($validation->run()) {
             $data = [
                 'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
-                'nmunit' => htmlspecialchars($this->input->post('nmunit', true))
+                'nmunit' => htmlspecialchars($this->input->post('nmunit', true)),
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // simpan data ke database melalui model
             $this->unit->createUnit($data);

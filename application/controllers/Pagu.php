@@ -103,7 +103,9 @@ class Pagu extends CI_Controller
                 'komponen' => htmlspecialchars($this->input->post('komponen', true)),
                 'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
                 'akun' => htmlspecialchars($this->input->post('akun', true)),
-                'anggaran' => htmlspecialchars($this->input->post('anggaran', true))
+                'anggaran' => htmlspecialchars($this->input->post('anggaran', true)),
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // simpan data ke database melalui model
             $this->pagu->createPagu($data);

@@ -5,6 +5,7 @@ class Ref_nomor_model extends CI_Model
     public function getNomor($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_nomor')->result_array();
     }
 
@@ -16,11 +17,13 @@ class Ref_nomor_model extends CI_Model
     public function findNomor($nomor = null, $limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_nomor', ['nomor' => $nomor])->result_array();
     }
 
     public function countNomor()
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_nomor')->num_rows();
     }
 
@@ -45,11 +48,13 @@ class Ref_nomor_model extends CI_Model
     public function getAllNomor()
     {
         $this->db->order_by('nomor', 'ASC');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_nomor')->result_array();
     }
 
     public function findJumlahNomor($nomor = null)
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_nomor', ['nomor' => $nomor])->row_array();
     }
 
