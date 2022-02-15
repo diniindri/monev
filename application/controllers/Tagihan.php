@@ -21,9 +21,6 @@ class Tagihan extends CI_Controller
     {
         // menangkap data pencarian nomor tagihan
         $notagihan = $this->input->post('notagihan');
-        $kdsatker = $this->session->userdata('kdsatker');
-        $kdppk = $this->session->userdata('kdppk');
-        $tahun = $this->session->userdata('tahun');
 
         // settingan halaman
         $config['base_url'] = base_url('tagihan/index');

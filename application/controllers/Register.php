@@ -124,7 +124,7 @@ class Register extends CI_Controller
     public function create_detail($register_id = null)
     {
         $data['register_id'] = $register_id;
-        $data['tagihan'] = $this->viewtagihan->getTagihanAll();
+        $data['tagihan'] = $this->viewtagihan->getTagihanRegister();
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -135,6 +135,8 @@ class Register extends CI_Controller
     public function pilih($tagihan_id = null, $register_id = null)
     {
         $this->tagihan->updateTagihan(['register_id' => $register_id], $tagihan_id);
+        $jumlah = $this->viewtagihan->countPerRegister($register_id);
+        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
         redirect('register/detail/' . $register_id . '');
     }
@@ -142,6 +144,8 @@ class Register extends CI_Controller
     public function delete_detail($tagihan_id = null, $register_id = null)
     {
         $this->tagihan->updateTagihan(['register_id' => null], $tagihan_id);
+        $jumlah = $this->viewtagihan->countPerRegister($register_id);
+        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
         $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         redirect('register/detail/' . $register_id . '');
     }
