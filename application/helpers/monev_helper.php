@@ -59,3 +59,30 @@ function sesi()
         'kdppk' => $ci->session->userdata('kdppk'),
     ];
 }
+
+function nomor()
+{
+    $ci = get_instance();
+    $nomor = $ci->nomor->getNoReg()['nomor'];
+    $ekstensi = $ci->nomor->getNoreg()['ekstensi'];
+    $next = intval($nomor) + 1;
+    switch (strlen($next)) {
+        case '1':
+            $next = '000' . $next;
+            break;
+        case '2':
+            $next = '00' . $next;
+            break;
+        case '3':
+            $next = '0' . $next;
+            break;
+        default:
+            $next = $next;
+            break;
+    }
+    return [
+        'nomor' => $nomor,
+        'ekstensi' => $ekstensi,
+        'next' => $next
+    ];
+}

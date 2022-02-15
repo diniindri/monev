@@ -73,7 +73,9 @@ class Ppk extends CI_Controller
             $data = [
                 'kdppk' => htmlspecialchars($this->input->post('kdppk', true)),
                 'nmppk' => htmlspecialchars($this->input->post('nmppk', true)),
-                'nip' => htmlspecialchars($this->input->post('nip', true))
+                'nip' => htmlspecialchars($this->input->post('nip', true)),
+                'tahun' => sesi()['tahun'],
+                'kdsatker' => sesi()['kdsatker']
             ];
             // simpan data ke database melalui model
             $this->ppk->createPpk($data);
