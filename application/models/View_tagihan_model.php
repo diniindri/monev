@@ -87,4 +87,17 @@ class View_tagihan_model extends CI_Model
         $this->db->where('kdppk', sesi()['kdppk']);
         return $this->db->get('data_tagihan')->num_rows();
     }
+
+    public function getPerRegister($id = null)
+    {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'register_id' => $id]);
+        return $this->db->get('view_tagihan')->result_array();
+    }
+
+    public function getRegister()
+    {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
+        $this->db->where(['register_id' => null]);
+        return $this->db->get('view_tagihan')->result_array();
+    }
 }
