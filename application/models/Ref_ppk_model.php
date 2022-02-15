@@ -5,7 +5,8 @@ class Ref_ppk_model extends CI_Model
     public function getPpk($limit = null, $offset = 0)
     {
         $this->db->limit($limit, $offset);
-        return $this->db->get('ref_ppk')->result_array();
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
+        return $this->db->get_where('ref_ppk')->result_array();
     }
 
     public function getDetailPpk($id = null)
@@ -16,11 +17,13 @@ class Ref_ppk_model extends CI_Model
     public function findPpk($nmppk = null, $limit = 0, $offset = 0)
     {
         $this->db->limit($limit, $offset);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_ppk', ['nmppk' => $nmppk])->result_array();
     }
 
     public function countPpk()
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_ppk')->num_rows();
     }
 
@@ -45,16 +48,19 @@ class Ref_ppk_model extends CI_Model
     public function getAllPpk()
     {
         $this->db->order_by('kegiatan', 'ASC');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get('ref_ppk')->result_array();
     }
 
     public function findJumlahPpk($kdppk = null, $nmppk = null)
     {
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_ppk', ['kdppk' => $kdppk, 'nmppk' => $nmppk])->row_array();
     }
 
-    public function getNamaPpk($kdppk = null)
+    public function getNamaPpk()
     {
-        return $this->db->get_where('ref_ppk', ['kdppk' => $kdppk])->row_array()['nmppk'];
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdppk' => sesi()['kdppk']]);
+        return $this->db->get('ref_ppk')->row_array();
     }
 }

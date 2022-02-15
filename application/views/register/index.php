@@ -14,7 +14,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('register/create'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1"> Tambah Data</a>
+            <a href="<?= base_url('register/create'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1" onclick="return confirm('Apakah Anda yakin akan menambah data?');"> Tambah Data</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
@@ -46,7 +46,7 @@
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nomor']; ?></td>
-                                <td><?= $r['tanggal']; ?></td>
+                                <td><?= tanggal($r['tanggal']); ?></td>
                                 <td><?= $r['jumlah']; ?></td>
                                 <td><?= $r['status']; ?></td>
                                 <td class="pb-0 pr-0">

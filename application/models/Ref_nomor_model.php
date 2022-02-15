@@ -52,4 +52,18 @@ class Ref_nomor_model extends CI_Model
     {
         return $this->db->get_where('ref_nomor', ['nomor' => $nomor])->row_array();
     }
+
+    public function getNoReg()
+    {
+        // return $this->db->get_where('ref_nomor', ['kdsatker' => sesi()['kdsatker'], 'tahun' => sesi()['tahun']])->row_array();
+
+        $this->db->where(['kdsatker' => sesi()['kdsatker'], 'tahun' => sesi()['tahun']]);
+        return $this->db->get('ref_nomor')->row_array();
+    }
+
+    public function updateNoReg($data)
+    {
+        $this->db->update('ref_nomor', $data, ['kdsatker' => sesi()['kdsatker'], 'tahun' => sesi()['tahun']]);
+        return $this->db->affected_rows();
+    }
 }

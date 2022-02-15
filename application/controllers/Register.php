@@ -10,6 +10,7 @@ class Register extends CI_Controller
         is_logged_in();
         // meload file ref_register_model.php
         $this->load->model('Data_register_model', 'register');
+        $this->load->model('Ref_nomor_model', 'nomor');
     }
 
     public function index()
@@ -71,27 +72,27 @@ class Register extends CI_Controller
 
     public function create()
     {
-        $validation = $this->form_validation->set_rules($this->rules);
+        $data = [
+            'nomor' => nomor()['nomor'],
+            'ekstensi' => nomor()['ekstensi'],
+            'tanggal' => time(),
+            'jumlah' => 0,
+            'status' => 0
+        ];
+        // simpan data ke database melalui model
+        $this->register->createRegister($data);
 
-        // jika validasi sukses
-        if ($validation->run()) {
-            $data = [
-                'nomor' => htmlspecialchars($this->input->post('nomor', true)),
-                'tanggal' => htmlspecialchars($this->input->post('tanggal', true)),
-                'jumlah' => htmlspecialchars($this->input->post('jumlah', true)),
-                'status' => htmlspecialchars($this->input->post('status', true))
-            ];
-            // simpan data ke database melalui model
-            $this->register->createRegister($data);
-            $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-            redirect('register');
-        }
+        // ubah nomor ref_nomor
+        $this->nomor->updateNoReg(['nomor' => nomor()['next']]);
+
+        $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
+        redirect('register');
 
         // meload view pada register/create.php
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
-        $this->load->view('register/create');
-        $this->load->view('template/footer');
+        // $this->load->view('template/header');
+        // $this->load->view('template/sidebar');
+        // $this->load->view('register/create');
+        // $this->load->view('template/footer');
     }
 
     public function update($id = null)

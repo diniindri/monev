@@ -17,7 +17,17 @@ class Dashboard extends CI_Controller
     {
         $data['jenis'] = $jenis;
         $data['nmsatker'] = $this->satker->getNamaSatker(sesi()['kdsatker']);
-        $data['nmppk'] = $this->ppk->getNamaPpk(sesi()['kdppk']);
+
+        //cara manual
+        // $ppk = $this->ppk->getNamaPpk();
+        // if ($ppk) {
+        //     $data['nmppk'] = $this->ppk->getNamaPpk()['nmppk'];
+        // } else {
+        //     $data['nmppk'] = '';
+        // }
+
+        //cara yang lebih keren
+        $this->ppk->getNamaPpk() ? $data['nmppk'] = $this->ppk->getNamaPpk()['nmppk'] : $data['nmppk'] = '';
 
         $data['realisasi'] = $this->realisasi->getJenisBelanja($jenis);
         $data['ppk'] = $this->realisasi->getRealisasiPpk($jenis);
