@@ -50,9 +50,9 @@
                                 <td><?= $r['status']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('register/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                        <a href="<?= base_url('register/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Preview</a>
-                                        <a href="<?= base_url('register/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Terima</a>
+                                        <a href="<?= base_url('ppspm/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
+                                        <a href="<?= base_url('ppspm/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Preview</a>
+                                        <a href="<?= base_url('ppspm/terima/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Terima</a>
                                     </div>
                                 </td>
                             </tr>

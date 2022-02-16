@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="text-center">
@@ -30,6 +30,7 @@
                         <?php $no = 1;
                         $jpagu = 0;
                         $jrealisasi = 0;
+                        $jsspb = 0;
                         foreach ($unit as $r) : ?>
 
                             <tr>
@@ -38,7 +39,8 @@
                                 <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
                                 <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-center"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
+                                <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
+                                <td class="text-center"><?= number_format(($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('realisasi-direktorat/bulan/') . $jenis . '/' . $r['kdunit']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
@@ -49,9 +51,10 @@
                         <?php
                             $jpagu += $r['pagu'];
                             $jrealisasi += $r['realisasi'];
+                            $jsspb += $r['sspb'];
                         endforeach;
                         $jsisa = $jpagu - $jrealisasi;
-                        $jpagu > 0 ? $jpersen = $jrealisasi / $jpagu * 100 : $jpersen = 0;
+                        $jpagu > 0 ? $jpersen = ($jrealisasi - $jsspb) / $jpagu * 100 : $jpersen = 0;
                         ?>
 
                         <tr>
@@ -59,6 +62,7 @@
                             <th class="text-right"><?= number_format($jpagu, 0, ',', '.'); ?></th>
                             <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
                             <th class="text-right"><?= number_format($jsisa, 0, ',', '.'); ?></th>
+                            <th class="text-right"><?= number_format($jsspb, 0, ',', '.'); ?></th>
                             <th class="text-center"><?= number_format($jpersen, 2, ',', '.'); ?>%</th>
                             <th></th>
                         </tr>

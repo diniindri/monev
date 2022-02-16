@@ -48,68 +48,6 @@ class Ppspm extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    // validasi inputan pada form
-    private $rules = [
-        [
-            'field' => 'nomor',
-            'label' => 'Nomor',
-            'rules' => 'required|trim|numeric'
-        ],
-        [
-            'field' => 'tanggal',
-            'label' => 'Tanggal',
-            'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'jumlah',
-            'label' => 'Jumlah Tagihan',
-            'rules' => 'required|trim'
-        ],
-        [
-            'field' => 'status',
-            'label' => 'Status',
-            'rules' => 'required|trim'
-        ]
-    ];
-
-    public function create()
-    {
-        $data = [
-            'nomor' => nomor()['nomor'],
-            'ekstensi' => nomor()['ekstensi'],
-            'tanggal' => time(),
-            'jumlah' => 0,
-            'status' => 0
-        ];
-        // simpan data ke database melalui model
-        $this->register->createRegister($data);
-
-        // ubah nomor ref_nomor
-        $this->nomor->updateNoReg(['nomor' => nomor()['next']]);
-
-        $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('register');
-
-        // meload view pada register/create.php
-        // $this->load->view('template/header');
-        // $this->load->view('template/sidebar');
-        // $this->load->view('register/create');
-        // $this->load->view('template/footer');
-    }
-
-
-    public function delete($id = null)
-    {
-        // cek apakah ada id apa tidak
-        if (!isset($id)) show_404();
-
-        // hapus data di database melalui model
-        if ($this->register->deleteRegister($id)) {
-            $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
-        }
-        redirect('register');
-    }
-
     public function detail($id = null)
     {
         $data['register_id'] = $id;
@@ -132,34 +70,12 @@ class Ppspm extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function pilih($tagihan_id = null, $register_id = null)
+    public function terima($id = null)
     {
-        $this->tagihan->updateTagihan(['register_id' => $register_id], $tagihan_id);
-        $jumlah = $this->viewtagihan->countPerRegister($register_id);
-        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
-        $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('register/detail/' . $register_id . '');
-    }
 
-    public function delete_detail($tagihan_id = null, $register_id = null)
-    {
-        $this->tagihan->updateTagihan(['register_id' => null], $tagihan_id);
-        $jumlah = $this->viewtagihan->countPerRegister($register_id);
-        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
-        $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
-        redirect('register/detail/' . $register_id . '');
-    }
-
-    public function kirim($id = null)
-    {
-        // cek apakah ada id apa tidak
-        if (!isset($id)) show_404();
-        $data = [
-            'status' => 2
-        ];
-
-        $this->tagihan->updateTagihan($data, $id);
+        $this->tagihan->updateTagihanRegister(['status' => 3], $id);
+        $this->register->updateRegister(['status' => 2], $id);
         $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
-        redirect('registrasi');
+        redirect('ppspm');
     }
 }

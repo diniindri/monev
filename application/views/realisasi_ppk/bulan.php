@@ -11,6 +11,7 @@
                             <th>Nomor</th>
                             <th>Bulan</th>
                             <th>Realisasi</th>
+                            <th>Pengembalian</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -18,12 +19,14 @@
 
                         <?php $no = 1;
                         $jrealisasi = 0;
+                        $jsspb = 0;
                         foreach ($ppk as $r) : ?>
 
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nmbulan']; ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('realisasi-ppk/detail/') . $jenis . '/' . $kdppk . '/' . $r['kdbulan']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
@@ -33,10 +36,12 @@
 
                         <?php
                             $jrealisasi += $r['realisasi'];
+                            $jsspb += $r['sspb'];
                         endforeach; ?>
                         <tr>
                             <th class="text-center" colspan="2">Jumlah</th>
                             <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
+                            <th class="text-right"><?= number_format($jsspb, 0, ',', '.'); ?></th>
                             <th></th>
                         </tr>
 

@@ -32,6 +32,7 @@
                             <?php $no = 1;
                             $jpagu = 0;
                             $jrealisasi = 0;
+                            $jsspb = 0;
                             foreach ($realisasi as $r) : ?>
                                 <tr>
                                     <td class="text-center"><?= $no++; ?></td>
@@ -39,14 +40,15 @@
                                     <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
                                     <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
                                     <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
-                                    <td class="text-right"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.'); ?>%</td>
+                                    <td class="text-right"><?= number_format(($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100, 2, ',', '.'); ?>%</td>
                                 </tr>
                             <?php
                                 $jpagu += $r['pagu'];
                                 $jrealisasi += $r['realisasi'];
+                                $jsspb += $r['sspb'];
                             endforeach;
                             $jsisa = $jpagu - $jrealisasi;
-                            $jpagu == 0 ? $jpersen = 0 : $jpersen = $jrealisasi / $jpagu * 100;
+                            $jpagu == 0 ? $jpersen = 0 : $jpersen = ($jrealisasi - $jsspb) / $jpagu * 100;
                             ?>
                             <tr>
                                 <th class="text-center" colspan="2">Jumlah</th>
@@ -77,15 +79,15 @@
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <?= $r['nmppk']; ?>
                             <?php
-                            if (($r['realisasi'] / $r['pagu'] * 100) < 40) {
+                            if ((($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100) < 40) {
                                 $warna = 'bg-danger';
-                            } else if (($r['realisasi'] / $r['pagu'] * 100) < 70) {
+                            } else if ((($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100) < 70) {
                                 $warna = 'bg-warning';
                             } else {
                                 $warna = 'bg-success';
                             }
                             ?>
-                            <span class="badge <?= $warna; ?> rounded-pill"><?= number_format($r['realisasi'] / $r['pagu'] * 100, 2, ',', '.'); ?>%</span>
+                            <span class="badge <?= $warna; ?> rounded-pill"><?= number_format(($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100, 2, ',', '.'); ?>%</span>
                         </li>
                     <?php endforeach; ?>
                 </ul>

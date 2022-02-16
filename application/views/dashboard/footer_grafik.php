@@ -22,7 +22,7 @@
                 borderColor: 'rgb(47, 128, 237)',
                 // data: [3.64, 11.68, 22.94, 66.16, 44.44, 13.70, 18.62, 68.57, 58.72, 1.08, 4.50, 30.86],
                 data: [
-                    <?php foreach ($unit as $r) : ?> <?= $r['realisasi'] / $r['pagu'] * 100; ?>,
+                    <?php foreach ($unit as $r) : ?> <?= ($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100; ?>,
                     <?php endforeach; ?>
 
                 ],

@@ -17,12 +17,14 @@
                             <th>Subkomponen</th>
                             <th>Akun</th>
                             <th>Realisasi</th>
+                            <th>Pengembalian</th>
                             <th>Uraian</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1;
                         $jrealisasi = 0;
+                        $jsspb = 0;
                         foreach ($unit as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
@@ -34,15 +36,18 @@
                                 <td><?= $r['subkomponen']; ?></td>
                                 <td><?= $r['akun']; ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
+                                <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
                                 <td><?= $r['uraian']; ?></td>
                             </tr>
                         <?php
                             $jrealisasi += $r['realisasi'];
+                            $jsspb += $r['sspb'];
                         endforeach;
                         ?>
                         <tr>
                             <th class="text-center" colspan="8">Jumlah</th>
                             <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
+                            <th class="text-right"><?= number_format($jsspb, 0, ',', '.'); ?></th>
                             <th></th>
                         </tr>
                     </tbody>

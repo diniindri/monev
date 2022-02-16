@@ -9,6 +9,7 @@ class View_data_realisasi_model extends CI_Model
         $query = "SELECT left(a.akun,2) AS jenis_belanja, 
                         sum(a.anggaran) AS pagu, 
                         sum(b.realisasi) as realisasi,
+                        sum(b.sspb) as sspb,
                         c.nama 
                         FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
@@ -33,7 +34,8 @@ class View_data_realisasi_model extends CI_Model
         $jenis == 1 ? $table = 'view_data_realisasi_unit' : $table = 'view_data_realisasi_unit_sp2d';
         $query = "SELECT c.kdunit, c.nmunit,
                         sum(a.anggaran) AS pagu, 
-                        sum(b.realisasi) as realisasi
+                        sum(b.realisasi) as realisasi,
+                        sum(b.sspb) as sspb
                         FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
                                                     AND a.kdsatker=b.kdsatker 
@@ -56,7 +58,8 @@ class View_data_realisasi_model extends CI_Model
         $jenis == 1 ? $table = 'view_data_realisasi_unit_bulan' : $table = 'view_data_realisasi_unit_bulan_sp2d';
         $query = "SELECT b.kdbulan,
                         b.nmbulan,
-                        SUM(a.realisasi) AS realisasi 
+                        SUM(a.realisasi) AS realisasi,
+                        sum(a.sspb) as sspb 
                     FROM $table a
                     LEFT JOIN ref_bulan b ON a.bulan=b.kdbulan 
                     WHERE a.tahun=" . sesi()['tahun'] . " AND a.kdsatker=" . sesi()['kdsatker'] . " AND a.kdunit='$kdunit'
@@ -106,7 +109,8 @@ class View_data_realisasi_model extends CI_Model
         $jenis == 1 ? $table = 'view_data_realisasi_ppk' : $table = 'view_data_realisasi_ppk_sp2d';
         $query = "SELECT c.kdppk, c.nmppk,
                         sum(a.anggaran) AS pagu, 
-                        sum(b.realisasi) as realisasi
+                        sum(b.realisasi) as realisasi,
+                        sum(b.sspb) as sspb
                         FROM ref_pagu a 
                         LEFT JOIN $table b ON a.tahun=b.tahun
                                                     AND a.kdsatker=b.kdsatker 
@@ -129,7 +133,8 @@ class View_data_realisasi_model extends CI_Model
         $jenis == 1 ? $table = 'view_data_realisasi_ppk_bulan' : $table = 'view_data_realisasi_ppk_bulan_sp2d';
         $query = "SELECT b.kdbulan,
                         b.nmbulan,
-                        SUM(a.realisasi) AS realisasi 
+                        SUM(a.realisasi) AS realisasi,
+                         sum(a.sspb) as sspb 
                     FROM $table a
                     LEFT JOIN ref_bulan b ON a.bulan=b.kdbulan 
                     WHERE a.tahun=" . sesi()['tahun'] . " AND a.kdsatker=" . sesi()['kdsatker'] . " AND a.kdppk='$kdppk'

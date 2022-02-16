@@ -36,7 +36,7 @@
                             <th>Nomor Register</th>
                             <th>Tanggal</th>
                             <th>Jumlah</th>
-                            <th>Status</th>
+                            <th>Total</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -48,7 +48,7 @@
                                 <td><?= $r['nomor'] . $r['ekstensi']; ?></td>
                                 <td><?= tanggal($r['tanggal']); ?></td>
                                 <td><?= $r['jumlah']; ?></td>
-                                <td><?= $r['status']; ?></td>
+                                <td><?= $r['total']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('register/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
