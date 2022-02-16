@@ -21,6 +21,7 @@
                             <th>Pagu</th>
                             <th>Realisasi</th>
                             <th>Sisa Pagu</th>
+                            <th>Pengembalian</th>
                             <th>Persentase</th>
                             <th>Aksi</th>
                         </tr>
