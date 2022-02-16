@@ -16,7 +16,7 @@ class Dashboard extends CI_Controller
     public function index($jenis = 1)
     {
         $data['jenis'] = $jenis;
-        $data['nmsatker'] = $this->satker->getNamaSatker(sesi()['kdsatker']);
+        $data['nmsatker'] = $this->satker->getNamaSatker(sesi()['kdsatker'])['nmsatker'];
 
         //cara manual
         // $ppk = $this->ppk->getNamaPpk();

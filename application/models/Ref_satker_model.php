@@ -53,8 +53,8 @@ class Ref_satker_model extends CI_Model
         return $this->db->get_where('ref_satker', ['kdsatker' => $kdsatker, 'nmsatker' => $nmsatker])->row_array();
     }
 
-    public function getNamaSatker($kdsatker = null)
+    public function getNamaSatker()
     {
-        return $this->db->get_where('ref_satker', ['kdsatker' => $kdsatker])->row_array()['nmsatker'];
+        return $this->db->get_where('ref_satker', ['kdsatker' => sesi()['kdsatker']])->row_array();
     }
 }
