@@ -59,4 +59,39 @@ class Realisasi_ppk extends CI_Controller
         $this->load->view('realisasi_ppk/tagihan', $data);
         $this->load->view('template/footer');
     }
+
+    public function bulan_sspb($kdppk = null)
+    {
+        $data['kdppk'] = $kdppk;
+        $data['ppk'] = $this->realisasi->getSspbPpkBulan($kdppk);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_ppk/bulan_sspb', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function detail_sspb($kdppk = null, $kdbulan = null)
+    {
+        $data['kdppk'] = $kdppk;
+        $data['kdbulan'] = $kdbulan;
+        $data['ppk'] = $this->realisasi->getDetailSspbPpkBulan($kdppk, $kdbulan);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_ppk/detail_sspb', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function tagihan_sspb($kdppk = null, $kdbulan = null, $kode = null)
+    {
+        $data['kdppk'] = $kdppk;
+        $data['kdbulan'] = $kdbulan;
+        $data['ppk'] = $this->realisasi->getDetailSspbPpkBulanTagihan($kdppk, $kdbulan, $kode);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_ppk/tagihan_sspb', $data);
+        $this->load->view('template/footer');
+    }
 }

@@ -102,6 +102,54 @@ class View_data_realisasi_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getSspbUnitBulan($kdunit = null)
+    {
+        $table = 'view_data_sspb_unit_bulan';
+        $query = "SELECT b.kdbulan,
+                        b.nmbulan,
+                         sum(a.sspb) as sspb 
+                    FROM $table a
+                    LEFT JOIN ref_bulan b ON a.bulan=b.kdbulan 
+                    WHERE a.tahun=" . sesi()['tahun'] . " AND a.kdsatker=" . sesi()['kdsatker'] . " AND a.kdunit='$kdunit'
+                    GROUP BY b.kdbulan,b.nmbulan ORDER BY b.kdbulan ASC";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getDetailSspbUnitBulan($kdunit = null, $kdbulan = null)
+    {
+        $table = 'view_data_sspb_unit_bulan';
+        return $this->db->get_where($table, ['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdunit' => $kdunit, 'bulan' => $kdbulan])->result_array();
+    }
+
+    public function getDetailSspbUnitBulanTagihan($kdunit = null, $kdbulan = null, $kode = null)
+    {
+        $field = 'a.tglsspb';
+        $program = substr($kode, 0, 2);
+        $kegiatan = substr($kode, 2, 4);
+        $kro = substr($kode, 6, 3);
+        $ro = substr($kode, 9, 3);
+        $komponen = substr($kode, 12, 3);
+        $subkomponen = substr($kode, 15, 1);
+        $akun = substr($kode, 16, 6);
+
+        $query = "SELECT a.*, b.uraian
+                    FROM data_realisasi a 
+                    LEFT JOIN data_tagihan b 
+                    ON a.tagihan_id=b.id 
+                    WHERE a.tahun=" . sesi()['tahun'] . " AND 
+                        a.kdsatker=" . sesi()['kdsatker'] . " AND 
+                        a.kdunit='$kdunit' AND 
+                        date_format(from_unixtime($field), '%m') = '$kdbulan' AND 
+                        a.program = '$program' AND
+                        a.kegiatan = '$kegiatan' AND
+                        a.kro = '$kro' AND
+                        a.ro = '$ro' AND
+                        a.komponen = '$komponen' AND
+                        a.subkomponen= '$subkomponen' AND
+                        a.akun= '$akun'";
+        return $this->db->query($query)->result_array();
+    }
+
 
     // realisasi berdasarkan ppk
     public function getRealisasiPpk($jenis = 1)
@@ -151,6 +199,54 @@ class View_data_realisasi_model extends CI_Model
     public function getDetailRealisasiPpkBulanTagihan($jenis = 1, $kdppk = null, $kdbulan = null, $kode = null)
     {
         $jenis == 1 ? $field = 'b.tgltagihan' : $field = 'b.tglsp2d';
+        $program = substr($kode, 0, 2);
+        $kegiatan = substr($kode, 2, 4);
+        $kro = substr($kode, 6, 3);
+        $ro = substr($kode, 9, 3);
+        $komponen = substr($kode, 12, 3);
+        $subkomponen = substr($kode, 15, 1);
+        $akun = substr($kode, 16, 6);
+
+        $query = "SELECT a.*, b.uraian
+                    FROM data_realisasi a 
+                    LEFT JOIN data_tagihan b 
+                    ON a.tagihan_id=b.id 
+                    WHERE a.tahun=" . sesi()['tahun'] . " AND 
+                        a.kdsatker=" . sesi()['kdsatker'] . " AND 
+                        a.kdppk='$kdppk' AND 
+                        date_format(from_unixtime($field), '%m') = '$kdbulan' AND 
+                        a.program = '$program' AND
+                        a.kegiatan = '$kegiatan' AND
+                        a.kro = '$kro' AND
+                        a.ro = '$ro' AND
+                        a.komponen = '$komponen' AND
+                        a.subkomponen= '$subkomponen' AND
+                        a.akun= '$akun'";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getSspbPpkBulan($kdppk = null)
+    {
+        $table = 'view_data_sspb_ppk_bulan';
+        $query = "SELECT b.kdbulan,
+                        b.nmbulan,
+                         sum(a.sspb) as sspb 
+                    FROM $table a
+                    LEFT JOIN ref_bulan b ON a.bulan=b.kdbulan 
+                    WHERE a.tahun=" . sesi()['tahun'] . " AND a.kdsatker=" . sesi()['kdsatker'] . " AND a.kdppk='$kdppk'
+                    GROUP BY b.kdbulan,b.nmbulan ORDER BY b.kdbulan ASC";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getDetailSspbPpkBulan($kdppk = null, $kdbulan = null)
+    {
+        $table = 'view_data_sspb_ppk_bulan';
+        return $this->db->get_where($table, ['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdppk' => $kdppk, 'bulan' => $kdbulan])->result_array();
+    }
+
+    public function getDetailSspbPpkBulanTagihan($kdppk = null, $kdbulan = null, $kode = null)
+    {
+        $field = 'a.tglsspb';
         $program = substr($kode, 0, 2);
         $kegiatan = substr($kode, 2, 4);
         $kro = substr($kode, 6, 3);

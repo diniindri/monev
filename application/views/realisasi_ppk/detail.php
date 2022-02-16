@@ -17,14 +17,12 @@
                             <th>Subkomponen</th>
                             <th>Akun</th>
                             <th>Realisasi</th>
-                            <th>Pengembalian</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 1;
                         $jrealisasi = 0;
-                        $jsspb = 0;
                         foreach ($ppk as $r) :
                             $kode = $r['program'] . $r['kegiatan'] . $r['kro'] . $r['ro'] . $r['komponen'] . $r['subkomponen'] . $r['akun'];
                         ?>
@@ -38,7 +36,6 @@
                                 <td><?= $r['subkomponen']; ?></td>
                                 <td><?= $r['akun']; ?></td>
                                 <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('realisasi-ppk/tagihan/') . $jenis . '/' . $kdppk . '/' . $kdbulan . '/' . $kode; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
@@ -47,13 +44,11 @@
                             </tr>
                         <?php
                             $jrealisasi += $r['realisasi'];
-                            $jsspb += $r['sspb'];
                         endforeach;
                         ?>
                         <tr>
                             <th class="text-center" colspan="8">Jumlah</th>
                             <th class="text-right"><?= number_format($jrealisasi, 0, ',', '.'); ?></th>
-                            <th class="text-right"><?= number_format($jsspb, 0, ',', '.'); ?></th>
                             <th></th>
                         </tr>
                     </tbody>
