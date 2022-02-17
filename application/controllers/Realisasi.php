@@ -130,13 +130,13 @@ class Realisasi extends CI_Controller
         $kode = $this->input->post('kode');
 
         // settingan halaman
-        $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '');
+        $config['base_url'] = base_url('realisasi/tarik-detail-akun/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->view_sisa_pagu->countSisaPagu();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['kode'] = $kode;
         $limit = $config["per_page"];
         $offset = $data['page'];
