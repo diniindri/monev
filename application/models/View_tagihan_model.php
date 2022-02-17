@@ -123,4 +123,12 @@ class View_tagihan_model extends CI_Model
         $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'register_id' => $id]);
         return $this->db->get('view_tagihan')->num_rows();
     }
+
+    public function sumPerRegister($id = null)
+    {
+        $this->db->select('register_id, SUM(bruto) AS total');
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'register_id' => $id]);
+        $this->db->group_by('register_id');
+        return $this->db->get('view_tagihan')->row_array();
+    }
 }
