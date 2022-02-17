@@ -24,9 +24,9 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('tagihan'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Halaman Sebelumnya</a>
-            <a href="<?= base_url('dnp/tarik-pegawai-gaji/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Gaji</a>
-            <a href="<?= base_url('dnp/tarik-pegawai-nondjkn/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Pegawai Non DJKN</a>
+            <a href="<?= base_url('tagihan'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Sebelumnya</a>
+            <a href="<?= base_url('dnp/tarik-pegawai-gaji/') . $tagihan_id . '/a'; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Gaji</a>
+            <a href="<?= base_url('dnp/tarik-pegawai-nondjkn/') . $tagihan_id . '/a'; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Data Pegawai Non DJKN</a>
             <a href="<?= base_url('dnp/cetak/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2" target="_blank">Cetak</a>
         </div>
         <div class="col-lg-5">
@@ -72,7 +72,7 @@
                                 <td><?= $r['nmbank']; ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('dnp/update/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Nominal</a>
+                                        <a href="<?= base_url('dnp/update/') . $r['id'] . '/' . $tagihan_id . '/a'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Nominal</a>
                                         <a href="<?= base_url('dnp/delete/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                     </div>
                                 </td>

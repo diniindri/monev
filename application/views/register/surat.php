@@ -198,10 +198,10 @@
 
     <table class="detail" style="width: 100%; margin-left:3px; margin-bottom:15px;">
         <tr style="text-align: center;">
-            <td class="head" style="width: 4%;">#</td>
-            <td class="head" style="width: 4%;">Nomor</td>
-            <td class="head" style="width: 10%;">Tanggal</td>
-            <td class="head" style="width: 10%;">Uraian</td>
+            <td class="head" style="width: 4%;">No.</td>
+            <td class="head" style="width: 10%;">Nomor Tagihan</td>
+            <td class="head" style="width: 15%;">Tanggal</td>
+            <td class="head" style="width: 31%;">Uraian</td>
             <td class="head" style="width: 10%;">Jenis Tagihan</td>
             <td class="head" style="width: 10%;">Unit</td>
             <td class="head" style="width: 10%;">Jenis Dokumen</td>
@@ -211,21 +211,21 @@
         $jbruto = 0;
         foreach ($tagihan as $r) : $no++; ?>
             <tr>
-                <td class="head" style="width: 4%;"><?= $no++; ?></td>
-                <td class="head" style="width: 10%;"><?= $r['notagihan']; ?></td>
-                <td class="head" style="width: 10%;"><?= tanggal($r['tgltagihan']); ?></td>
-                <td class="head" style="width: 10%;"><?= $r['uraian']; ?></td>
-                <td class="head" style="width: 10%;"><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
-                <td class="head" style="width: 10%;"><?= $r['nmunit']; ?></td>
+                <td class="head" style="text-align: center;width: 4%;"><?= $no++; ?></td>
+                <td class="head" style="text-align: center;width: 10%;"><?= $r['notagihan']; ?></td>
+                <td class="head" style="width: 15%;"><?= tanggal($r['tgltagihan']); ?></td>
+                <td class="head" style="width: 31%;"><?= $r['uraian']; ?></td>
+                <td class="head" style="text-align: center;width: 10%;"><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
+                <td class="head" style="text-align: center;width: 10%;"><?= $r['nmunit']; ?></td>
                 <td class="head" style="width: 10%;"><?= $r['nmdokumen']; ?></td>
-                <td class="head" style="width: 10%;"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
+                <td class="head" style="text-align: right;width: 10%;"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
             </tr>
         <?php
             $jbruto += $r['bruto'];
         endforeach; ?>
         <tr>
-            <td class="head" style="width: 10%;" colspan="7">Jumlah</td>
-            <td class="head" style="width: 10%;"><?= number_format($jbruto, 0, ',', '.'); ?></td>
+            <td class="head" style="text-align: center;width: 10%;" colspan="7">Jumlah</td>
+            <td class="head" style="text-align: right;width: 10%;"><?= number_format($jbruto, 0, ',', '.'); ?></td>
         </tr>
     </table>
 

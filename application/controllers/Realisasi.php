@@ -26,13 +26,13 @@ class Realisasi extends CI_Controller
         $ro = $this->input->post('ro');
 
         // settingan halaman
-        $config['base_url'] = base_url('realisasi/index/' . $tagihan_id . '');
+        $config['base_url'] = base_url('realisasi/index/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->realisasi->countRealisasi($tagihan_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['kro'] = $kro;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -93,7 +93,7 @@ class Realisasi extends CI_Controller
                 $this->session->set_flashdata('berhasil', 'Data berhasil diubah.');
             }
 
-            redirect('realisasi/index/' . $tagihan_id . '');
+            redirect('realisasi/index/' . $tagihan_id . '/a');
         }
 
         // meload view pada realisasi/update.php
@@ -115,7 +115,7 @@ class Realisasi extends CI_Controller
             $this->tagihan->updateTagihan(['bruto' => $bruto], $tagihan_id);
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
-        redirect('realisasi/index/' . $tagihan_id . '');
+        redirect('realisasi/index/' . $tagihan_id . '/a');
     }
 
     public function tarik_detail_akun($tagihan_id = null)
@@ -185,6 +185,6 @@ class Realisasi extends CI_Controller
 
         // update timeline
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('realisasi/index/' . $tagihan_id . '');
+        redirect('realisasi/index/' . $tagihan_id . '/a');
     }
 }

@@ -27,13 +27,13 @@ class Dnp extends CI_Controller
         $nama = $this->input->post('nama');
 
         // settingan halaman
-        $config['base_url'] = base_url('dnp/index/' . $tagihan_id . '');
+        $config['base_url'] = base_url('dnp/index/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->dnp->countDnp($tagihan_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['nama'] = $nama;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -66,13 +66,13 @@ class Dnp extends CI_Controller
         $nama = $this->input->post('nama');
 
         // settingan halaman
-        $config['base_url'] = base_url('dnp/tarik-pegawai-gaji/' . $tagihan_id . '');
+        $config['base_url'] = base_url('dnp/tarik-pegawai-gaji/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->dnp->countPegawaiGaji();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['nama'] = $nama;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -121,7 +121,7 @@ class Dnp extends CI_Controller
         }
         // update timeline
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('dnp/index/' . $tagihan_id . '');
+        redirect('dnp/index/' . $tagihan_id . '/a');
     }
 
     public function tarik_pegawai_nondjkn($tagihan_id = null)
@@ -136,13 +136,13 @@ class Dnp extends CI_Controller
         $nama = $this->input->post('nama');
 
         // settingan halaman
-        $config['base_url'] = base_url('dnp/tarik-pegawai-nondjkn/' . $tagihan_id . '');
+        $config['base_url'] = base_url('dnp/tarik-pegawai-nondjkn/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->nondjkn->countNondjkn();
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['nama'] = $nama;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -189,7 +189,7 @@ class Dnp extends CI_Controller
 
         // update timeline
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
-        redirect('dnp/index/' . $tagihan_id . '');
+        redirect('dnp/index/' . $tagihan_id . '/a');
     }
 
     // validasi inputan pada seluruh form
@@ -254,7 +254,7 @@ class Dnp extends CI_Controller
             } else {
                 $this->session->set_flashdata('sama', 'total dnp sama dengan jumlah bruto tagihan.');
             }
-            redirect('dnp/index/' . $tagihan_id . '');
+            redirect('dnp/index/' . $tagihan_id . '/a');
         }
 
         // meload view pada realisasi/update.php
@@ -282,7 +282,7 @@ class Dnp extends CI_Controller
                 $this->session->set_flashdata('sama', 'total dnp sama dengan jumlah bruto tagihan.');
             }
         }
-        redirect('dnp/index/' . $tagihan_id . '');
+        redirect('dnp/index/' . $tagihan_id . '/a');
     }
 
     public function cetak($tagihan_id = null)
