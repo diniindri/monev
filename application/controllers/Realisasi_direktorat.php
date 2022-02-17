@@ -59,4 +59,39 @@ class Realisasi_direktorat extends CI_Controller
         $this->load->view('realisasi_direktorat/tagihan', $data);
         $this->load->view('template/footer');
     }
+
+    public function bulan_sspb($kdunit = null)
+    {
+        $data['kdunit'] = $kdunit;
+        $data['unit'] = $this->realisasi->getSspbUnitBulan($kdunit);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_direktorat/bulan_sspb', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function detail_sspb($kdunit = null, $kdbulan = null)
+    {
+        $data['kdunit'] = $kdunit;
+        $data['kdbulan'] = $kdbulan;
+        $data['unit'] = $this->realisasi->getDetailSspbUnitBulan($kdunit, $kdbulan);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_direktorat/detail_sspb', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function tagihan_sspb($kdunit = null, $kdbulan = null, $kode = null)
+    {
+        $data['kdunit'] = $kdunit;
+        $data['kdbulan'] = $kdbulan;
+        $data['unit'] = $this->realisasi->getDetailSspbUnitBulanTagihan($kdunit, $kdbulan, $kode);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('realisasi_direktorat/tagihan_sspb', $data);
+        $this->load->view('template/footer');
+    }
 }

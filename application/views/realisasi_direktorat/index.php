@@ -23,7 +23,6 @@
                             <th>Sisa Pagu</th>
                             <th>Pengembalian</th>
                             <th>Persentase</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,15 +37,18 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nmunit']; ?></td>
                                 <td class="text-right"><?= number_format($r['pagu'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
-                                <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
-                                <td class="text-center"><?= number_format(($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
-                                <td class="pb-0">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('realisasi-direktorat/bulan/') . $jenis . '/' . $r['kdunit']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                    </div>
+                                <td class="text-right">
+                                    <a href="<?= base_url('realisasi-direktorat/bulan/') . $jenis . '/' . $r['kdunit']; ?>">
+                                        <?= number_format($r['realisasi'], 0, ',', '.'); ?>
+                                    </a>
                                 </td>
+                                <td class="text-right"><?= number_format($r['pagu'] - $r['realisasi'], 0, ',', '.'); ?></td>
+                                <td class="text-right">
+                                    <a href="<?= base_url('realisasi-direktorat/bulan_sspb/') . $r['kdunit']; ?>">
+                                        <?= number_format($r['sspb'], 0, ',', '.'); ?>
+                                    </a>
+                                </td>
+                                <td class="text-center"><?= number_format(($r['realisasi'] - $r['sspb']) / $r['pagu'] * 100, 2, ',', '.') . '%'; ?></td>
                             </tr>
 
                         <?php
@@ -65,7 +67,6 @@
                             <th class="text-right"><?= number_format($jsisa, 0, ',', '.'); ?></th>
                             <th class="text-right"><?= number_format($jsspb, 0, ',', '.'); ?></th>
                             <th class="text-center"><?= number_format($jpersen, 2, ',', '.'); ?>%</th>
-                            <th></th>
                         </tr>
 
                     </tbody>
