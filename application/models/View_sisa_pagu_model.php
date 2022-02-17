@@ -2,7 +2,7 @@
 
 class View_sisa_pagu_model extends CI_Model
 {
-    public function getSisaPagu($limit = 0, $offset = 0)
+    public function getSisaPagu($limit = 0, $offset = null)
     {
         $query = "SELECT a.*, 
                         b.realisasi 
@@ -24,7 +24,7 @@ class View_sisa_pagu_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
-    public function findSisaPagu($kode = null, $limit = 0, $offset = 0)
+    public function findSisaPagu($kode = null, $limit = 0, $offset = null)
     {
         $query = "SELECT a.*, 
                         b.realisasi 
