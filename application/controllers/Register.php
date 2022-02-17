@@ -116,7 +116,8 @@ class Register extends CI_Controller
     {
         $this->tagihan->updateTagihan(['register_id' => $register_id], $tagihan_id);
         $jumlah = $this->viewtagihan->countPerRegister($register_id);
-        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
+        $total = $this->viewtagihan->sumPerRegister($register_id)['total'];
+        $this->register->updateRegister(['jumlah' => $jumlah, 'total' => $total], $register_id);
         $this->session->set_flashdata('pesan', 'Data berhasil ditambah.');
         redirect('register/detail/' . $register_id . '');
     }
@@ -125,7 +126,8 @@ class Register extends CI_Controller
     {
         $this->tagihan->updateTagihan(['register_id' => null], $tagihan_id);
         $jumlah = $this->viewtagihan->countPerRegister($register_id);
-        $this->register->updateRegister(['jumlah' => $jumlah], $register_id);
+        $total = $this->viewtagihan->sumPerRegister($register_id)['total'];
+        $this->register->updateRegister(['jumlah' => $jumlah, 'total' => $total], $register_id);
         $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         redirect('register/detail/' . $register_id . '');
     }

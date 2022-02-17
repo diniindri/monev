@@ -39,6 +39,7 @@
                     </thead>
                     <tbody>
                         <?php $no = 1;
+                        $jbruto = 0;
                         foreach ($tagihan as $r) : ?>
                             <tr>
                                 <td class="text-center"><?= $no++; ?></td>
@@ -55,7 +56,13 @@
                                     </div>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php $jbruto += $r['bruto'];
+                        endforeach; ?>
+                        <tr>
+                            <th colspan="7" class="text-center">Jumlah</th>
+                            <th class="text-right"><?= number_format($jbruto, 0, ',', '.'); ?></th>
+                            <th></th>
+                        </tr>
                     </tbody>
                 </table>
             </div>
