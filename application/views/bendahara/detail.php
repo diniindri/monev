@@ -19,7 +19,7 @@
     </div>
     <div class="row mb-3">
         <div class="col-lg-7">
-            <a href="<?= base_url('bendahara'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Halaman Sebelumnya</a>
+            <a href="<?= base_url('bendahara'); ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Sebelumnya</a>
         </div>
         <div class="col-lg-5">
             <form action="" method="post" autocomplete="off">
@@ -67,7 +67,7 @@
                                 <td class="text-right"><?= number_format($r['sspb'], 0, ',', '.'); ?></td>
                                 <td class="pb-0">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="<?= base_url('bendahara/sspb/') . $r['id'] . '/' . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SSPB</a>
+                                        <a href="<?= base_url('bendahara/sspb/') . $r['id'] . '/' . $tagihan_id . '/a'; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">SSPB</a>
                                     </div>
                                 </td>
                             </tr>

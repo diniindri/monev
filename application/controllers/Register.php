@@ -171,7 +171,7 @@ class Register extends CI_Controller
         $html = ob_get_clean();
         $html2pdf = new Html2Pdf('P', 'A4', 'en', false, 'UTF-8', array(10, 10, 10, 10));
         $html2pdf->addFont('Arial');
-        $html2pdf->pdf->SetTitle('SKP');
+        $html2pdf->pdf->SetTitle('Register Tagihan');
         $html2pdf->writeHTML($html);
         $html2pdf->output('register_tagihan.pdf');
         // $html2pdf->output(FCPATH .  'public/download/' . $file, 'F');

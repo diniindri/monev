@@ -59,13 +59,13 @@ class Arsip extends CI_Controller
         $nama = $this->input->post('nama');
 
         // settingan halaman
-        $config['base_url'] = base_url('arsip/dnp/' . $tagihan_id . '');
+        $config['base_url'] = base_url('arsip/dnp/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->dnp->countDnp($tagihan_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['nama'] = $nama;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -99,13 +99,13 @@ class Arsip extends CI_Controller
         $ro = $this->input->post('ro');
 
         // settingan halaman
-        $config['base_url'] = base_url('arsip/coa/' . $tagihan_id . '');
+        $config['base_url'] = base_url('arsip/coa/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->realisasi->countRealisasi($tagihan_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['kro'] = $kro;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -150,7 +150,7 @@ class Arsip extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 3
+            'status' => 4
         ];
         // update data di database melalui model
         $this->tagihan->updateTagihan($data, $id);

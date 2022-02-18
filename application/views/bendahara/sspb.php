@@ -17,7 +17,7 @@
             </div>
             <div class="form-group mb-2">
                 <label for="">Tanggal SSPB:</label>
-                <input type="text" name="tglsspb" id="myFlat" class="form-control <?= form_error('tglsspb') ? 'is-invalid' : ''; ?>" value="<?= $realisasi['tglsspb']; ?>" placeholder="dd-mm-yyyy">
+                <input type="text" name="tglsspb" id="myFlat" class="form-control <?= form_error('tglsspb') ? 'is-invalid' : ''; ?>" value="<?= date('d-m-Y', $realisasi['tglsspb']); ?>" placeholder="dd-mm-yyyy">
                 <div class="invalid-feedback">
                     <?= form_error('tglsspb'); ?>
                 </div>
@@ -27,7 +27,7 @@
     <div class="row mt-3">
         <div class="col">
             <div class="form-group">
-                <a href="<?= base_url('bendahara/detail/') . $tagihan_id; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
+                <a href="<?= base_url('bendahara/detail/') . $tagihan_id . '/a'; ?>" class="btn btn-sm btn-outline-secondary">Batal</a>
                 <button type="submit" class="btn btn-sm btn-outline-secondary ml-1">Simpan</button>
             </div>
         </div>
