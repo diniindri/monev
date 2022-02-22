@@ -52,7 +52,7 @@ class Bendahara extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 4
+            'status' => 5
         ];
         $nosp2d = $this->viewtagihan->getDetailTagihan($id)['nosp2d'];
         $kddokumen = $this->viewtagihan->getDetailTagihan($id)['kddokumen'];
@@ -217,7 +217,7 @@ class Bendahara extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 2
+            'status' => 3
         ];
         // update data di database melalui model
         $this->tagihan->updateTagihan($data, $id);
@@ -238,13 +238,13 @@ class Bendahara extends CI_Controller
         $ro = $this->input->post('ro');
 
         // settingan halaman
-        $config['base_url'] = base_url('bendahara/detail/' . $tagihan_id . '');
+        $config['base_url'] = base_url('bendahara/detail/' . $tagihan_id . '/a');
         $config['total_rows'] = $this->realisasi->countRealisasi($tagihan_id);
         $config['per_page'] = 10;
         $config["num_links"] = 3;
         $this->pagination->initialize($config);
         $data['pagination'] = $this->pagination->create_links();
-        $data['page'] = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $data['page'] = $this->uri->segment(5) ? $this->uri->segment(5) : 0;
         $data['kro'] = $kro;
         $limit = $config["per_page"];
         $offset = $data['page'];
@@ -304,7 +304,7 @@ class Bendahara extends CI_Controller
             $this->session->set_flashdata('berhasil', 'Data berhasil diubah.');
 
 
-            redirect('bendahara/detail/' . $tagihan_id . '');
+            redirect('bendahara/detail/' . $tagihan_id . '/a');
         }
 
         // meload view pada bendahara/sspb.php

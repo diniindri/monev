@@ -46,8 +46,8 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['nomor'] . $r['ekstensi']; ?></td>
                                 <td><?= tanggal($r['tanggal']); ?></td>
-                                <td><?= $r['jumlah']; ?></td>
-                                <td><?= $r['total']; ?></td>
+                                <td class="text-center"><?= $r['jumlah']; ?></td>
+                                <td class="text-right"><?= number_format($r['total'], 0, ',', '.'); ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('ppspm/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>

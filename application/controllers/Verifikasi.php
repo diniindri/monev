@@ -64,7 +64,7 @@ class Verifikasi extends CI_Controller
         // cek apakah ada id apa tidak
         if (!isset($id)) show_404();
         $data = [
-            'status' => 3
+            'status' => 4
         ];
         $jnstagihan = $this->viewtagihan->getDetailTagihan($id)['jnstagihan'];
         $tglspm = $this->viewtagihan->getDetailTagihan($id)['tglspm'];
