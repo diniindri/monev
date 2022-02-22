@@ -64,6 +64,20 @@
                         <?= form_error('anggaran'); ?>
                     </div>
                 </div>
+                <div class="form-group mb-2">
+                    <label for="">Kode Unit:</label>
+                    <input type="text" name="kdunit" class="form-control <?= form_error('kdunit') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('kdunit'); ?>
+                    </div>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="">Kode PPK:</label>
+                    <input type="text" name="kdppk" class="form-control <?= form_error('kdppk') ? 'is-invalid' : ''; ?>">
+                    <div class="invalid-feedback">
+                        <?= form_error('kdppk'); ?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row mt-3">
