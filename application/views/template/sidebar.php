@@ -23,7 +23,7 @@
 
         $menus = [
             ['menu' => 'Dashboard', 'level' => 1, 'url' => 'dashboard'],
-            ['menu' => 'Realisasi Direktorat', 'level' => 1, 'url' => 'realisasi-direktorat'],
+            ['menu' => 'Realisasi Unit', 'level' => 1, 'url' => 'realisasi-direktorat'],
             ['menu' => 'Realisasi PPK', 'level' => 1, 'url' => 'realisasi-ppk'],
             ['menu' => 'Data Tagihan', 'level' => 2, 'url' => 'tagihan'],
             ['menu' => 'Kirim Tagihan', 'level' => 2, 'url' => 'register'],

@@ -3,6 +3,13 @@
         <h1 class="h2">Detail Tagihan</h1>
     </div>
     <div class="row mb-3">
+        <div class="col-lg-7">
+            <a href="<?= base_url('realisasi-direktorat/detail/') . $jenis . '/' . $kdunit . '/' . $kdbulan . '/'; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Sebelumnya</a>
+        </div>
+        <div class="col-lg-5">
+        </div>
+    </div>
+    <div class="row mb-3">
         <div class="col">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">

@@ -1,6 +1,13 @@
 <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Realisasi Detail Per Direktorat</h1>
+        <h1 class="h2">Realisasi Detail Per Unit</h1>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-7">
+            <a href="<?= base_url('realisasi-direktorat/bulan/') . $jenis . '/' . $kdunit . '/'; ?>" class="btn btn-sm btn-outline-secondary mt-1 mb-1 ml-2">Sebelumnya</a>
+        </div>
+        <div class="col-lg-5">
+        </div>
     </div>
     <div class="row mb-3">
         <div class="col-lg-8">
