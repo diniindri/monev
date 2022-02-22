@@ -57,4 +57,10 @@ class Ref_pagu_model extends CI_Model
         $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
         return $this->db->get_where('ref_pagu', ['kro' => $kro, 'ro' => $ro])->row_array();
     }
+
+    public function deletePaguAll()
+    {
+        $this->db->delete('ref_pagu', ['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker']]);
+        return $this->db->affected_rows();
+    }
 }

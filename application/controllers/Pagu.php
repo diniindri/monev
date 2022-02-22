@@ -140,7 +140,9 @@ class Pagu extends CI_Controller
                 'komponen' => htmlspecialchars($this->input->post('komponen', true)),
                 'subkomponen' => htmlspecialchars($this->input->post('subkomponen', true)),
                 'akun' => htmlspecialchars($this->input->post('akun', true)),
-                'anggaran' => htmlspecialchars($this->input->post('anggaran', true))
+                'anggaran' => htmlspecialchars($this->input->post('anggaran', true)),
+                'kdunit' => htmlspecialchars($this->input->post('kdunit', true)),
+                'kdppk' => htmlspecialchars($this->input->post('kdppk', true))
             ];
             // update data di database melalui model
             $this->pagu->updatePagu($data, $id);
@@ -162,6 +164,77 @@ class Pagu extends CI_Controller
 
         // hapus data di database melalui model
         if ($this->pagu->deletePagu($id)) {
+            $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
+        }
+        redirect('pagu');
+    }
+
+    public function impor()
+    {
+        $file_mimes = array('application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+        if (isset($_FILES['berkas_excel']['name']) && in_array($_FILES['berkas_excel']['type'], $file_mimes)) {
+
+            $kdsatker = $this->input->post('kdsatker');
+            $bulan = $this->input->post('bulan');
+            $tahun = $this->input->post('tahun');
+            $jenis = $this->input->post('jenis');
+            $uraian = $this->input->post('uraian');
+            $tanggal = strtotime($this->input->post('tanggal', true));
+            $nospm = $this->input->post('nospm');
+
+            $arr_file = explode('.', $_FILES['berkas_excel']['name']);
+            $extension = end($arr_file);
+
+            if ('csv' == $extension) {
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+            } else {
+                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            }
+
+            $spreadsheet = $reader->load($_FILES['berkas_excel']['tmp_name']);
+
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+            for ($i = 1; $i < count($sheetData); $i++) {
+                $program = $sheetData[$i]['1'];
+                $kegiatan = $sheetData[$i]['2'];
+                $kro = $sheetData[$i]['3'];
+                $ro = $sheetData[$i]['4'];
+                $komponen = $sheetData[$i]['5'];
+                $subkomponen = $sheetData[$i]['6'];
+                $akun = $sheetData[$i]['7'];
+                $anggaran = $sheetData[$i]['8'];
+                $kdppk = $sheetData[$i]['9'];
+                $kdunit = $sheetData[$i]['10'];
+                $data = [
+                    'program' => $program,
+                    'kegiatan' => $kegiatan,
+                    'kro' => $kro,
+                    'ro' => $ro,
+                    'komponen' => $komponen,
+                    'subkomponen' => $subkomponen,
+                    'akun' => $akun,
+                    'anggaran' => $anggaran,
+                    'kdsatker' => sesi()['kdsatker'],
+                    'tahun' => sesi()['tahun'],
+                    'kdppk' => $kdppk,
+                    'kdunit' => $kdunit
+                ];
+                $this->db->insert('ref_pagu', $data);
+            }
+            $this->session->set_flashdata('pesan', 'Data berhasil diimpor.');
+            redirect('pagu');
+        }
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('pagu/impor');
+        $this->load->view('template/footer');
+    }
+
+    public function delete_all()
+    {
+        // hapus data di database melalui model
+        if ($this->pagu->deletePaguAll()) {
             $this->session->set_flashdata('pesan', 'Data berhasil dihapus.');
         }
         redirect('pagu');
