@@ -8,9 +8,12 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeShrink;
 use Endroid\QrCode\Writer\PngWriter;
+use GuzzleHttp\Client;
 
 class Register extends CI_Controller
 {
+    private $_client;
+
     public function __construct()
     {
         parent::__construct();
@@ -22,6 +25,13 @@ class Register extends CI_Controller
         $this->load->model('Data_tagihan_model', 'tagihan');
         $this->load->model('Ref_satker_model', 'satker');
         $this->load->model('Ref_ppk_model', 'ppk');
+        $this->load->helper('string');
+        $this->load->helper('esign');
+        $this->_client = new Client([
+            'base_uri' => base_uri_esign(),
+            'verify' => false,
+            'auth' => auth_esign()
+        ]);
     }
 
     public function index()
@@ -59,14 +69,17 @@ class Register extends CI_Controller
 
     public function create()
     {
+        $file = random_string('alnum', 64) . '.pdf';
         $data = [
             'tahun' => sesi()['tahun'],
             'kdsatker' => sesi()['kdsatker'],
+            'kdppk' => sesi()['kdppk'],
             'nomor' => nomor()['nomor'],
             'ekstensi' => nomor()['ekstensi'],
             'tanggal' => time(),
             'jumlah' => 0,
-            'status' => 0
+            'status' => 0,
+            'file' => $file
         ];
         // simpan data ke database melalui model
         $this->register->createRegister($data);
@@ -132,15 +145,6 @@ class Register extends CI_Controller
         redirect('register/detail/' . $register_id . '');
     }
 
-    public function kirim($id = null)
-    {
-
-        $this->tagihan->updateTagihanRegister(['status' => 2], $id);
-        $this->register->updateRegister(['status' => 1], $id);
-        $this->session->set_flashdata('berhasil', 'Data berhasil dikirim.');
-        redirect('register');
-    }
-
     public function preview($id = null)
     {
         $data['register'] = $this->register->getDetailRegister($id);
@@ -194,5 +198,101 @@ class Register extends CI_Controller
         // ];
         // $this->cetak->createDataCetak($data_cetak);
         redirect('register');
+    }
+
+    public function esign($id = null)
+    {
+        // validasi passphrase
+        $rules = [[
+            'field' => 'passphrase',
+            'label' => 'Passphrase',
+            'rules' => 'required|trim'
+        ]];
+        $validation = $this->form_validation->set_rules($rules);
+        if ($validation->run()) {
+
+            $data['register'] = $this->register->getDetailRegister($id);
+            $data['satker'] = $this->satker->getNamaSatker();
+            $data['ppk'] = $this->ppk->getNamaPpk();
+            $data['tagihan'] = $this->viewtagihan->getPerRegister($id);
+            // $cetak = $this->register->getDetailRegister($id);
+
+            // membuat file pdf
+            // membuat qrcode
+            $file = $data['register']['file'];
+            $qr = base_url() .  'public/downloadcode/' . $file;
+            $writer = new PngWriter();
+            $qrCode = QrCode::create($qr)
+                ->setEncoding(new Encoding('UTF-8'))
+                ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+                ->setSize(100)
+                ->setMargin(0)
+                ->setRoundBlockSizeMode(new RoundBlockSizeModeShrink())
+                ->setForegroundColor(new Color(0, 0, 0))
+                ->setBackgroundColor(new Color(255, 255, 255));
+            $logo = Logo::create(FCPATH .  'assets/img/kemenkeu_color.png')
+                ->setResizeToWidth(20);
+            $result = $writer->write($qrCode, $logo);
+            $data['uri'] = $result->getDataUri();
+            // membuat file pdf
+            ob_start();
+            $this->load->view('register/surat_esign', $data);
+            $html = ob_get_clean();
+            $html2pdf = new Html2Pdf('P', 'A4', 'en', false, 'UTF-8', array(10, 10, 10, 10));
+            $html2pdf->addFont('Arial');
+            $html2pdf->pdf->SetTitle('Register Tagihan');
+            $html2pdf->writeHTML($html);
+            $html2pdf->output(FCPATH .  'public/download/' . $file, 'F');
+
+            // mulai proses esign
+            try {
+                $response = $this->_client->request('POST', 'pdf', [
+                    'query' => [
+                        'nik' => $this->session->userdata('nik'),
+                        'passphrase' => htmlspecialchars($this->input->post('passphrase', true)),
+                        'jenis_dokumen' => 'Register Tagihan',
+                        'nomor' => $data['register']['nomor'] . $data['register']['ekstensi'],
+                        'tujuan' => 'Pejabat Penandatangan SPM',
+                        'perihal' => 'Register Tagihan',
+                        'info' => 'Register Tagihan',
+                        'tampilan' => 'invisible'
+                    ],
+                    'multipart' => [
+                        [
+                            'name'     => 'file',
+                            'contents' => fopen(FCPATH .  'public/download/' . $data['register']['file'], 'r'),
+                            'filename' => $data['register']['file']
+                        ]
+                    ]
+                ]);
+                $result_header = $response->getHeaders();
+                $result_body = $response->getBody()->getContents();
+                $data = [
+                    'date' => $result_header['Date'][0],
+                    'id_dokumen' => $result_header['id_dokumen'][0],
+                    'status' => 1
+                ];
+                $this->register->updateRegister($data, $id);
+                $this->tagihan->updateTagihanRegister(['status' => 2], $id);
+
+                // simpan file hasil esign
+                header('Content-Type:application/pdf');
+                header('Content-Disposition:attachment;filename=' . $data['register']['file'] . '');
+                file_put_contents(FCPATH .  'public/downloadcode/' . $data['register']['file'], $result_body);
+                $this->session->set_flashdata('success', 'Proses penandatanganan berhasil!');
+                redirect('register');
+            } catch (GuzzleHttp\Exception\ClientException $e) {
+                $response = $e->getResponse();
+                $responseBodyAsString = json_decode($response->getBody()->getContents(), true);
+                $this->session->set_flashdata('error', $responseBodyAsString['error']);
+                redirect('register');
+            }
+            // selesai esign
+        }
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('register/esign');
+        $this->load->view('template/footer');
     }
 }

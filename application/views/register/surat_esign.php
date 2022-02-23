@@ -180,6 +180,13 @@
         </table>
     </page_header>
     <page_footer>
+        <table class="page_footer">
+            <tr>
+                <td class="logo" rowspan="10" style="padding-left: 30px;">
+                    <img src="<?= FCPATH . 'assets/img/esign.png'; ?>" alt="logo bssn" width="20">
+                </td>
+            </tr>
+        </table>
     </page_footer>
 
     <div id="judul1" style="margin-top: 10px;">
@@ -222,7 +229,14 @@
         </tr>
     </table>
 
-    <table style="width: 100%; margin-top: 70px;">
+    <table style="width: 100%; margin-bottom:0;">
+        <tr>
+            <td style="width: 65%;"></td>
+            <td style="width: 35%; text-align: left; margin-top:0; padding-top:0;"><img src="<?= $uri; ?>" alt=""></td>
+        </tr>
+    </table>
+
+    <table style="width: 100%;">
         <tr>
             <td style="width: 65%;"></td>
             <td style="width: 35%; color: RGB(153, 153, 153); margin-top:0; padding-top:0;">Ditandatangani secara elektronik</td>

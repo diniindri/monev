@@ -4,7 +4,7 @@ class Data_register_model extends CI_Model
 {
     public function getRegister($limit = null, $offset = 0)
     {
-        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'status' => 0]);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdppk' => sesi()['kdppk'], 'status' => 0]);
         $this->db->limit($limit, $offset);
         return $this->db->get('data_register')->result_array();
     }
@@ -16,14 +16,14 @@ class Data_register_model extends CI_Model
 
     public function findRegister($nomor = null, $limit = 0, $offset = 0)
     {
-        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'status' => 0]);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdppk' => sesi()['kdppk'], 'status' => 0]);
         $this->db->limit($limit, $offset);
         return $this->db->get_where('data_register', ['nomor' => $nomor])->result_array();
     }
 
     public function countRegister()
     {
-        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'status' => 0]);
+        $this->db->where(['tahun' => sesi()['tahun'], 'kdsatker' => sesi()['kdsatker'], 'kdppk' => sesi()['kdppk'], 'status' => 0]);
         return $this->db->get('data_register')->num_rows();
     }
 
