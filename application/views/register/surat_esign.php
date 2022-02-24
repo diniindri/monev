@@ -194,17 +194,17 @@
         <span style="font-size: 12px; margin-top: 5px;"><?= 'No: ' . $register['nomor'] . $register['ekstensi'] . '  Tgl: ' . tanggal($register['tanggal']); ?></span>
     </div>
 
-    <p style="margin-left:10px; margin-bottom: 5px; margin-top:15px; text-align: justify;">Saya yang bertandatangan dibawah ini, menyampaikan daftar tagihan sebagai berikut:</p>
+    <p style="margin-left:10px; margin-bottom: 10px; margin-top:25px;  text-align: justify;">Saya yang bertandatangan dibawah ini, menyampaikan daftar tagihan sebagai berikut untuk diproses sesuai dengan ketentuan yang berlaku,</p>
 
-    <table class="detail" style="width: 100%; margin-left:3px; margin-bottom:15px;">
+    <table class="detail" style="width: 100%; margin-left:3px;">
         <tr style="text-align: center;">
             <td class="head" style="width: 4%;">No.</td>
-            <td class="head" style="width: 10%;">Nomor Tagihan</td>
-            <td class="head" style="width: 15%;">Tanggal</td>
-            <td class="head" style="width: 31%;">Uraian</td>
-            <td class="head" style="width: 10%;">Jenis Tagihan</td>
+            <td class="head" style="width: 7%;">Nomor</td>
+            <td class="head" style="width: 18%;">Tanggal</td>
+            <td class="head" style="width: 34%;">Uraian</td>
+            <td class="head" style="width: 7%;">Jenis</td>
             <td class="head" style="width: 10%;">Unit</td>
-            <td class="head" style="width: 10%;">Jenis Dokumen</td>
+            <td class="head" style="width: 10%;">Dokumen</td>
             <td class="head" style="width: 10%;">Bruto</td>
         </tr>
         <?php $no = 1;
@@ -212,10 +212,10 @@
         foreach ($tagihan as $r) : ?>
             <tr>
                 <td class="head" style="text-align: center;width: 4%;"><?= $no++; ?></td>
-                <td class="head" style="text-align: center;width: 10%;"><?= $r['notagihan']; ?></td>
-                <td class="head" style="width: 15%;"><?= tanggal($r['tgltagihan']); ?></td>
-                <td class="head" style="width: 31%;"><?= $r['uraian']; ?></td>
-                <td class="head" style="text-align: center;width: 10%;"><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
+                <td class="head" style="text-align: center;width: 7%;"><?= $r['notagihan']; ?></td>
+                <td class="head" style="width: 18%;"><?= tanggal($r['tgltagihan']); ?></td>
+                <td class="head" style="width: 34%;"><?= $r['uraian']; ?></td>
+                <td class="head" style="text-align: center;width: 7%;"><?= $r['jnstagihan'] == 1 ? 'SPP' : 'SPBy'; ?></td>
                 <td class="head" style="text-align: center;width: 10%;"><?= $r['nmunit']; ?></td>
                 <td class="head" style="width: 10%;"><?= $r['nmdokumen']; ?></td>
                 <td class="head" style="text-align: right;width: 10%;"><?= number_format($r['bruto'], 0, ',', '.'); ?></td>
@@ -228,6 +228,8 @@
             <td class="head" style="text-align: right;width: 10%;"><?= number_format($jbruto, 0, ',', '.'); ?></td>
         </tr>
     </table>
+
+    <p style="margin-left:10px; margin-bottom: 5px;  text-align: justify;">Atas kerjasamanya kami ucapkan terima kasih.</p>
 
     <table style="width: 100%; margin-bottom:0;">
         <tr>

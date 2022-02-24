@@ -51,7 +51,7 @@
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('ppspm/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
-                                        <a href="<?= base_url('ppspm/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" target="_blank">Preview</a>
+                                        <a href="<?= base_url('public/downloadcode/') . $r['file']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" target="_blank">Preview</a>
                                         <a href="<?= base_url('ppspm/terima/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Terima</a>
                                     </div>
                                 </td>

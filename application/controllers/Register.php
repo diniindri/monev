@@ -152,23 +152,6 @@ class Register extends CI_Controller
         $data['ppk'] = $this->ppk->getNamaPpk();
         $data['tagihan'] = $this->viewtagihan->getPerRegister($id);
 
-        // membuat qrcode
-        // $file = random_string('alnum', 64) . '.pdf';
-        // $qr = base_url() .  'public/downloadcode/' . $file;
-        // $writer = new PngWriter();
-        // $qrCode = QrCode::create($qr)
-        //     ->setEncoding(new Encoding('UTF-8'))
-        //     ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-        //     ->setSize(100)
-        //     ->setMargin(0)
-        //     ->setRoundBlockSizeMode(new RoundBlockSizeModeShrink())
-        //     ->setForegroundColor(new Color(0, 0, 0))
-        //     ->setBackgroundColor(new Color(255, 255, 255));
-        // $logo = Logo::create(FCPATH .  'assets/img/kemenkeu.png')
-        //     ->setResizeToWidth(20);
-        // $result = $writer->write($qrCode, $logo);
-        // $data['uri'] = $result->getDataUri();
-
         // membuat file pdf
         ob_start();
         $this->load->view('register/surat', $data);
@@ -178,25 +161,7 @@ class Register extends CI_Controller
         $html2pdf->pdf->SetTitle('Register Tagihan');
         $html2pdf->writeHTML($html);
         $html2pdf->output('register_tagihan.pdf');
-        // $html2pdf->output(FCPATH .  'public/download/' . $file, 'F');
 
-        // membuat data cetak
-        // $data_cetak = [
-        //     'tahun' => date('Y'),
-        //     'nip_asal' => $nip,
-        //     'nip_tujuan' => $data['profil']['nip_ttd_skp'],
-        //     'nama_tujuan' => $data['profil']['nama_ttd_skp'],
-        //     'jenis' => 'skp',
-        //     'nomor' => $data['no_urut_skp'] . $data['ext_skp'],
-        //     'tanggal' => $data['tanggal'],
-        //     'tujuan' => $nama,
-        //     'perihal' => 'Permohonan Surat Keterangan Penghasilan Bulan ' . $data['bulan']['bulan'] . ' ' . $thn,
-        //     'file' => $file,
-        //     'date' => '',
-        //     'id_dokumen' => '',
-        //     'status' => 0
-        // ];
-        // $this->cetak->createDataCetak($data_cetak);
         redirect('register');
     }
 
@@ -215,9 +180,7 @@ class Register extends CI_Controller
             $data['satker'] = $this->satker->getNamaSatker();
             $data['ppk'] = $this->ppk->getNamaPpk();
             $data['tagihan'] = $this->viewtagihan->getPerRegister($id);
-            // $cetak = $this->register->getDetailRegister($id);
 
-            // membuat file pdf
             // membuat qrcode
             $file = $data['register']['file'];
             $qr = base_url() .  'public/downloadcode/' . $file;
@@ -272,13 +235,16 @@ class Register extends CI_Controller
                     'id_dokumen' => $result_header['id_dokumen'][0],
                     'status' => 1
                 ];
-                $this->register->updateRegister($data, $id);
-                $this->tagihan->updateTagihanRegister(['status' => 2], $id);
 
                 // simpan file hasil esign
                 header('Content-Type:application/pdf');
                 header('Content-Disposition:attachment;filename=' . $data['register']['file'] . '');
                 file_put_contents(FCPATH .  'public/downloadcode/' . $data['register']['file'], $result_body);
+
+                // ubah data register dan tagihan
+                $this->register->updateRegister($data, $id);
+                $this->tagihan->updateTagihanRegister(['status' => 2], $id);
+
                 $this->session->set_flashdata('success', 'Proses penandatanganan berhasil!');
                 redirect('register');
             } catch (GuzzleHttp\Exception\ClientException $e) {
