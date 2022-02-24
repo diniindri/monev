@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="">Pilih File:</label>
+                    <label for="">Pilih File: (file PDF dan ukuran maksimal 10MB)</label>
                     <input type="file" name="file" class="form-control <?= form_error('file') ? 'is-invalid' : ''; ?>">
                     <div class="invalid-feedback">
                         <?= form_error('file'); ?>
