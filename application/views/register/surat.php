@@ -187,7 +187,11 @@
         <span style="font-size: 12px; margin-top: 5px;"><?= 'No: ' . $register['nomor'] . $register['ekstensi'] . '  Tgl: ' . tanggal($register['tanggal']); ?></span>
     </div>
 
+<<<<<<< HEAD
     <p style="margin-left:10px; margin-bottom: 5px; margin-top:15px; text-align: justify;">Saya yang bertandatangan dibawah ini, menyampaikan daftar tagihan sebagai berikut:</p>
+=======
+    <p style="margin-left:10px; margin-bottom: 5px; margin-top:15px;  text-align: justify;">Saya yang bertandatangan dibawah ini, menyampaikan daftar tagihan sebagai berikut untuk diproses sesusai ketentuan yang berlaku</p>
+>>>>>>> 211227cc94e71b47a824a8d161db0428d3e48327
 
     <table class="detail" style="width: 100%; margin-left:3px; margin-bottom:15px;">
         <tr style="text-align: center;">

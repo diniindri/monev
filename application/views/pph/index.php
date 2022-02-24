@@ -20,7 +20,7 @@
             <form action="" method="post" autocomplete="off">
                 <!-- <?= form_open(); ?> -->
                 <div class="input-group">
-                    <input type="text" name="nmppk" class="form-control" placeholder="Nama ppk">
+                    <input type="text" name="kdgol" class="form-control" placeholder="Golongan">
                     <button class="btn btn-sm btn-outline-secondary" type="submit">Cari</button>
                 </div>
             </form>
