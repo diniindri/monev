@@ -47,18 +47,22 @@ class Sso extends CI_Controller
                     $userinfo =  json_decode($response->getBody()->getContents(), true);
                     $nip = $userinfo['nip'];
                     $user = $this->db->get_where('ref_users', ['nip' => $nip])->row_array();
-                    $newdata = [
-                        'nip' => $userinfo['nip'],
-                        'nik' => $userinfo['g2c_Nik'],
-                        'id_token' => $token['id_token'],
-                        'nama' => $user['nama'],
-                        'kdppk' => $user['kdppk'],
-                        'tahun' => date('Y'),
-                        'kdsatker' => $user['kdsatker'],
-                        'level' => $user['is_active']
-                    ];
-                    $this->session->set_userdata($newdata);
-                    redirect('dashboard');
+                    if ($user) {
+                        $newdata = [
+                            'nip' => $userinfo['nip'],
+                            'nik' => $userinfo['g2c_Nik'],
+                            'id_token' => $token['id_token'],
+                            'nama' => $user['nama'],
+                            'kdppk' => $user['kdppk'],
+                            'tahun' => date('Y'),
+                            'kdsatker' => $user['kdsatker'],
+                            'level' => $user['is_active']
+                        ];
+                        $this->session->set_userdata($newdata);
+                        redirect('dashboard');
+                    } else {
+                        redirect('auth-blocked');
+                    }
                 } else {
                     redirect('welcome');
                 }
