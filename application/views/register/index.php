@@ -9,6 +9,16 @@
                     <strong>Selamat!</strong> <?= $this->session->flashdata('pesan'); ?>
                     <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
                 </div>
+            <?php elseif ($this->session->flashdata('success')) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Selamat!</strong> <?= $this->session->flashdata('success'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($this->session->flashdata('error')) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Maaf!</strong> <?= $this->session->flashdata('error'); ?>
+                    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -54,7 +64,7 @@
                                         <a href="<?= base_url('register/delete/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan menghapus data ini?');">Hapus</a>
                                         <a href="<?= base_url('register/detail/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Detail</a>
                                         <a href="<?= base_url('register/preview/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" target="_blank">Preview</a>
-                                        <a href="<?= base_url('register/kirim/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0" onclick="return confirm('Apakah Anda yakin akan mengirim data ini?');">Kirim</a>
+                                        <a href="<?= base_url('register/esign/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Kirim</a>
                                     </div>
                                 </td>
                             </tr>
