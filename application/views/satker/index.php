@@ -35,6 +35,11 @@
                             <th>No</th>
                             <th>Kode Satker</th>
                             <th>Nama Satker</th>
+                            <th>Unit Eselon II</th>
+                            <th>Unit Eselon III</th>
+                            <th>Nama Gedung</th>
+                            <th>Alamat Kantor</th>
+                            <th>Alamat Email & No. Tlp</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -45,6 +50,11 @@
                                 <td class="text-center"><?= $no++; ?></td>
                                 <td><?= $r['kdsatker']; ?></td>
                                 <td><?= $r['nmsatker']; ?></td>
+                                <td><?= $r['header1']; ?></td>
+                                <td><?= $r['header2']; ?></td>
+                                <td><?= $r['subheader1']; ?></td>
+                                <td><?= $r['subheader2']; ?></td>
+                                <td><?= $r['subheader3']; ?></td>
                                 <td class="pb-0 pr-0">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a href="<?= base_url('satker/update/') . $r['id']; ?>" class="btn btn-sm btn-outline-secondary pt-0 pb-0">Ubah</a>
